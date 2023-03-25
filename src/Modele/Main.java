@@ -9,9 +9,8 @@ public class Main {
 		BDD_exploitant exploit = null;
 		try {
 			exploit = new BDD_exploitant("root", "H!Jsihcl7YfTtp+SvKgo", true);
-			exploit.afficher_films();
-			exploit.afficher_documentaires();
-			exploit.afficher_membres();
+
+			exploit.extraire_membre_BDD();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
