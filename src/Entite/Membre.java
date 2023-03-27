@@ -1,5 +1,7 @@
 package Entite;
 
+import java.util.ArrayList;
+
 public class Membre {
 
 	private Integer ID;
@@ -8,7 +10,7 @@ public class Membre {
 	private String adresse_mail;
 	private Integer telephone;
 	private double num_cb;
-	private String preferences;
+	private ArrayList<String> preferences;
 	private String password;
 
 	public Membre() {
@@ -19,12 +21,12 @@ public class Membre {
 		this.nom = "";
 		this.prenom = "";
 		this.adresse_mail = "";
-		this.preferences = "";
+		this.preferences = null;
 		this.password = "";
 	}
 
 	public Membre(int ID, String nom, String prenom, String adresse_mail, int telephone, double num_cb,
-			String preferences, String mdp) {
+			ArrayList<String> preferences, String mdp) {
 		this.ID = ID;
 		this.num_cb = num_cb;
 		this.telephone = telephone;
@@ -84,11 +86,11 @@ public class Membre {
 		this.password = password;
 	}
 
-	public String getPreferences() {
+	public ArrayList<String> getPreferences() {
 		return preferences;
 	}
 
-	public void setPreferences(String preferences) {
+	public void setPreferences(ArrayList<String> preferences) {
 		this.preferences = preferences;
 	}
 
@@ -98,6 +100,11 @@ public class Membre {
 
 	public void setNum_cb(double num_cb) {
 		this.num_cb = num_cb;
+	}
+
+	public String toString() {
+		return (this.ID + " " + this.num_cb + " " + this.telephone + " " + this.nom + " " + this.prenom + " "
+				+ this.adresse_mail + " " + this.password + " " + this.preferences.toString());
 	}
 
 }
