@@ -67,7 +67,7 @@ public class BDD_interface {
 		String chemin_script = filePath + adresse;
 
 		try {
-			ScriptRunner sr = new ScriptRunner(connecteur, false, false);
+			BDD_ScriptRunner sr = new BDD_ScriptRunner(connecteur, false, false);
 			// Creating a reader object
 			Reader reader = null;
 			reader = new BufferedReader(new FileReader(chemin_script));
