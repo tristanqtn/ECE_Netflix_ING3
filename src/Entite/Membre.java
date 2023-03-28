@@ -107,4 +107,19 @@ public class Membre {
 				+ this.adresse_mail + " " + this.password + " " + this.preferences.toString());
 	}
 
+	public String toString_sql_insert() {
+		return ("\"" + this.nom + "\", \"" + this.prenom + "\", \"" + this.adresse_mail + "\", " + this.telephone + ", "
+				+ this.num_cb + ", \"" + get_preferences_format() + "\", \"" + this.password + "\");");
+	}
+
+	private String get_preferences_format() {
+		String rendu = "";
+		for (int i = 0; i < this.preferences.size(); i++) {
+			rendu += this.preferences.get(i);
+			if (i < this.preferences.size() - 1)
+				rendu += " ; ";
+		}
+		return rendu;
+	}
+
 }

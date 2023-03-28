@@ -11,77 +11,97 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * 
+ * @author tristan querton
+ * 
+ *         Cette classe est basée sur l'exploitation de la classe Connection des
+ *         bibliothèque de gestion mySQL JAVA. On y trouve toutes les fonctions
+ *         pour assurer la connection au SERVICE LOCAL mySQL et l'execution de
+ *         requetes et/ou MAJ des BDD.
+ * 
+ *         CETTE FONCTION NE DOIT PAS ETRE UTILISEE PAR AUTRE CHOSE QU'UNE
+ *         CLASSE BDD_EXPLOITANT
+ *
+ */
+
 public class BDD_interface {
 
 	private Connection connecteur;
 
-	public BDD_interface(String utilisateur, String mdp) throws SQLException {
-		// Registering the Driver
+	// CONSTRUCTEUR DE L'INTERFACE DE BDD
+	public BDD_interface(String utilisateur, String mdp) {
+
 		try {
+			// enregistrement du driver de connection java vers BDD
 			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-			// Getting the connection
-			String mysqlUrl = "jdbc:mysql://localhost";
-			this.connecteur = DriverManager.getConnection(mysqlUrl, utilisateur, mdp);
-			System.out.println("Connection established......");
+
+			// connection à la base
+			String mysqlUrl = "jdbc:mysql://localhost"; // chemin vers la BDD
+			this.connecteur = DriverManager.getConnection(mysqlUrl, utilisateur, mdp); // connection avec le profil
+																						// renseigné en parametre
+			System.out.println("Connexion au service mySQL reussi ......"); // message de valitation
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// gestion des exceptions
 			e.printStackTrace();
 		}
 
 	}
 
+	// GETTER DU CONNECTEUR VERS BDD
 	public Connection get_connecteur() {
 		return connecteur;
 	}
 
+	// FONCTION D'EXECUTION DE REQUETES DE LA BDD
 	public ResultSet executer_requete(String requete) {
-		// Statements allow to issue SQL queries to the database
-		// Result set get the result of the SQL query
-		ResultSet resultSet = null;
+		// reception de la requete en parametre
+		// les requetes sur la BDD renvoient des ResultSet
+		ResultSet resultSet = null; // initialisation du resultat de la requete
 		try {
-			java.sql.Statement statement = this.connecteur.createStatement();
-			resultSet = statement.executeQuery(requete);
+			java.sql.Statement statement = this.connecteur.createStatement(); // creation du nv statement SQL
+			resultSet = statement.executeQuery(requete); // execution de la requete reçu en string par le statement
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// gestion des exceptions
 			e.printStackTrace();
 		}
-		return resultSet;
-
+		return resultSet; // rendu du resultat de la requete
 	}
 
+	// FONCTION D'EXECUTION DE MISE A JOUR DE LA BDD
 	public void executer_maj(String requete) {
-		// Statements allow to issue SQL queries to the database
-		// Result set get the result of the SQL query
+		// reception de la requete en parametre
+		// les MAJ de BDD ne renvoient pas de ResultSet
 		try {
-			java.sql.Statement statement = this.connecteur.createStatement();
-			statement.execute(requete);
+			java.sql.Statement statement = this.connecteur.createStatement(); // creation du nv statement SQL
+			statement.execute(requete); // execution de la requete reçu en string par le statement
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// gestion des exceptions
 			e.printStackTrace();
 		}
 
 	}
 
+	// FONCTION PERMETTANT L'EXECUTION DE SCRIPT SQL DEPUIS UN FICHIER .SQL
 	public void executer_script_sql(String adresse) {
+
+		// recuperation de la position actuel de l'application dans l'arborescence
 		String filePath = new File("").getAbsolutePath();
-		String chemin_script = filePath + adresse;
+		String chemin_script = filePath + adresse; // generation de l'addresse completer du fichier .sql
 
 		try {
-			BDD_ScriptRunner sr = new BDD_ScriptRunner(connecteur, false, false);
-			// Creating a reader object
-			Reader reader = null;
-			reader = new BufferedReader(new FileReader(chemin_script));
+			BDD_ScriptRunner sr = new BDD_ScriptRunner(connecteur, false, false); // creation d'un executeur de script
+			Reader reader = null; // initialisation du lecteur de fichiers
+			reader = new BufferedReader(new FileReader(chemin_script)); // lecture complete du fichier .sql
 			try {
-				sr.runScript(reader);
+				sr.runScript(reader); // execution du script lu par le reader par l'executeur
 			} catch (IOException | SQLException e) {
-				// TODO Auto-generated catch block
+				// gestion des exceptions
 				e.printStackTrace();
 			}
-
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			// gestion des exceptions
 			e.printStackTrace();
 		}
-		// Running the script
 	}
 }

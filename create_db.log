@@ -1,240 +1,6 @@
 
 -------
-27/30/2023 14:30:04
--------
-
-CREATE DATABASE NETFLIX 
-use NETFLIX 
-CREATE TABLE NETFLIX.films(
-   ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   time_code int,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.documentaires(
-   ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   time_code int,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.series(
-   ID int NOT NULL,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   time_code int,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   nombre_saison int NOT NULL, 
-   episode_en_cours int,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.saisons(
-   ID int NOT NULL AUTO_INCREMENT,
-   serie int NOT NULL,
-   num_saison int NOT NULL,
-   nombre_episode int NOT NULL,
-   PRIMARY KEY (ID),
-   FOREIGN KEY (serie) REFERENCES series (ID)
-) 
-CREATE TABLE NETFLIX.episodes(
-   ID int NOT NULL AUTO_INCREMENT,
-   saison int NOT NULL,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   time_code int,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255),
-   numero_episode int NOT NULL,
-   PRIMARY KEY (ID), 
-   FOREIGN KEY (saison) REFERENCES saisons (ID)
-) 
-CREATE TABLE NETFLIX.membres(
-   ID int NOT NULL AUTO_INCREMENT,
-   nom VARCHAR(255) NOT NULL,
-   prenom VARCHAR(255) NOT NULL,
-   adresse_mail VARCHAR(255) NOT NULL,
-   telephone int NOT NULL,
-   num_carte double NOT NULL,  
-   preferences VARCHAR(255) NOT NULL,
-   mdp VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-
--------
-27/30/2023 14:30:05
--------
-
-use NETFLIX 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("James Cameron", "Leonardo Di Caprio ; Kate Winslet", "Romantique ; Darmatique", 195, 4.5, 0, DATE("1998-01-07"), "Titanic", "Il raconte l'histoire de deux jeunes passagers du paquebot Titanic en avril 1912. Ils se rencontrent par hasard et vivent une histoire d'amour vite troublée par le naufrage du navire.", "lien1", "lien2") 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Nicolas Winding Refn", " Ryan Gosliing ; Carey Mulligan ; Bryan Cranston", "Thriller ; Action", 95 , 4.1, 0, DATE("2011-10-05"), "Drive", "Un jeune mécanicien taciturne travaille dans un petit garage de Los Angeles et effectue à l'occasion des cascades pour des acteurs hollywoodiens. Mais de nuit, il sert aussi de conducteur à des membres du crime organisé.", "lien1", "lien2") 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Quentin Tarantino", "John Travolta ;  Samuel L. Jackson ; Ving Rhames", "Gangster ; Comedie", 154, 4.5, 0, DATE("1994-09-26"), "Pulp Fiction", "L'odyssée sanglante, burlesque et cocasse de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, 0, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, 0, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, 0, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, 0, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 4.6, 8.8, 0, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0) 
-INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13) 
-INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 3.9, 8.8, 60, DATE("2008-07-03"), "Une Vie de Chaos", "E1", "lien1", "lien2", 1) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 3.4, 8.8, 56, DATE("2008-07-03"), "Le Sang et les Balles", "E2", "lien1", "lien2", 2) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 4.6, 8.8, 53, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 4.1, 8.8, 48, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 3.9, 8.8, 59, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, 0, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, 0, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
-
--------
-27/31/2023 15:31:30
--------
-
-CREATE DATABASE NETFLIX 
-use NETFLIX 
-CREATE TABLE NETFLIX.films(
-   ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   time_code int,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.documentaires(
-   ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   time_code int,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.series(
-   ID int NOT NULL,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   time_code int,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   nombre_saison int NOT NULL, 
-   episode_en_cours int,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.saisons(
-   ID int NOT NULL AUTO_INCREMENT,
-   serie int NOT NULL,
-   num_saison int NOT NULL,
-   nombre_episode int NOT NULL,
-   PRIMARY KEY (ID),
-   FOREIGN KEY (serie) REFERENCES series (ID)
-) 
-CREATE TABLE NETFLIX.episodes(
-   ID int NOT NULL AUTO_INCREMENT,
-   saison int NOT NULL,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   time_code int,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255),
-   numero_episode int NOT NULL,
-   PRIMARY KEY (ID), 
-   FOREIGN KEY (saison) REFERENCES saisons (ID)
-) 
-CREATE TABLE NETFLIX.membres(
-   ID int NOT NULL AUTO_INCREMENT,
-   nom VARCHAR(255) NOT NULL,
-   prenom VARCHAR(255) NOT NULL,
-   adresse_mail VARCHAR(255) NOT NULL,
-   telephone int NOT NULL,
-   num_carte double NOT NULL,  
-   preferences VARCHAR(255) NOT NULL,
-   mdp VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-
--------
-27/31/2023 15:31:31
--------
-
-use NETFLIX 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("James Cameron", "Leonardo Di Caprio ; Kate Winslet", "Romantique ; Darmatique", 195, 4.5, 0, DATE("1998-01-07"), "Titanic", "Il raconte l'histoire de deux jeunes passagers du paquebot Titanic en avril 1912. Ils se rencontrent par hasard et vivent une histoire d'amour vite troublée par le naufrage du navire.", "lien1", "lien2") 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Nicolas Winding Refn", " Ryan Gosliing ; Carey Mulligan ; Bryan Cranston", "Thriller ; Action", 95 , 4.1, 0, DATE("2011-10-05"), "Drive", "Un jeune mécanicien taciturne travaille dans un petit garage de Los Angeles et effectue à l'occasion des cascades pour des acteurs hollywoodiens. Mais de nuit, il sert aussi de conducteur à des membres du crime organisé.", "lien1", "lien2") 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Quentin Tarantino", "John Travolta ;  Samuel L. Jackson ; Ving Rhames", "Gangster ; Comedie", 154, 4.5, 0, DATE("1994-09-26"), "Pulp Fiction", "L'odyssée sanglante, burlesque et cocasse de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, 0, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, 0, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, 0, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, 0, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 4.6, 8.8, 0, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0) 
-INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13) 
-INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 3.9, 8.8, 60, DATE("2008-07-03"), "Une Vie de Chaos", "E1", "lien1", "lien2", 1) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 3.4, 8.8, 56, DATE("2008-07-03"), "Le Sang et les Balles", "E2", "lien1", "lien2", 2) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 4.6, 8.8, 53, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 4.1, 8.8, 48, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 3.9, 8.8, 59, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, 0, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, time_code, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, 0, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
-
--------
-27/07/2023 16:07:56
+28/31/2023 14:31:48
 -------
 
 CREATE DATABASE NETFLIX 
@@ -321,233 +87,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/07/2023 16:07:56
--------
-
-use NETFLIX 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("James Cameron", "Leonardo Di Caprio ; Kate Winslet", "Romantique ; Darmatique", 195, 4.5, DATE("1998-01-07"), "Titanic", "Il raconte l'histoire de deux jeunes passagers du paquebot Titanic en avril 1912. Ils se rencontrent par hasard et vivent une histoire d'amour vite troublée par le naufrage du navire.", "lien1", "lien2") 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Nicolas Winding Refn", " Ryan Gosliing ; Carey Mulligan ; Bryan Cranston", "Thriller ; Action", 95 , 4.1, DATE("2011-10-05"), "Drive", "Un jeune mécanicien taciturne travaille dans un petit garage de Los Angeles et effectue à l'occasion des cascades pour des acteurs hollywoodiens. Mais de nuit, il sert aussi de conducteur à des membres du crime organisé.", "lien1", "lien2") 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Quentin Tarantino", "John Travolta ;  Samuel L. Jackson ; Ving Rhames", "Gangster ; Comedie", 154, 4.5, DATE("1994-09-26"), "Pulp Fiction", "L'odyssée sanglante, burlesque et cocasse de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 650, 8.8, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0) 
-INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13) 
-INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 60, 8.8, DATE("2008-07-03"), "Une Vie de Chaos", "E1", "lien1", "lien2", 1) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 56, 8.8, DATE("2008-07-03"), "Le Sang et les Balles", "E2", "lien1", "lien2", 2) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
-
--------
-27/08/2023 16:08:27
--------
-
-CREATE DATABASE NETFLIX 
-use NETFLIX 
-CREATE TABLE NETFLIX.films(
-   ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.documentaires(
-   ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.series(
-   ID int NOT NULL,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   nombre_saison int NOT NULL, 
-   episode_en_cours int,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.saisons(
-   ID int NOT NULL AUTO_INCREMENT,
-   serie int NOT NULL,
-   num_saison int NOT NULL,
-   nombre_episode int NOT NULL,
-   PRIMARY KEY (ID),
-   FOREIGN KEY (serie) REFERENCES series (ID)
-) 
-CREATE TABLE NETFLIX.episodes(
-   ID int NOT NULL AUTO_INCREMENT,
-   saison int NOT NULL,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255),
-   numero_episode int NOT NULL,
-   PRIMARY KEY (ID), 
-   FOREIGN KEY (saison) REFERENCES saisons (ID)
-) 
-CREATE TABLE NETFLIX.membres(
-   ID int NOT NULL AUTO_INCREMENT,
-   nom VARCHAR(255) NOT NULL,
-   prenom VARCHAR(255) NOT NULL,
-   adresse_mail VARCHAR(255) NOT NULL,
-   telephone int NOT NULL,
-   num_carte double NOT NULL,  
-   preferences VARCHAR(255) NOT NULL,
-   mdp VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-
--------
-27/08/2023 16:08:27
--------
-
-use NETFLIX 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("James Cameron", "Leonardo Di Caprio ; Kate Winslet", "Romantique ; Darmatique", 195, 4.5, DATE("1998-01-07"), "Titanic", "Il raconte l'histoire de deux jeunes passagers du paquebot Titanic en avril 1912. Ils se rencontrent par hasard et vivent une histoire d'amour vite troublée par le naufrage du navire.", "lien1", "lien2") 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Nicolas Winding Refn", " Ryan Gosliing ; Carey Mulligan ; Bryan Cranston", "Thriller ; Action", 95 , 4.1, DATE("2011-10-05"), "Drive", "Un jeune mécanicien taciturne travaille dans un petit garage de Los Angeles et effectue à l'occasion des cascades pour des acteurs hollywoodiens. Mais de nuit, il sert aussi de conducteur à des membres du crime organisé.", "lien1", "lien2") 
-INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Quentin Tarantino", "John Travolta ;  Samuel L. Jackson ; Ving Rhames", "Gangster ; Comedie", 154, 4.5, DATE("1994-09-26"), "Pulp Fiction", "L'odyssée sanglante, burlesque et cocasse de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 650, 8.8, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0) 
-INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13) 
-INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 60, 8.8, DATE("2008-07-03"), "Une Vie de Chaos", "E1", "lien1", "lien2", 1) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 56, 8.8, DATE("2008-07-03"), "Le Sang et les Balles", "E2", "lien1", "lien2", 2) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
-INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
-INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
-
--------
-27/09/2023 16:09:23
--------
-
-CREATE DATABASE NETFLIX 
-use NETFLIX 
-CREATE TABLE NETFLIX.films(
-   ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.documentaires(
-   ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.series(
-   ID int NOT NULL,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255) NOT NULL,
-   nombre_saison int NOT NULL, 
-   episode_en_cours int,
-   PRIMARY KEY (ID)
-) 
-CREATE TABLE NETFLIX.saisons(
-   ID int NOT NULL AUTO_INCREMENT,
-   serie int NOT NULL,
-   num_saison int NOT NULL,
-   nombre_episode int NOT NULL,
-   PRIMARY KEY (ID),
-   FOREIGN KEY (serie) REFERENCES series (ID)
-) 
-CREATE TABLE NETFLIX.episodes(
-   ID int NOT NULL AUTO_INCREMENT,
-   saison int NOT NULL,
-   realisateur VARCHAR(255) NOT NULL,
-   acteur VARCHAR(255) NOT NULL,
-   genres VARCHAR(255) NOT NULL,
-   duree int NOT NULL,
-   note double NOT NULL,
-   parution date NOT NULL,
-   titre VARCHAR(255) NOT NULL,
-   synopsis VARCHAR(255) NOT NULL,
-   video VARCHAR(255) NOT NULL,
-   trailer VARCHAR(255),
-   numero_episode int NOT NULL,
-   PRIMARY KEY (ID), 
-   FOREIGN KEY (saison) REFERENCES saisons (ID)
-) 
-CREATE TABLE NETFLIX.membres(
-   ID int NOT NULL AUTO_INCREMENT,
-   nom VARCHAR(255) NOT NULL,
-   prenom VARCHAR(255) NOT NULL,
-   adresse_mail VARCHAR(255) NOT NULL,
-   telephone int NOT NULL,
-   num_carte double NOT NULL,  
-   preferences VARCHAR(255) NOT NULL,
-   mdp VARCHAR(255) NOT NULL,
-   PRIMARY KEY (ID)
-) 
-
--------
-27/09/2023 16:09:23
+28/31/2023 14:31:48
 -------
 
 use NETFLIX 
@@ -569,7 +109,7 @@ INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, pr
 INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
 
 -------
-27/52/2023 16:52:06
+28/32/2023 14:32:17
 -------
 
 CREATE DATABASE NETFLIX 
@@ -656,7 +196,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/52/2023 16:52:06
+28/32/2023 14:32:17
 -------
 
 use NETFLIX 
@@ -678,7 +218,7 @@ INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, pr
 INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
 
 -------
-27/55/2023 16:55:19
+28/47/2023 14:47:04
 -------
 
 CREATE DATABASE NETFLIX 
@@ -765,7 +305,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/55/2023 16:55:19
+28/47/2023 14:47:05
 -------
 
 use NETFLIX 
@@ -787,7 +327,7 @@ INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, pr
 INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
 
 -------
-27/19/2023 17:19:12
+28/52/2023 14:52:50
 -------
 
 CREATE DATABASE NETFLIX 
@@ -874,7 +414,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/19/2023 17:19:13
+28/52/2023 14:52:50
 -------
 
 use NETFLIX 
@@ -891,12 +431,12 @@ INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
 
 -------
-27/20/2023 17:20:28
+28/53/2023 14:53:08
 -------
 
 CREATE DATABASE NETFLIX 
@@ -983,7 +523,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/20/2023 17:20:28
+28/53/2023 14:53:08
 -------
 
 use NETFLIX 
@@ -1000,12 +540,12 @@ INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
 
 -------
-27/33/2023 17:33:45
+28/53/2023 14:53:44
 -------
 
 CREATE DATABASE NETFLIX 
@@ -1092,7 +632,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/33/2023 17:33:45
+28/53/2023 14:53:45
 -------
 
 use NETFLIX 
@@ -1109,12 +649,12 @@ INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
 
 -------
-27/48/2023 17:48:32
+28/55/2023 14:55:13
 -------
 
 CREATE DATABASE NETFLIX 
@@ -1201,7 +741,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/48/2023 17:48:32
+28/55/2023 14:55:13
 -------
 
 use NETFLIX 
@@ -1218,12 +758,12 @@ INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
 
 -------
-27/49/2023 17:49:36
+28/56/2023 14:56:04
 -------
 
 CREATE DATABASE NETFLIX 
@@ -1310,7 +850,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/49/2023 17:49:36
+28/56/2023 14:56:04
 -------
 
 use NETFLIX 
@@ -1327,12 +867,12 @@ INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
 
 -------
-27/50/2023 17:50:18
+28/57/2023 14:57:49
 -------
 
 CREATE DATABASE NETFLIX 
@@ -1419,7 +959,7 @@ CREATE TABLE NETFLIX.membres(
 ) 
 
 -------
-27/50/2023 17:50:18
+28/57/2023 14:57:49
 -------
 
 use NETFLIX 
@@ -1436,6 +976,442 @@ INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action, Romance, Aventure", "mon_mot_de_passe") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport, Action", "cl$m$nt") 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire, Nature, Science", "helloWORLD!") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
+
+-------
+28/10/2023 15:10:08
+-------
+
+CREATE DATABASE NETFLIX 
+use NETFLIX 
+CREATE TABLE NETFLIX.films(
+   ID int NOT NULL AUTO_INCREMENT,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.documentaires(
+   ID int NOT NULL AUTO_INCREMENT,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.series(
+   ID int NOT NULL,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   nombre_saison int NOT NULL, 
+   episode_en_cours int,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.saisons(
+   ID int NOT NULL AUTO_INCREMENT,
+   serie int NOT NULL,
+   num_saison int NOT NULL,
+   nombre_episode int NOT NULL,
+   PRIMARY KEY (ID),
+   FOREIGN KEY (serie) REFERENCES series (ID)
+) 
+CREATE TABLE NETFLIX.episodes(
+   ID int NOT NULL AUTO_INCREMENT,
+   saison int NOT NULL,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255),
+   numero_episode int NOT NULL,
+   PRIMARY KEY (ID), 
+   FOREIGN KEY (saison) REFERENCES saisons (ID)
+) 
+CREATE TABLE NETFLIX.membres(
+   ID int NOT NULL AUTO_INCREMENT,
+   nom VARCHAR(255) NOT NULL,
+   prenom VARCHAR(255) NOT NULL,
+   adresse_mail VARCHAR(255) NOT NULL,
+   telephone int NOT NULL,
+   num_carte double NOT NULL,  
+   preferences VARCHAR(255) NOT NULL,
+   mdp VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+
+-------
+28/10/2023 15:10:08
+-------
+
+use NETFLIX 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("James Cameron", "Leonardo Di Caprio ; Kate Winslet", "Romantique ; Darmatique", 195, 4.5, DATE("1998-01-07"), "Titanic", "Il raconte l'histoire de deux jeunes passagers du paquebot Titanic en avril 1912. Ils se rencontrent par hasard et vivent une histoire d'amour vite troublée par le naufrage du navire.", "lien1", "lien2") 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Nicolas Winding Refn", " Ryan Gosliing ; Carey Mulligan ; Bryan Cranston", "Thriller ; Action", 95 , 4.1, DATE("2011-10-05"), "Drive", "Un jeune mécanicien taciturne travaille dans un petit garage de Los Angeles et effectue à l'occasion des cascades pour des acteurs hollywoodiens. Mais de nuit, il sert aussi de conducteur à des membres du crime organisé.", "lien1", "lien2") 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Quentin Tarantino", "John Travolta ;  Samuel L. Jackson ; Ving Rhames", "Gangster ; Comedie", 154, 4.5, DATE("1994-09-26"), "Pulp Fiction", "L'odyssée sanglante, burlesque et cocasse de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.", "lien1", "lien2") 
+INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
+INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
+INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 650, 8.8, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0) 
+INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13) 
+INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 60, 8.8, DATE("2008-07-03"), "Une Vie de Chaos", "E1", "lien1", "lien2", 1) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 56, 8.8, DATE("2008-07-03"), "Le Sang et les Balles", "E2", "lien1", "lien2", 2) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
+
+-------
+28/35/2023 15:35:12
+-------
+
+CREATE DATABASE NETFLIX 
+use NETFLIX 
+CREATE TABLE NETFLIX.films(
+   ID int NOT NULL AUTO_INCREMENT,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.documentaires(
+   ID int NOT NULL AUTO_INCREMENT,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.series(
+   ID int NOT NULL,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   nombre_saison int NOT NULL, 
+   episode_en_cours int,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.saisons(
+   ID int NOT NULL AUTO_INCREMENT,
+   serie int NOT NULL,
+   num_saison int NOT NULL,
+   nombre_episode int NOT NULL,
+   PRIMARY KEY (ID),
+   FOREIGN KEY (serie) REFERENCES series (ID)
+) 
+CREATE TABLE NETFLIX.episodes(
+   ID int NOT NULL AUTO_INCREMENT,
+   saison int NOT NULL,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255),
+   numero_episode int NOT NULL,
+   PRIMARY KEY (ID), 
+   FOREIGN KEY (saison) REFERENCES saisons (ID)
+) 
+CREATE TABLE NETFLIX.membres(
+   ID int NOT NULL AUTO_INCREMENT,
+   nom VARCHAR(255) NOT NULL,
+   prenom VARCHAR(255) NOT NULL,
+   adresse_mail VARCHAR(255) NOT NULL,
+   telephone int NOT NULL,
+   num_carte double NOT NULL,  
+   preferences VARCHAR(255) NOT NULL,
+   mdp VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+
+-------
+28/35/2023 15:35:12
+-------
+
+use NETFLIX 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("James Cameron", "Leonardo Di Caprio ; Kate Winslet", "Romantique ; Darmatique", 195, 4.5, DATE("1998-01-07"), "Titanic", "Il raconte l'histoire de deux jeunes passagers du paquebot Titanic en avril 1912. Ils se rencontrent par hasard et vivent une histoire d'amour vite troublée par le naufrage du navire.", "lien1", "lien2") 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Nicolas Winding Refn", " Ryan Gosliing ; Carey Mulligan ; Bryan Cranston", "Thriller ; Action", 95 , 4.1, DATE("2011-10-05"), "Drive", "Un jeune mécanicien taciturne travaille dans un petit garage de Los Angeles et effectue à l'occasion des cascades pour des acteurs hollywoodiens. Mais de nuit, il sert aussi de conducteur à des membres du crime organisé.", "lien1", "lien2") 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Quentin Tarantino", "John Travolta ;  Samuel L. Jackson ; Ving Rhames", "Gangster ; Comedie", 154, 4.5, DATE("1994-09-26"), "Pulp Fiction", "L'odyssée sanglante, burlesque et cocasse de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.", "lien1", "lien2") 
+INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
+INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
+INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 650, 8.8, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0) 
+INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13) 
+INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 60, 8.8, DATE("2008-07-03"), "Une Vie de Chaos", "E1", "lien1", "lien2", 1) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 56, 8.8, DATE("2008-07-03"), "Le Sang et les Balles", "E2", "lien1", "lien2", 2) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
+
+-------
+28/35/2023 15:35:32
+-------
+
+CREATE DATABASE NETFLIX 
+use NETFLIX 
+CREATE TABLE NETFLIX.films(
+   ID int NOT NULL AUTO_INCREMENT,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.documentaires(
+   ID int NOT NULL AUTO_INCREMENT,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.series(
+   ID int NOT NULL,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   nombre_saison int NOT NULL, 
+   episode_en_cours int,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.saisons(
+   ID int NOT NULL AUTO_INCREMENT,
+   serie int NOT NULL,
+   num_saison int NOT NULL,
+   nombre_episode int NOT NULL,
+   PRIMARY KEY (ID),
+   FOREIGN KEY (serie) REFERENCES series (ID)
+) 
+CREATE TABLE NETFLIX.episodes(
+   ID int NOT NULL AUTO_INCREMENT,
+   saison int NOT NULL,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255),
+   numero_episode int NOT NULL,
+   PRIMARY KEY (ID), 
+   FOREIGN KEY (saison) REFERENCES saisons (ID)
+) 
+CREATE TABLE NETFLIX.membres(
+   ID int NOT NULL AUTO_INCREMENT,
+   nom VARCHAR(255) NOT NULL,
+   prenom VARCHAR(255) NOT NULL,
+   adresse_mail VARCHAR(255) NOT NULL,
+   telephone int NOT NULL,
+   num_carte double NOT NULL,  
+   preferences VARCHAR(255) NOT NULL,
+   mdp VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+
+-------
+28/35/2023 15:35:32
+-------
+
+use NETFLIX 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("James Cameron", "Leonardo Di Caprio ; Kate Winslet", "Romantique ; Darmatique", 195, 4.5, DATE("1998-01-07"), "Titanic", "Il raconte l'histoire de deux jeunes passagers du paquebot Titanic en avril 1912. Ils se rencontrent par hasard et vivent une histoire d'amour vite troublée par le naufrage du navire.", "lien1", "lien2") 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Nicolas Winding Refn", " Ryan Gosliing ; Carey Mulligan ; Bryan Cranston", "Thriller ; Action", 95 , 4.1, DATE("2011-10-05"), "Drive", "Un jeune mécanicien taciturne travaille dans un petit garage de Los Angeles et effectue à l'occasion des cascades pour des acteurs hollywoodiens. Mais de nuit, il sert aussi de conducteur à des membres du crime organisé.", "lien1", "lien2") 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Quentin Tarantino", "John Travolta ;  Samuel L. Jackson ; Ving Rhames", "Gangster ; Comedie", 154, 4.5, DATE("1994-09-26"), "Pulp Fiction", "L'odyssée sanglante, burlesque et cocasse de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.", "lien1", "lien2") 
+INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
+INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
+INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 650, 8.8, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0) 
+INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13) 
+INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 60, 8.8, DATE("2008-07-03"), "Une Vie de Chaos", "E1", "lien1", "lien2", 1) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 56, 8.8, DATE("2008-07-03"), "Le Sang et les Balles", "E2", "lien1", "lien2", 2) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 
+
+-------
+28/36/2023 15:36:58
+-------
+
+CREATE DATABASE NETFLIX 
+use NETFLIX 
+CREATE TABLE NETFLIX.films(
+   ID int NOT NULL AUTO_INCREMENT,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.documentaires(
+   ID int NOT NULL AUTO_INCREMENT,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.series(
+   ID int NOT NULL,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   nombre_saison int NOT NULL, 
+   episode_en_cours int,
+   PRIMARY KEY (ID)
+) 
+CREATE TABLE NETFLIX.saisons(
+   ID int NOT NULL AUTO_INCREMENT,
+   serie int NOT NULL,
+   num_saison int NOT NULL,
+   nombre_episode int NOT NULL,
+   PRIMARY KEY (ID),
+   FOREIGN KEY (serie) REFERENCES series (ID)
+) 
+CREATE TABLE NETFLIX.episodes(
+   ID int NOT NULL AUTO_INCREMENT,
+   saison int NOT NULL,
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255),
+   numero_episode int NOT NULL,
+   PRIMARY KEY (ID), 
+   FOREIGN KEY (saison) REFERENCES saisons (ID)
+) 
+CREATE TABLE NETFLIX.membres(
+   ID int NOT NULL AUTO_INCREMENT,
+   nom VARCHAR(255) NOT NULL,
+   prenom VARCHAR(255) NOT NULL,
+   adresse_mail VARCHAR(255) NOT NULL,
+   telephone int NOT NULL,
+   num_carte double NOT NULL,  
+   preferences VARCHAR(255) NOT NULL,
+   mdp VARCHAR(255) NOT NULL,
+   PRIMARY KEY (ID)
+) 
+
+-------
+28/36/2023 15:36:59
+-------
+
+use NETFLIX 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("James Cameron", "Leonardo Di Caprio ; Kate Winslet", "Romantique ; Darmatique", 195, 4.5, DATE("1998-01-07"), "Titanic", "Il raconte l'histoire de deux jeunes passagers du paquebot Titanic en avril 1912. Ils se rencontrent par hasard et vivent une histoire d'amour vite troublée par le naufrage du navire.", "lien1", "lien2") 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Nicolas Winding Refn", " Ryan Gosliing ; Carey Mulligan ; Bryan Cranston", "Thriller ; Action", 95 , 4.1, DATE("2011-10-05"), "Drive", "Un jeune mécanicien taciturne travaille dans un petit garage de Los Angeles et effectue à l'occasion des cascades pour des acteurs hollywoodiens. Mais de nuit, il sert aussi de conducteur à des membres du crime organisé.", "lien1", "lien2") 
+INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Quentin Tarantino", "John Travolta ;  Samuel L. Jackson ; Ving Rhames", "Gangster ; Comedie", 154, 4.5, DATE("1994-09-26"), "Pulp Fiction", "L'odyssée sanglante, burlesque et cocasse de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.", "lien1", "lien2") 
+INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2") 
+INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2") 
+INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 650, 8.8, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0) 
+INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13) 
+INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 60, 8.8, DATE("2008-07-03"), "Une Vie de Chaos", "E1", "lien1", "lien2", 1) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 56, 8.8, DATE("2008-07-03"), "Le Sang et les Balles", "E2", "lien1", "lien2", 2) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Maggie Siff", "Action ; Gangster", 53, 8.8, DATE("2009-07-08"), "Le Masque de la Haine", "E1", "lien1", "lien2", 1) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2) 
+INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3) 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 0123456789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 0789563214, 9876543210000000, "Sport ; Action", "cl$m$nt") 
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 0678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!") 

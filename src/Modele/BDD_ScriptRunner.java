@@ -2,6 +2,7 @@ package Modele;
 
 /*
  * Slightly modified version of the com.ibatis.common.jdbc.ScriptRunner class
+
  * from the iBATIS Apache project. Only removed dependency on Resource class
  * and a constructor
  * GPSHansl, 06.08.2015: regex for delimiter, rearrange comment/delimiter detection, remove some ide warnings.
@@ -21,6 +22,15 @@ package Modele;
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
+ */
+
+/**
+ * 
+ * 	Classe utiliser pour executer des scripts SQL depuis un fichier .sql. Pour ce projet elle est utilisee pour generer et remplir la BDD
+ * 
+ *         CETTE FONCTION NE DOIT PAS ETRE UTILISEE PAR AUTRE CHOSE QU'UNE
+ *         CLASSE BDD_EXPLOITANT
+ *
  */
 
 import java.io.BufferedReader;
