@@ -3,61 +3,56 @@ use NETFLIX;
 
 CREATE TABLE NETFLIX.films(
    ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255),
-   acteur VARCHAR(255),
-   genres VARCHAR(255),
-   duree int,
-   note double,
-   time_code int,
-   parution date,
-   titre VARCHAR(255),
-   synopsis VARCHAR(255),
-   video VARCHAR(255),
-   trailer VARCHAR(255),
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)
 );
 
 CREATE TABLE NETFLIX.documentaires(
    ID int NOT NULL AUTO_INCREMENT,
-   realisateur VARCHAR(255),
-   acteur VARCHAR(255),
-   genres VARCHAR(255),
-   duree int,
-   note double,
-   time_code int,
-   parution date,
-   titre VARCHAR(255),
-   synopsis VARCHAR(255),
-   video VARCHAR(255),
-   trailer VARCHAR(255),
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)
 );
 
 CREATE TABLE NETFLIX.series(
    ID int NOT NULL,
-   realisateur VARCHAR(255),
-   acteur VARCHAR(255),
-   genres VARCHAR(255),
-   duree int,
-   note double,
-   time_code int,
-   parution date,
-   titre VARCHAR(255),
-   synopsis VARCHAR(255),
-   video VARCHAR(255),
-   trailer VARCHAR(255),
-   nombre_saison int, 
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
+   trailer VARCHAR(255) NOT NULL,
+   nombre_saison int NOT NULL, 
    episode_en_cours int,
    PRIMARY KEY (ID)
 );
 
 CREATE TABLE NETFLIX.saisons(
    ID int NOT NULL AUTO_INCREMENT,
-   serie int,
-   
-   num_saison int,
-   nombre_episode int,
-   
+   serie int NOT NULL,
+   num_saison int NOT NULL,
+   nombre_episode int NOT NULL,
    PRIMARY KEY (ID),
    FOREIGN KEY (serie) REFERENCES series (ID)
 );
@@ -65,33 +60,30 @@ CREATE TABLE NETFLIX.saisons(
 CREATE TABLE NETFLIX.episodes(
    ID int NOT NULL AUTO_INCREMENT,
    saison int NOT NULL,
-   
-   realisateur VARCHAR(255),
-   acteur VARCHAR(255),
-   genres VARCHAR(255),
-   duree int,
-   note double,
-   time_code int,
-   parution date,
-   titre VARCHAR(255),
-   synopsis VARCHAR(255),
-   video VARCHAR(255),
+   realisateur VARCHAR(255) NOT NULL,
+   acteur VARCHAR(255) NOT NULL,
+   genres VARCHAR(255) NOT NULL,
+   duree int NOT NULL,
+   note double NOT NULL,
+   parution date NOT NULL,
+   titre VARCHAR(255) NOT NULL,
+   synopsis VARCHAR(255) NOT NULL,
+   video VARCHAR(255) NOT NULL,
    trailer VARCHAR(255),
-   numero_episode int,
-   
+   numero_episode int NOT NULL,
    PRIMARY KEY (ID), 
    FOREIGN KEY (saison) REFERENCES saisons (ID)
 );
 
 CREATE TABLE NETFLIX.membres(
    ID int NOT NULL AUTO_INCREMENT,
-   nom VARCHAR(255),
-   prenom VARCHAR(255),
-   adresse_mail VARCHAR(255),
-   telephone int,
-   num_carte double, 
-   preferences VARCHAR(255),
-   mdp VARCHAR(255),
+   nom VARCHAR(255) NOT NULL,
+   prenom VARCHAR(255) NOT NULL,
+   adresse_mail VARCHAR(255) NOT NULL,
+   telephone int NOT NULL,
+   num_carte double NOT NULL,  
+   preferences VARCHAR(255) NOT NULL,
+   mdp VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)
 );
 

@@ -1,6 +1,7 @@
 package Entite;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Film extends PublicationVideo {
 
@@ -10,10 +11,12 @@ public class Film extends PublicationVideo {
 		this.description = "";
 		this.realisateur = "";
 		this.titre = "";
-		this.timecode = 0;
 		this.duree = 0;
 		this.note = 0;
-		this.visionne = false;
+		this.ID = 0;
+		this.video = "";
+		this.trailer = "";
+		this.parution = new Date();
 	}
 
 	public Film(Serie copie) {
@@ -22,100 +25,32 @@ public class Film extends PublicationVideo {
 		this.description = copie.getDescription();
 		this.realisateur = copie.getRealisateur();
 		this.titre = copie.getTitre();
-		this.timecode = copie.getTimecode();
 		this.duree = copie.getDuree();
 		this.note = copie.getNote();
-		this.visionne = copie.getVisionne();
+		this.ID = copie.getID();
+		this.video = copie.getVideo();
+		this.trailer = copie.getTrailer();
+		this.parution = copie.getparution();
 	}
 
 	public Film(ArrayList<String> acteurs, ArrayList<String> genres, String realisateur, String titre,
-			String description, double note, int duree, int timecode, boolean visionne) {
+			String description, double note, int duree, Integer ID, String video, String trailer, Date parution) {
 		this.acteurs = acteurs;
 		this.genres = genres;
 		this.description = description;
 		this.realisateur = realisateur;
 		this.titre = titre;
-		this.timecode = timecode;
 		this.duree = duree;
 		this.note = note;
-		this.visionne = visionne;
-	}
-
-	public boolean getVisionne() {
-		return this.visionne;
-	}
-
-	public String getRealisateur() {
-		return this.realisateur;
-	}
-
-	public ArrayList<String> getActeurs() {
-		return this.acteurs;
-	}
-
-	public ArrayList<String> getGenres() {
-		return this.genres;
-	}
-
-	public int getDuree() {
-		return this.duree;
-	}
-
-	public int getTimecode() {
-		return this.timecode;
-	}
-
-	public double getNote() {
-		return this.note;
-	}
-
-	public String getTitre() {
-		return this.titre;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setVisionne(boolean visionne) {
-		this.visionne = visionne;
-	}
-
-	public void setRealisateur(String realisateur) {
-		this.realisateur = realisateur;
-	}
-
-	public void setActeurs(ArrayList<String> acteurs) {
-		this.acteurs = acteurs;
-	}
-
-	public void setGenres(ArrayList<String> genres) {
-		this.genres = genres;
-	}
-
-	public void setDuree(int duree) {
-		this.duree = duree;
-	}
-
-	public void setTimecode(int timecode) {
-		this.timecode = timecode;
-	}
-
-	public void setNote(int note) {
-		this.note = note;
-	}
-
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+		this.ID = ID;
+		this.video = video;
+		this.trailer = trailer;
+		this.parution = parution;
 	}
 
 	public String toString() {
-		return ("Le filme nommé " + this.titre + " dure " + this.duree + " et a été réalisé par " + this.realisateur
-				+ ".\nDescription: " + this.description);
+		return (titre + " " + acteurs.toString() + " " + genres.toString() + " " + realisateur + " " + duree
+				+ description + " " + " " + note + " " + ID + " " + video + " " + trailer + " " + parution.toString());
 	}
 
 }
