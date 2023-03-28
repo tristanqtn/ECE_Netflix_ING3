@@ -80,8 +80,8 @@ CREATE TABLE NETFLIX.membres(
    nom VARCHAR(255) NOT NULL,
    prenom VARCHAR(255) NOT NULL,
    adresse_mail VARCHAR(255) NOT NULL,
-   telephone int NOT NULL,
-   num_carte double NOT NULL,  
+   telephone BIGINT NOT NULL,
+   num_carte BIGINT NOT NULL,  
    preferences VARCHAR(255) NOT NULL,
    mdp VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)

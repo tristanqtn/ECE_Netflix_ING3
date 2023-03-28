@@ -8,14 +8,14 @@ public class Membre {
 	private String nom;
 	private String prenom;
 	private String adresse_mail;
-	private Integer telephone;
-	private double num_cb;
+	private long telephone;
+	private String num_cb;
 	private ArrayList<String> preferences;
 	private String password;
 
 	public Membre() {
 		this.ID = 0;
-		this.num_cb = 0;
+		this.num_cb = "";
 		this.telephone = 0;
 
 		this.nom = "";
@@ -25,7 +25,7 @@ public class Membre {
 		this.password = "";
 	}
 
-	public Membre(int ID, String nom, String prenom, String adresse_mail, int telephone, double num_cb,
+	public Membre(int ID, String nom, String prenom, String adresse_mail, long telephone, String num_cb,
 			ArrayList<String> preferences, String mdp) {
 		this.ID = ID;
 		this.num_cb = num_cb;
@@ -70,11 +70,11 @@ public class Membre {
 		this.adresse_mail = adresse_mail;
 	}
 
-	public Integer getTelephone() {
+	public long getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(Integer telephone) {
+	public void setTelephone(long telephone) {
 		this.telephone = telephone;
 	}
 
@@ -94,11 +94,11 @@ public class Membre {
 		this.preferences = preferences;
 	}
 
-	public double getNum_cb() {
+	public String getNum_cb() {
 		return num_cb;
 	}
 
-	public void setNum_cb(double num_cb) {
+	public void setNum_cb(String num_cb) {
 		this.num_cb = num_cb;
 	}
 

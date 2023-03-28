@@ -56,6 +56,10 @@ public class Serie extends PublicationVideo {
 		this.video = video;
 		this.trailer = trailer;
 		this.parution = parution;
+
+		if (saisons == null) {
+			this.saisons = new ArrayList<Saison>();
+		}
 	}
 
 	public String toString() {
@@ -78,6 +82,12 @@ public class Serie extends PublicationVideo {
 
 	public void setNbDeSaisons(int nbDeSaisons) {
 		this.nbDeSaisons = nbDeSaisons;
+	}
+
+	public void ajouter_saison(Saison saison) {
+		if (saison != null) {
+			this.saisons.add(saison);
+		}
 	}
 
 }

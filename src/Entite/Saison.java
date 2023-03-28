@@ -30,6 +30,11 @@ public class Saison {
 		this.ID = ID;
 		this.IDserie = IDserie;
 		this.num_saison = num_saison;
+
+		if (episodes == null) {
+			this.episodes = new ArrayList<Episode>();
+		}
+
 	}
 
 	public ArrayList<Episode> getEpisodes() {
@@ -76,4 +81,9 @@ public class Saison {
 		return (episodes.toString() + " " + num_saison + " " + nbDEpisode + " " + IDserie + " " + ID);
 	}
 
+	public void ajouter_episode(Episode episode) {
+		if (episode != null) {
+			this.episodes.add(episode);
+		}
+	}
 }

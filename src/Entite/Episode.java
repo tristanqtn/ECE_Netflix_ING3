@@ -84,9 +84,9 @@ public class Episode extends ContenuCinematographique {
 	}
 
 	public String toString() {
-		return (titre + " " + acteurs.toString() + " " + genres.toString() + " " + realisateur + " " + duree
-				+ description + " " + " " + note + " " + ID + " " + video + " " + parution.toString() + " " + ID_saison
-				+ " " + ID_serie + " " + numeroDEpisode);
+		return (titre + " " + acteurs.toString() + " " + genres.toString() + " " + realisateur + " " + duree + " "
+				+ description + " " + note + " " + ID + " " + video + " " + parution.toString() + " " + ID_saison + " "
+				+ ID_serie + " " + numeroDEpisode);
 	}
 
 }

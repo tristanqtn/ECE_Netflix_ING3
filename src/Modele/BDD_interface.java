@@ -20,8 +20,8 @@ import java.sql.SQLException;
  *         pour assurer la connection au SERVICE LOCAL mySQL et l'execution de
  *         requetes et/ou MAJ des BDD.
  * 
- *         CETTE FONCTION NE DOIT PAS ETRE UTILISEE PAR AUTRE CHOSE QU'UNE
- *         CLASSE BDD_EXPLOITANT
+ *         CETTE CLASSE NE DOIT PAS ETRE UTILISEE PAR AUTRE CHOSE QU'UNE CLASSE
+ *         BDD_EXPLOITANT
  *
  */
 
