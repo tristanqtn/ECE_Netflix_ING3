@@ -8,7 +8,7 @@ public class Tests {
 		Controleur_Modele ctrl = new Controleur_Modele("root", "root", false);
 //		ctrl.afficher_documentaires();
 //		ctrl.afficher_films();
-//		ctrl.afficher_membres();
+		ctrl.afficher_membres();
 //		ctrl.afficher_series();
 //		ctrl.afficher_saisons();
 //		ctrl.afficher_episodes();
