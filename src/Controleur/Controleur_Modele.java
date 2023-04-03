@@ -9,6 +9,7 @@ import Entite.Film;
 import Entite.Membre;
 import Entite.Saison;
 import Entite.Serie;
+import Entite.Visionnage;
 import Modele.BDD_exploitant;
 
 /**
@@ -33,6 +34,7 @@ public class Controleur_Modele {
 	private Vector<Documentaire> documentaires;
 	private Vector<Film> films;
 	private Vector<Serie> series;
+	private Vector<Visionnage> visionnages;
 
 	// les classes saisons ne devraient pas être utilisée en dehors de la classe
 	// controleur modele car ces obj sont deja contenus dans le vecteur de series
@@ -51,6 +53,7 @@ public class Controleur_Modele {
 			this.series = exploit.extraire_series_BDD();
 			this.saisons = exploit.extraire_saisons_BDD();
 			this.episodes = exploit.extraire_episodes_BDD();
+			this.setVisionnages(exploit.extraire_visionnages_BDD());
 
 			assembleur_serie(this.series, this.saisons, this.episodes); // formation de l'arborescence
 																		// series/saisons/episodes
@@ -162,8 +165,29 @@ public class Controleur_Modele {
 		}
 	}
 
+	// AFFICHGE VISIONNAGES
+	public void afficher_visionnages() {
+		System.out.println("\nVISIONNAGES\n");
+		for (int i = 0; i < visionnages.size(); i++) {
+			System.out.println(visionnages.get(i).toString());
+		}
+	}
+
 	// FONCTION D'AJOUT D'UN NOUVEAU MEMBRE DANS LA BDD
 	public void sauver_nv_membre_BDD(Membre nv_membre) {
 		exploit.ajouter_membre_BDD(nv_membre);
+	}
+
+	// FONCTION D'AJOUT D'UN NOUVEAU MEMBRE DANS LA BDD
+	public void sauver_nv_visionnage_BDD(Visionnage nv_visionnage) {
+		exploit.ajouter_visionnage_BDD(nv_visionnage);
+	}
+
+	public Vector<Visionnage> getVisionnages() {
+		return visionnages;
+	}
+
+	public void setVisionnages(Vector<Visionnage> visionnages) {
+		this.visionnages = visionnages;
 	}
 }
