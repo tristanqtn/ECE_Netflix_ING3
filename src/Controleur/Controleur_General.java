@@ -63,16 +63,17 @@ public class Controleur_General {
 	public void setConnexionListeners(JFrame frame) {
 
 		connexion.getSoumettre().addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("soumettre");
-				String mail = null, mdp = null;
+				String mail = connexion.get_mail(), mdp = connexion.get_password();
+				System.out.println(modele.getMembres().size());
 				for (int i = 0; i < modele.getMembres().size(); i++) {
-					if (modele.getMembres().get(i).getAdresse_mail() == mail
-							&& modele.getMembres().get(i).getPassword() == mdp) {
-						System.out.println("Logged has " + modele.getMembres().get(i).getNom());
+					if (modele.getMembres().get(i).getAdresse_mail().equals(mail)
+							&& modele.getMembres().get(i).getPassword().equals(mdp)) {
+						System.out.println("Logged as " + modele.getMembres().get(i).getNom());
 					}
+
 				}
 			}
 

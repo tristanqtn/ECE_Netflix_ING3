@@ -37,4 +37,12 @@ public class Controleur_Connexion {
 		vue.delete(frame);
 	}
 
+	public String get_password() {
+		return vue.get_password();
+	}
+
+	public String get_mail() {
+		return vue.get_mail();
+	}
+
 }

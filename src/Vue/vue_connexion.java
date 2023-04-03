@@ -41,6 +41,14 @@ public class vue_connexion {
 		return this.btnNewButton;
 	}
 
+	public String get_password() {
+		return String.valueOf(passwordField.getPassword());
+	}
+
+	public String get_mail() {
+		return this.textArea.getText();
+	}
+
 	/**
 	 * Create the application.
 	 */
