@@ -79,10 +79,6 @@ public class vue_accueil {
 		frame.getContentPane().add(this.txtrTrisflix, gbc_txtrTrisflix);
 
 		this.logIn = new JButton("Log In");
-		this.logIn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		this.logIn.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
 		this.logIn.setBackground(new Color(255, 0, 0));
 		this.logIn.setForeground(new Color(255, 255, 255));
