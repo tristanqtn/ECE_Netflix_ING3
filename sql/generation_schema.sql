@@ -44,7 +44,6 @@ CREATE TABLE NETFLIX.series(
    video VARCHAR(255) NOT NULL,
    trailer VARCHAR(255) NOT NULL,
    nombre_saison int NOT NULL, 
-   episode_en_cours int,
    PRIMARY KEY (ID)
 );
 
@@ -85,5 +84,23 @@ CREATE TABLE NETFLIX.membres(
    preferences VARCHAR(255) NOT NULL,
    mdp VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)
+);
+
+CREATE TABLE NETFLIX.visionnages(
+   ID int NOT NULL AUTO_INCREMENT,
+   ID_membre int NOT NULL,
+   ID_film int,
+   ID_documentaire int,
+   ID_serie int,
+   ID_saison int,
+   ID_episode int,
+   time_code int,
+   PRIMARY KEY (ID),
+   FOREIGN KEY (ID_membre) REFERENCES membres (ID),
+   FOREIGN KEY (ID_film) REFERENCES films (ID),
+   FOREIGN KEY (ID_documentaire) REFERENCES documentaires (ID),
+   FOREIGN KEY (ID_serie) REFERENCES series (ID),
+   FOREIGN KEY (ID_saison) REFERENCES saisons (ID),
+   FOREIGN KEY (ID_episode) REFERENCES episodes (ID)   
 );
 

@@ -7,7 +7,7 @@ INSERT INTO NETFLIX.films  (realisateur, acteur, genres, duree, note, parution, 
 INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Mike Horn", "Mike Horn", "Aventure ; Animalier ; Nature", 88, 8.8, DATE("2010-03-17"), "Amazone", "Suivez les aventures de Mike Horn dans l'Amazonie profonde au coeur d'une jungle sans pitiee", "lien1", "lien2");
 INSERT INTO NETFLIX.documentaires (realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer) VALUES ("Alain Resnais", "Michel Bouquet ; Reinhard Heydrich ; Heinrich Himmler", "Histoire ; Guerre", 32, 10, DATE("1956-01-11"), "Nuit et Brouillard", "Alain Resnais, à la demande du comité d'histoire de la Seconde Guerre mondiale, se rend sur les lieux où des milliers d'hommes, de femmes et d'enfants ont perdu la vie.", "lien1", "lien2");
 
-INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, nombre_saison, episode_en_cours) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 650, 8.8, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7, 0);
+INSERT INTO NETFLIX.series (ID, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, nombre_saison) VALUES (1, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman ; Maggie Siff", "Action ; Gangster", 650, 8.8, DATE("2008-07-03"), "Sons of Anarchy", "Une lutte de territoires entre dealers et trafiquants d'armes vient perturber les affaires d'un club de bikers à l'idéologie anarchiste.", "lien1", "lien2", 7);
 
 INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 1, 13);
 INSERT INTO NETFLIX.saisons (serie, num_saison, nombre_episode) VALUES (1, 2, 14);
@@ -22,3 +22,7 @@ INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, 
 INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 332346789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe");
 INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 3378956314, 9876543210000000, "Sport ; Action", "cl$m$nt");
 INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 33678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!");
+
+INSERT INTO NETFLIX.visionnages(ID_membre, ID_film, ID_documentaire, ID_serie, ID_saison, ID_episode, time_code) VALUES (1, 1, null, null, null, null, 36);
+INSERT INTO NETFLIX.visionnages(ID_membre, ID_film, ID_documentaire, ID_serie, ID_saison, ID_episode, time_code) VALUES (2, null, null, 1, 1, 2, 49);
+INSERT INTO NETFLIX.visionnages(ID_membre, ID_film, ID_documentaire, ID_serie, ID_saison, ID_episode, time_code) VALUES (2, null, 1, null, null, null, -1);
