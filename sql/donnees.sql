@@ -19,9 +19,11 @@ INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, 
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 48, 8.8, DATE("2009-07-08"), "Les Associes", "E2", "lien1", "lien2", 2);
 INSERT INTO NETFLIX.episodes (saison, realisateur, acteur, genres, duree, note, parution, titre, synopsis, video, trailer, numero_episode) VALUES (2, "Kurt Sutter", "Charlie Hunnam ; Ron Perlman", "Action ; Gangster", 59, 8.8, DATE("2009-07-08"), "Le Mal par le mal", "E3", "lien1", "lien2", 3);
 
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 332346789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe");
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 3378956314, 9876543210000000, "Sport ; Action", "cl$m$nt");
-INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 33678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!");
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp, admin) VALUES ("Querton", "Tristan", "tristan.querton@gmail.com", 332346789, 1234567890000000, "Action ; Romance ; Aventure", "mon_mot_de_passe", false);
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp, admin) VALUES ("Brot", "Clement", "clement.brot@gmail.com", 3378956314, 9876543210000000, "Sport ; Action", "cl$m$nt", false);
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp, admin) VALUES ("Bonnet", "Francois", "francois.bonnet@gmail.com", 33678412896, 1234567123456789, "Histoire ; Nature ; Science", "helloWORLD!", false);
+INSERT INTO NETFLIX.membres (nom, prenom, adresse_mail, telephone, num_carte, preferences, mdp, admin) VALUES ("admin", "admin", "admin", 0, 0, "", "admin", true);
+
 
 INSERT INTO NETFLIX.visionnages(ID_membre, ID_film, ID_documentaire, ID_serie, ID_saison, ID_episode, time_code) VALUES (1, 1, null, null, null, null, 36);
 INSERT INTO NETFLIX.visionnages(ID_membre, ID_film, ID_documentaire, ID_serie, ID_saison, ID_episode, time_code) VALUES (2, null, null, 1, 1, 2, 49);

@@ -1,7 +1,6 @@
 package Vue;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,7 +15,6 @@ import javax.swing.JTextField;
 
 public class vue_administration implements ActionListener {
 
-	private JFrame frame;
 	private JTextField textfield_commande;
 	private JTextField textfield_demande;
 
@@ -30,34 +28,54 @@ public class vue_administration implements ActionListener {
 	private boolean b_afficher_bdd = false;
 	private String sql_commande = null;
 
+	public JButton get_button_creer_bdd() {
+		return this.creer_bdd;
+	}
+
+	public JButton get_button_nettoyer_bdd() {
+		return this.nettoyer_bdd;
+	}
+
+	public JButton get_button_exec_requete() {
+		return this.exec_requete;
+	}
+
+	public JButton get_button_afficher_bdd() {
+		return this.afficher_bdd;
+	}
+
+	public String get_commande_sql() {
+		return this.textfield_commande.getText();
+	}
+
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					vue_administration window = new vue_administration();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					vue_administration window = new vue_administration();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
 	public vue_administration() {
-		initialize();
+		// initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
+	public void initialize(JFrame frame) {
+		// frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 0));
 		frame.setBounds(100, 100, 1150, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

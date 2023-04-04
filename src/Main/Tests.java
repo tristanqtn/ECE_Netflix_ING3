@@ -24,7 +24,7 @@ public class Tests {
 		prefe.add("Japon");
 
 		ctrl.sauver_nv_membre_BDD(new Membre(0, "Denson", "Sarujan", "sarujan@gmail.com", 1123456789,
-				"1234567891234567", prefe, "saruLEbg!"));
+				"1234567891234567", prefe, "saruLEbg!", true)); // ne sauvera jamais un nouvel admin
 		ctrl.sauver_nv_visionnage_BDD(new Visionnage(0, 3, 0, 0, 1, 2, 2, 20));
 
 	}

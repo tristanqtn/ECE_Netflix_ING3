@@ -83,6 +83,7 @@ CREATE TABLE NETFLIX.membres(
    num_carte BIGINT NOT NULL,  
    preferences VARCHAR(255) NOT NULL,
    mdp VARCHAR(255) NOT NULL,
+   admin BOOL NOT NULL,
    PRIMARY KEY (ID)
 );
 

@@ -77,7 +77,6 @@ public class BDD_interface {
 			statement.execute(requete); // execution de la requete reçu en string par le statement
 		} catch (SQLException e) {
 			// gestion des exceptions
-			e.printStackTrace();
 		}
 
 	}

@@ -12,6 +12,7 @@ public class Membre {
 	private String num_cb;
 	private ArrayList<String> preferences;
 	private String password;
+	private Boolean admin;
 
 	public Membre() {
 		this.ID = 0;
@@ -23,10 +24,11 @@ public class Membre {
 		this.adresse_mail = "";
 		this.preferences = null;
 		this.password = "";
+		this.setAdmin(false);
 	}
 
 	public Membre(int ID, String nom, String prenom, String adresse_mail, long telephone, String num_cb,
-			ArrayList<String> preferences, String mdp) {
+			ArrayList<String> preferences, String mdp, boolean admin) {
 		this.ID = ID;
 		this.num_cb = num_cb;
 		this.telephone = telephone;
@@ -36,6 +38,7 @@ public class Membre {
 		this.adresse_mail = adresse_mail;
 		this.preferences = preferences;
 		this.password = mdp;
+		this.setAdmin(admin);
 	}
 
 	public Integer getID() {
@@ -104,12 +107,12 @@ public class Membre {
 
 	public String toString() {
 		return (this.ID + " " + this.num_cb + " " + this.telephone + " " + this.nom + " " + this.prenom + " "
-				+ this.adresse_mail + " " + this.password + " " + this.preferences.toString());
+				+ this.adresse_mail + " " + this.password + " " + this.preferences.toString() + this.admin);
 	}
 
 	public String toString_sql_insert() {
 		return ("\"" + this.nom + "\", \"" + this.prenom + "\", \"" + this.adresse_mail + "\", " + this.telephone + ", "
-				+ this.num_cb + ", \"" + get_preferences_format() + "\", \"" + this.password + "\");");
+				+ this.num_cb + ", \"" + get_preferences_format() + "\", \"" + this.password + "\", false);");
 	}
 
 	private String get_preferences_format() {
@@ -120,6 +123,14 @@ public class Membre {
 				rendu += " ; ";
 		}
 		return rendu;
+	}
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 
 }
