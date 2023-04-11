@@ -17,6 +17,7 @@ public class Documentaire extends PublicationVideo {
 		this.video = "";
 		this.trailer = "";
 		this.parution = new Date();
+		this.affiche = "";
 
 	}
 
@@ -32,10 +33,12 @@ public class Documentaire extends PublicationVideo {
 		this.video = copie.getVideo();
 		this.trailer = copie.getTrailer();
 		this.parution = copie.getparution();
+		this.affiche = copie.getAffiche();
 	}
 
 	public Documentaire(ArrayList<String> acteurs, ArrayList<String> genres, String realisateur, String titre,
-			String description, double note, int duree, Integer ID, String video, String trailer, Date parution) {
+			String description, double note, int duree, Integer ID, String video, String trailer, Date parution,
+			String affiche) {
 		this.acteurs = acteurs;
 		this.genres = genres;
 		this.description = description;
@@ -47,11 +50,17 @@ public class Documentaire extends PublicationVideo {
 		this.video = video;
 		this.trailer = trailer;
 		this.parution = parution;
+		this.affiche = affiche;
 	}
 
 	public String toString() {
 		return (titre + " " + acteurs.toString() + " " + genres.toString() + " " + realisateur + " " + duree
-				+ description + " " + " " + note + " " + ID + " " + video + " " + trailer + " " + parution.toString());
+				+ description + " " + " " + note + " " + ID + " " + video + " " + trailer + " " + parution.toString()
+				+ " " + affiche);
+	}
+
+	public String who_am_i() {
+		return "documentaire";
 	}
 
 }

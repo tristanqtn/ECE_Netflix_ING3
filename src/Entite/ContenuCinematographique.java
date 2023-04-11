@@ -15,6 +15,7 @@ public abstract class ContenuCinematographique {
 	protected Date parution;
 	protected int duree;
 	protected String video;
+	protected String affiche;
 
 	public Integer getID() {
 		return ID;
@@ -38,6 +39,14 @@ public abstract class ContenuCinematographique {
 
 	public void setVideo(String video) {
 		this.video = video;
+	}
+
+	public String getAffiche() {
+		return this.affiche;
+	}
+
+	public void setAffiche(String affiche) {
+		this.affiche = affiche;
 	}
 
 	public String getRealisateur() {
@@ -100,4 +109,6 @@ public abstract class ContenuCinematographique {
 		return ("Le contenu cinematographique nommé " + this.titre + " dure " + this.duree + " et a été réalisé par "
 				+ this.realisateur + ".\nDescription: " + this.description);
 	}
+
+	public abstract String who_am_i();
 }

@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
@@ -16,6 +17,7 @@ public class Main {
 		frame.getContentPane().setForeground(new Color(64, 128, 128));
 		frame.getContentPane().setBackground(new Color(0, 0, 0));
 		frame.setBounds(100, 100, 1150, 700);
+		frame.setMinimumSize(new Dimension(1150,700));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Controleur_General general = new Controleur_General(frame, reset_bdd);

@@ -23,6 +23,7 @@ public class Episode extends ContenuCinematographique {
 		this.parution = new Date();
 		this.ID_saison = 0;
 		this.ID_serie = 0;
+		this.affiche = "";
 	}
 
 	public Episode(Episode copie) {
@@ -39,11 +40,12 @@ public class Episode extends ContenuCinematographique {
 		this.numeroDEpisode = copie.getNumeroDEpisode();
 		this.ID_saison = copie.getID_saison();
 		this.ID_serie = copie.getID_serie();
+		this.affiche = copie.getAffiche();
 	}
 
 	public Episode(int numeroDEpisode, ArrayList<String> acteurs, ArrayList<String> genres, String realisateur,
 			String titre, String description, double note, int duree, Integer ID, String video, String trailer,
-			Date parution, int IDserie, int IDsaison) {
+			Date parution, int IDserie, int IDsaison, String affiche) {
 		this.acteurs = acteurs;
 		this.genres = genres;
 		this.description = description;
@@ -57,6 +59,7 @@ public class Episode extends ContenuCinematographique {
 		this.parution = parution;
 		this.ID_saison = IDsaison;
 		this.ID_serie = IDserie;
+		this.affiche = affiche;
 	}
 
 	public int getNumeroDEpisode() {
@@ -86,7 +89,11 @@ public class Episode extends ContenuCinematographique {
 	public String toString() {
 		return (titre + " " + acteurs.toString() + " " + genres.toString() + " " + realisateur + " " + duree + " "
 				+ description + " " + note + " " + ID + " " + video + " " + parution.toString() + " " + ID_saison + " "
-				+ ID_serie + " " + numeroDEpisode);
+				+ ID_serie + " " + numeroDEpisode + " " + affiche);
+	}
+
+	public String who_am_i() {
+		return "episode";
 	}
 
 }

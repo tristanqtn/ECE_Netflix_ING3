@@ -22,6 +22,7 @@ public class Serie extends PublicationVideo {
 		this.video = "";
 		this.trailer = "";
 		this.parution = new Date();
+		this.affiche = "";
 	}
 
 	public Serie(Serie copie) {
@@ -38,11 +39,12 @@ public class Serie extends PublicationVideo {
 		this.video = copie.getVideo();
 		this.trailer = copie.getTrailer();
 		this.parution = copie.getparution();
+		this.affiche = copie.getAffiche();
 	}
 
 	public Serie(int nbDeSaisons, ArrayList<Saison> saisons, ArrayList<String> acteurs, ArrayList<String> genres,
 			String realisateur, String titre, String description, double note, int duree, Integer ID, String video,
-			String trailer, Date parution) {
+			String trailer, Date parution, String affiche) {
 		this.setSaisons(saisons);
 		this.acteurs = acteurs;
 		this.genres = genres;
@@ -56,6 +58,7 @@ public class Serie extends PublicationVideo {
 		this.video = video;
 		this.trailer = trailer;
 		this.parution = parution;
+		this.affiche = affiche;
 
 		if (saisons == null) {
 			this.saisons = new ArrayList<Saison>();
@@ -65,7 +68,7 @@ public class Serie extends PublicationVideo {
 	public String toString() {
 		return (titre + " " + acteurs.toString() + " " + genres.toString() + " " + realisateur + " " + duree
 				+ description + " " + " " + note + " " + ID + " " + video + " " + parution.toString() + " "
-				+ saisons.toString() + " " + nbDeSaisons);
+				+ saisons.toString() + " " + nbDeSaisons + " " + affiche);
 	}
 
 	public ArrayList<Saison> getSaisons() {
@@ -88,6 +91,10 @@ public class Serie extends PublicationVideo {
 		if (saison != null) {
 			this.saisons.add(saison);
 		}
+	}
+
+	public String who_am_i() {
+		return "serie";
 	}
 
 }

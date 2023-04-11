@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import Modele.BDD_exploitant;
@@ -21,7 +22,10 @@ public class Controleur_Admin implements ActionListener {
 	public void start(JFrame frame) {
 		vue.initialize(frame);
 		this.set_listeners();
-		frame.setVisible(true);
+	}
+	
+	public void end(JFrame frame) {
+		vue.delete(frame);
 	}
 
 	private void set_listeners() {
@@ -82,6 +86,10 @@ public class Controleur_Admin implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public JButton getRetour() {
+		return vue.getRetour();
 	}
 
 }

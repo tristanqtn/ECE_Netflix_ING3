@@ -8,9 +8,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import ElementsVisuels.JButton_arrondi;
+import ElementsVisuels.JTextArea_arrondi;
 
 public class vue_accueil {
 
@@ -18,27 +18,16 @@ public class vue_accueil {
 	 * Launch the application.
 	 */
 
-	private JButton logIn;
-	private JButton newUser;
-	private JTextArea txtrTrisflix;
+	private JButton_arrondi logIn;
+	private JButton_arrondi newUser;
+	private JTextArea_arrondi txtrTrisflix;
 	private GridBagLayout gridBagLayout;
 
-	public static void main(String[] args) {
-		/*
-		 * EventQueue.invokeLater(new Runnable() { public void run() { try { JFrame
-		 * frame=new JFrame(); frame.getContentPane().setBackground(new Color(0, 0, 0));
-		 * frame.setBounds(100, 100, 1150, 700);
-		 * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); vue_accueil window =
-		 * new vue_accueil(); this.initialize(frame); } catch (Exception e) {
-		 * e.printStackTrace(); } } });
-		 */
-	}
-
-	public JButton getLogIn() {
+	public JButton_arrondi getLogIn() {
 		return this.logIn;
 	}
 
-	public JButton getNewUser() {
+	public JButton_arrondi getNewUser() {
 		return this.newUser;
 	}
 
@@ -63,13 +52,13 @@ public class vue_accueil {
 
 		frame.getContentPane().setLayout(this.gridBagLayout);
 
-		this.txtrTrisflix = new JTextArea();
+		this.txtrTrisflix = new JTextArea_arrondi();
 		this.txtrTrisflix.setForeground(new Color(255, 0, 0));
 		this.txtrTrisflix.setBackground(new Color(0, 0, 0));
 		this.txtrTrisflix.setEditable(false);
-		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 30));
+		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD,50));
 		this.txtrTrisflix.setTabSize(20);
-		this.txtrTrisflix.setText("tristflix");
+		this.txtrTrisflix.setText(" FLOU-FLIX ");
 
 		GridBagConstraints gbc_txtrTrisflix = new GridBagConstraints();
 		gbc_txtrTrisflix.anchor = GridBagConstraints.SOUTH;
@@ -78,7 +67,7 @@ public class vue_accueil {
 		gbc_txtrTrisflix.gridy = 0;
 		frame.getContentPane().add(this.txtrTrisflix, gbc_txtrTrisflix);
 
-		this.logIn = new JButton("Log In");
+		this.logIn = new JButton_arrondi("Log In");
 		this.logIn.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
 		this.logIn.setBackground(new Color(255, 0, 0));
 		this.logIn.setForeground(new Color(255, 255, 255));
@@ -90,7 +79,7 @@ public class vue_accueil {
 
 		frame.getContentPane().add(this.logIn, gbc_btnNewButton);
 
-		this.newUser = new JButton("New User");
+		this.newUser = new JButton_arrondi("New User");
 		this.newUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -105,12 +94,31 @@ public class vue_accueil {
 		gbc_btnNe.gridy = 3;
 
 		frame.getContentPane().add(this.newUser, gbc_btnNe);
+
+		repaint(frame);
+		
 	}
 
 	public void delete(JFrame frame) {
+		
 		frame.getContentPane().remove(this.logIn);
 		frame.getContentPane().remove(this.newUser);
 		frame.getContentPane().remove(this.txtrTrisflix);
+
+		repaint(frame);
+
+	}
+	
+	public void repaint(JFrame frame) {
+
+		
+		this.logIn.repaint();
+		this.newUser.repaint();
+		this.txtrTrisflix.repaint();
+		frame.validate();
+		frame.repaint();
+		
+		
 	}
 
 }

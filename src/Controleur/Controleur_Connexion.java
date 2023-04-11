@@ -3,9 +3,9 @@
  */
 package Controleur;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import ElementsVisuels.JButton_arrondi;
 import Vue.vue_connexion;
 
 /**
@@ -23,17 +23,18 @@ public class Controleur_Connexion {
 		vue = new vue_connexion();
 	}
 
-	public JButton getSoumettre() {
+	public JButton_arrondi getSoumettre() {
 		return vue.getSoumettre();
+	}
+	public JButton_arrondi getRetour() {
+		return vue.get_retour();
 	}
 
 	public void start(JFrame frame) {
 		vue.initialize(frame);
-		frame.setVisible(true);
 	}
 
 	public void end(JFrame frame) {
-		frame.setVisible(false);
 		vue.delete(frame);
 	}
 

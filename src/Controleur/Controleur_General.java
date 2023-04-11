@@ -23,14 +23,12 @@ public class Controleur_General {
 	private Controleur_Nouveau_Compte nouveauCompte;
 	private Controleur_Modele modele;
 	private Controleur_Admin admin;
+	private ControleurGeneralIntraApplication general2;
 
 	public Controleur_General(JFrame frame, boolean reset_bdd) {
 		modele = new Controleur_Modele("root", "root", reset_bdd);
 		login = new Controleur_Login();
-		connexion = new Controleur_Connexion();
-		nouveauCompte = new Controleur_Nouveau_Compte();
-		admin = new Controleur_Admin();
-
+		frame.setVisible(true);
 		login.start(frame);
 		this.setLogInListeners(frame);
 
@@ -43,6 +41,7 @@ public class Controleur_General {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("log in");
 				login.end(frame);
+				connexion = new Controleur_Connexion();
 				connexion.start(frame);
 				setConnexionListeners(frame);
 
@@ -56,6 +55,7 @@ public class Controleur_General {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("new user");
 				login.end(frame);
+				nouveauCompte = new Controleur_Nouveau_Compte();
 				nouveauCompte.start(frame);
 				setNouveauCompteListeners(frame);
 			}
@@ -78,9 +78,13 @@ public class Controleur_General {
 
 						if (modele.getMembres().get(i).getAdmin()) {
 							connexion.end(frame);
+							admin = new Controleur_Admin();
 							admin.start(frame);
+							setAdminListeners(frame);
 						} else {
 							System.out.println("Logged as " + modele.getMembres().get(i).getPrenom());
+							connexion.end(frame);
+							setGeneral2(new ControleurGeneralIntraApplication(frame));
 						}
 
 					}
@@ -88,6 +92,19 @@ public class Controleur_General {
 				}
 			}
 
+		});
+		
+		connexion.getRetour().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("retour");
+				connexion.end(frame);
+				login = new Controleur_Login();
+				login.start(frame);
+				setLogInListeners(frame);
+			}
+			
 		});
 	}
 
@@ -102,6 +119,42 @@ public class Controleur_General {
 			}
 
 		});
+		
+		nouveauCompte.getRetour().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("retour");
+				nouveauCompte.end(frame);
+				login=new Controleur_Login();
+				login.start(frame);
+				setLogInListeners(frame);
+			}
+			
+		});
+	}
+	
+	public void setAdminListeners(JFrame frame) {
+		admin.getRetour().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("retour");
+				connexion = new Controleur_Connexion();
+				admin.end(frame);
+				connexion.start(frame);
+				setConnexionListeners(frame);
+			}
+			
+		});
+	}
+
+	public ControleurGeneralIntraApplication getGeneral2() {
+		return general2;
+	}
+
+	public void setGeneral2(ControleurGeneralIntraApplication general2) {
+		this.general2 = general2;
 	}
 
 }

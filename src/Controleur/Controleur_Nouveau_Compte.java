@@ -6,6 +6,7 @@ package Controleur;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import ElementsVisuels.JButton_arrondi;
 import Vue.vue_nouveau_compte;
 
 /**
@@ -24,16 +25,18 @@ public class Controleur_Nouveau_Compte {
 	
 	public void start(JFrame frame) {
 		vue.initialize(frame);
-		frame.setVisible(true);
 	}
 	
 	public void end(JFrame frame) {
-		frame.setVisible(false);
 		vue.delete(frame);
 	}
 	
-	public JButton getPayement() {
+	public JButton_arrondi getPayement() {
 		return vue.getPayement();
+	}
+	
+	public JButton getRetour() {
+		return vue.getRetour();
 	}
 	
 }

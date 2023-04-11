@@ -13,6 +13,7 @@ CREATE TABLE NETFLIX.films(
    synopsis VARCHAR(255) NOT NULL,
    video VARCHAR(255) NOT NULL,
    trailer VARCHAR(255) NOT NULL,
+   affiche VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)
 );
 
@@ -28,6 +29,7 @@ CREATE TABLE NETFLIX.documentaires(
    synopsis VARCHAR(255) NOT NULL,
    video VARCHAR(255) NOT NULL,
    trailer VARCHAR(255) NOT NULL,
+   affiche VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)
 );
 
@@ -44,6 +46,7 @@ CREATE TABLE NETFLIX.series(
    video VARCHAR(255) NOT NULL,
    trailer VARCHAR(255) NOT NULL,
    nombre_saison int NOT NULL, 
+   affiche VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)
 );
 
@@ -70,6 +73,7 @@ CREATE TABLE NETFLIX.episodes(
    video VARCHAR(255) NOT NULL,
    trailer VARCHAR(255),
    numero_episode int NOT NULL,
+   affiche VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID), 
    FOREIGN KEY (saison) REFERENCES saisons (ID)
 );
@@ -84,6 +88,8 @@ CREATE TABLE NETFLIX.membres(
    preferences VARCHAR(255) NOT NULL,
    mdp VARCHAR(255) NOT NULL,
    admin BOOL NOT NULL,
+   temps_visionnage INT NOT NULL,
+   nb_film_vu INT NOT NULL,
    PRIMARY KEY (ID)
 );
 

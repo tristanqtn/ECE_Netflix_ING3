@@ -3,9 +3,9 @@
  */
 package Controleur;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import ElementsVisuels.JButton_arrondi;
 import Vue.vue_accueil;
 
 /**
@@ -23,21 +23,19 @@ public class Controleur_Login {
 		vue=new vue_accueil();
 	}
 	
-	public JButton getLogIn() {
+	public JButton_arrondi getLogIn() {
 		return vue.getLogIn();
 	}
 	
-	public JButton getNewUser() {
+	public JButton_arrondi getNewUser() {
 		return vue.getNewUser();
 	}
 	
 	public void start(JFrame frame) {
 		vue.initialize(frame);
-		frame.setVisible(true);
 	}
 	
 	public void end(JFrame frame) {
-		frame.setVisible(false);
 		vue.delete(frame);
 	}
 	

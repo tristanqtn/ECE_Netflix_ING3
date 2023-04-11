@@ -8,65 +8,58 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import ElementsVisuels.JButton_arrondi;
+import ElementsVisuels.JTextField_arrondi;
+
 public class vue_administration implements ActionListener {
 
-	private JTextField textfield_commande;
-	private JTextField textfield_demande;
+	private JTextField_arrondi textfield_commande;
+	private JTextField_arrondi textfield_demande;
+	
+	private JTextArea txtrTrisflix;
 
-	private JButton creer_bdd;
-	private JButton nettoyer_bdd;
-	private JButton exec_requete;
-	private JButton afficher_bdd;
+	private JButton_arrondi creer_bdd;
+	private JButton_arrondi nettoyer_bdd;
+	private JButton_arrondi exec_requete;
+	private JButton_arrondi afficher_bdd;
+	
+	private JButton retour;
 
 	private boolean b_effacer_bdd = false;
 	private boolean b_recreer_bdd = false;
 	private boolean b_afficher_bdd = false;
 	private String sql_commande = null;
 
-	public JButton get_button_creer_bdd() {
+	public JButton_arrondi get_button_creer_bdd() {
 		return this.creer_bdd;
 	}
 
-	public JButton get_button_nettoyer_bdd() {
+	public JButton_arrondi get_button_nettoyer_bdd() {
 		return this.nettoyer_bdd;
 	}
 
-	public JButton get_button_exec_requete() {
+	public JButton_arrondi get_button_exec_requete() {
 		return this.exec_requete;
 	}
 
-	public JButton get_button_afficher_bdd() {
+	public JButton_arrondi get_button_afficher_bdd() {
 		return this.afficher_bdd;
 	}
 
 	public String get_commande_sql() {
 		return this.textfield_commande.getText();
 	}
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					vue_administration window = new vue_administration();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the application.
-	 */
+	
+	public JButton getRetour() {
+		return this.retour;
+	}
+	
 	public vue_administration() {
 		// initialize();
 	}
@@ -87,7 +80,7 @@ public class vue_administration implements ActionListener {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 
-		JTextArea txtrTrisflix = new JTextArea();
+		txtrTrisflix = new JTextArea();
 		txtrTrisflix.setForeground(new Color(255, 0, 0));
 		txtrTrisflix.setBackground(new Color(0, 0, 0));
 		txtrTrisflix.setEditable(false);
@@ -101,7 +94,7 @@ public class vue_administration implements ActionListener {
 		gbc_txtrTrisflix.gridy = 0;
 		frame.getContentPane().add(txtrTrisflix, gbc_txtrTrisflix);
 
-		nettoyer_bdd = new JButton("Nettoyer BDD");
+		nettoyer_bdd = new JButton_arrondi("Nettoyer BDD");
 		nettoyer_bdd.addActionListener(this);
 
 		nettoyer_bdd.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
@@ -113,7 +106,7 @@ public class vue_administration implements ActionListener {
 		gbc_nettoyer_bdd.gridy = 1;
 		frame.getContentPane().add(nettoyer_bdd, gbc_nettoyer_bdd);
 
-		creer_bdd = new JButton("Recreer BDD");
+		creer_bdd = new JButton_arrondi("Recreer BDD");
 		creer_bdd.addActionListener(this);
 		creer_bdd.setForeground(new Color(0, 0, 0));
 		creer_bdd.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
@@ -124,7 +117,7 @@ public class vue_administration implements ActionListener {
 		gbc_creer_bdd.gridy = 1;
 		frame.getContentPane().add(creer_bdd, gbc_creer_bdd);
 
-		afficher_bdd = new JButton("Afficher BDD");
+		afficher_bdd = new JButton_arrondi("Afficher BDD");
 		afficher_bdd.addActionListener(this);
 		afficher_bdd.setForeground(Color.BLACK);
 		afficher_bdd.setFont(new Font("Dialog", Font.BOLD, 10));
@@ -135,11 +128,12 @@ public class vue_administration implements ActionListener {
 		gbc_afficher_bdd.gridy = 1;
 		frame.getContentPane().add(afficher_bdd, gbc_afficher_bdd);
 
-		textfield_demande = new JTextField();
+		textfield_demande = new JTextField_arrondi();
 		textfield_demande.setEditable(false);
 		textfield_demande.setForeground(Color.WHITE);
 		textfield_demande.setBackground(new Color(0, 0, 0));
-		textfield_demande.setText("Commande à executer");
+		textfield_demande.setText("Commande:");
+		textfield_demande.setHorizontalAlignment(JTextField.CENTER);
 		GridBagConstraints gbc_txtCommandeExecuter = new GridBagConstraints();
 		gbc_txtCommandeExecuter.insets = new Insets(0, 0, 5, 5);
 		gbc_txtCommandeExecuter.fill = GridBagConstraints.HORIZONTAL;
@@ -148,7 +142,7 @@ public class vue_administration implements ActionListener {
 		frame.getContentPane().add(textfield_demande, gbc_txtCommandeExecuter);
 		textfield_demande.setColumns(10);
 
-		textfield_commande = new JTextField();
+		textfield_commande = new JTextField_arrondi();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -157,7 +151,7 @@ public class vue_administration implements ActionListener {
 		frame.getContentPane().add(textfield_commande, gbc_textField);
 		textfield_commande.setColumns(10);
 
-		exec_requete = new JButton("Executer");
+		exec_requete = new JButton_arrondi("Executer");
 		exec_requete.addActionListener(this);
 
 		exec_requete.setForeground(Color.BLACK);
@@ -168,6 +162,20 @@ public class vue_administration implements ActionListener {
 		gbc_exec_requete.gridx = 6;
 		gbc_exec_requete.gridy = 3;
 		frame.getContentPane().add(exec_requete, gbc_exec_requete);
+		
+		retour = new JButton();
+		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath());
+		retour.setIcon(icon);
+		
+		GridBagConstraints gbc_retour = new GridBagConstraints();
+		gbc_retour.anchor = GridBagConstraints.WEST;
+		gbc_retour.insets=new Insets(0,0,5,5);
+		gbc_retour.gridx=0;
+		gbc_retour.gridy=0;
+		
+		frame.getContentPane().add(this.retour,gbc_retour);
+		
+		repaint(frame);
 	}
 
 	public boolean isEffacer_bdd() {
@@ -221,6 +229,33 @@ public class vue_administration implements ActionListener {
 			System.out.println("Executer BDD" + this.textfield_commande.getText());
 			this.sql_commande = this.textfield_commande.getText();
 		}
+	}
+	
+	public void delete(JFrame frame) {
+		frame.getContentPane().remove(this.afficher_bdd);
+		frame.getContentPane().remove(this.creer_bdd);
+		frame.getContentPane().remove(this.exec_requete);
+		frame.getContentPane().remove(this.nettoyer_bdd);
+		frame.getContentPane().remove(this.textfield_commande);
+		frame.getContentPane().remove(this.textfield_demande);
+		frame.getContentPane().remove(this.retour);
+		frame.getContentPane().remove(this.txtrTrisflix);
+		
+		repaint(frame);
+	}
+	
+	public void repaint(JFrame frame) {
+		this.afficher_bdd.repaint();
+		this.creer_bdd.repaint();
+		this.exec_requete.repaint();
+		this.nettoyer_bdd.repaint();
+		this.textfield_commande.repaint();
+		this.textfield_demande.repaint();
+		this.retour.repaint();
+		this.txtrTrisflix.repaint();
+		
+		frame.validate();
+		frame.repaint();
 	}
 
 }

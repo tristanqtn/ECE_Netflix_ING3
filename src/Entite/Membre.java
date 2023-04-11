@@ -13,6 +13,8 @@ public class Membre {
 	private ArrayList<String> preferences;
 	private String password;
 	private Boolean admin;
+	private int temps_visionnage;
+	private int nb_film_vu;
 
 	public Membre() {
 		this.ID = 0;
@@ -25,10 +27,12 @@ public class Membre {
 		this.preferences = null;
 		this.password = "";
 		this.setAdmin(false);
+		this.temps_visionnage = 0;
+		this.nb_film_vu = 0;
 	}
 
 	public Membre(int ID, String nom, String prenom, String adresse_mail, long telephone, String num_cb,
-			ArrayList<String> preferences, String mdp, boolean admin) {
+			ArrayList<String> preferences, String mdp, boolean admin, int temps_visionnage, int nb_film_vu) {
 		this.ID = ID;
 		this.num_cb = num_cb;
 		this.telephone = telephone;
@@ -39,6 +43,8 @@ public class Membre {
 		this.preferences = preferences;
 		this.password = mdp;
 		this.setAdmin(admin);
+		this.temps_visionnage = temps_visionnage;
+		this.nb_film_vu = nb_film_vu;
 	}
 
 	public Integer getID() {
@@ -107,12 +113,14 @@ public class Membre {
 
 	public String toString() {
 		return (this.ID + " " + this.num_cb + " " + this.telephone + " " + this.nom + " " + this.prenom + " "
-				+ this.adresse_mail + " " + this.password + " " + this.preferences.toString() + this.admin);
+				+ this.adresse_mail + " " + this.password + " " + this.preferences.toString() + " " + this.admin + " "
+				+ this.temps_visionnage + " " + this.nb_film_vu);
 	}
 
 	public String toString_sql_insert() {
 		return ("\"" + this.nom + "\", \"" + this.prenom + "\", \"" + this.adresse_mail + "\", " + this.telephone + ", "
-				+ this.num_cb + ", \"" + get_preferences_format() + "\", \"" + this.password + "\", false);");
+				+ this.num_cb + ", \"" + get_preferences_format() + "\", \"" + this.password + "\", false,"
+				+ this.temps_visionnage + ", " + this.nb_film_vu + ");");
 	}
 
 	private String get_preferences_format() {
@@ -131,6 +139,22 @@ public class Membre {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+
+	public int getTemps_visionnage() {
+		return temps_visionnage;
+	}
+
+	public void setTemps_visionnage(int temps_visionnage) {
+		this.temps_visionnage = temps_visionnage;
+	}
+
+	public int getNb_film_vu() {
+		return nb_film_vu;
+	}
+
+	public void setNb_film_vu(int nb_film_vu) {
+		this.nb_film_vu = nb_film_vu;
 	}
 
 }
