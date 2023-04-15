@@ -21,6 +21,11 @@ public class JTextField_arrondi extends JTextField {///Classe donnant une JTextF
 		setOpaque(false);
 	}
 	
+	public JTextField_arrondi(String word) {
+		super(word);
+		setOpaque(false);
+	}
+	
 	public JTextField_arrondi() {
 		super();
 		setOpaque(false);

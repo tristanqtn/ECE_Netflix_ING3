@@ -26,6 +26,7 @@ public class Membre {
 		this.adresse_mail = "";
 		this.preferences = null;
 		this.password = "";
+
 		this.setAdmin(false);
 		this.temps_visionnage = 0;
 		this.nb_film_vu = 0;

@@ -6,39 +6,32 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
+
+import ElementsVisuels.JButton_arrondi;
+import ElementsVisuels.JPasswordField_arrondi;
+import ElementsVisuels.JTextArea_arrondi;
 
 public class vue_connexion {
 
-	private JPasswordField passwordField;
+	private JPasswordField_arrondi passwordField;
 	private JLabel lblNewLabel_1;
-	private JButton btnNewButton;
-	private JTextArea txtrTrisflix;
-	private JTextArea textArea;
+	private JButton_arrondi btnNewButton;
+	private JTextArea_arrondi txtrTrisflix;
+	private JTextArea_arrondi textArea;
 	private JTextArea txtrMotDePasse;
 	private GridBagLayout gridBagLayout;
+	private JButton_arrondi retour;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		/*
-		 * EventQueue.invokeLater(new Runnable() { public void run() { try { JFrame
-		 * frame=new JFrame(); frame.getContentPane().setForeground(new Color(64, 128,
-		 * 128)); frame.getContentPane().setBackground(new Color(0, 0, 0));
-		 * frame.setBounds(100, 100, 1150, 700);
-		 * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); vue_connexion window =
-		 * new vue_connexion(frame); frame.setVisible(true); } catch (Exception e) {
-		 * e.printStackTrace(); } } });
-		 */
+	public JButton_arrondi getSoumettre() {
+		return this.btnNewButton;
 	}
 
-	public JButton getSoumettre() {
-		return this.btnNewButton;
+	public JButton_arrondi get_retour() {
+		return this.retour;
 	}
 
 	public String get_password() {
@@ -55,10 +48,11 @@ public class vue_connexion {
 	public vue_connexion() {
 
 		this.gridBagLayout = new GridBagLayout();
-		this.txtrTrisflix = new JTextArea();
+		this.txtrTrisflix = new JTextArea_arrondi();
 		this.lblNewLabel_1 = new JLabel("mail");
-		this.textArea = new JTextArea();
+		this.textArea = new JTextArea_arrondi();
 		this.txtrMotDePasse = new JTextArea();
+		this.retour = new JButton_arrondi();
 	}
 
 	/**
@@ -76,9 +70,9 @@ public class vue_connexion {
 		this.txtrTrisflix.setForeground(new Color(255, 0, 0));
 		this.txtrTrisflix.setBackground(new Color(0, 0, 0));
 		this.txtrTrisflix.setEditable(false);
-		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 30));
+		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 50));
 		this.txtrTrisflix.setTabSize(20);
-		this.txtrTrisflix.setText("tristflix");
+		this.txtrTrisflix.setText(" FLOU-FLIX ");
 
 		GridBagConstraints gbc_txtrTrisflix = new GridBagConstraints();
 		gbc_txtrTrisflix.anchor = GridBagConstraints.SOUTH;
@@ -88,8 +82,20 @@ public class vue_connexion {
 
 		frame.getContentPane().add(this.txtrTrisflix, gbc_txtrTrisflix);
 
+		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath());
+		retour.setIcon(icon);
+		retour.setBackground(new Color(0, 0, 0));
+
+		GridBagConstraints gbc_retour = new GridBagConstraints();
+		gbc_retour.anchor = GridBagConstraints.NORTHWEST;
+		gbc_retour.insets = new Insets(0, 0, 5, 5);
+		gbc_retour.gridx = 0;
+		gbc_retour.gridy = 0;
+
+		frame.getContentPane().add(this.retour, gbc_retour);
+
 		this.lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		this.lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		this.lblNewLabel_1.setForeground(new Color(224, 240, 255));
 
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
@@ -124,7 +130,7 @@ public class vue_connexion {
 
 		frame.getContentPane().add(this.txtrMotDePasse, gbc_txtrMotDePasse);
 
-		this.passwordField = new JPasswordField();
+		this.passwordField = new JPasswordField_arrondi();
 
 		this.passwordField.setForeground(Color.WHITE);
 		this.passwordField.setBackground(Color.DARK_GRAY);
@@ -137,7 +143,8 @@ public class vue_connexion {
 
 		frame.getContentPane().add(this.passwordField, gbc_passwordField);
 
-		this.btnNewButton = new JButton("Soumettre");
+		this.btnNewButton = new JButton_arrondi("Soumettre");
+		btnNewButton.setBackground(new Color(224, 240, 255));
 
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
@@ -146,6 +153,8 @@ public class vue_connexion {
 		gbc_btnNewButton.gridy = 4;
 
 		frame.getContentPane().add(this.btnNewButton, gbc_btnNewButton);
+
+		repaint(frame);
 
 	}
 
@@ -156,6 +165,25 @@ public class vue_connexion {
 		frame.getContentPane().remove(this.textArea);
 		frame.getContentPane().remove(this.txtrMotDePasse);
 		frame.getContentPane().remove(this.txtrTrisflix);
+		frame.getContentPane().remove(this.retour);
+
+		repaint(frame);
+
+	}
+
+	public void repaint(JFrame frame) {
+
+		this.btnNewButton.repaint();
+		this.lblNewLabel_1.repaint();
+		this.passwordField.repaint();
+		this.retour.repaint();
+		this.textArea.repaint();
+		this.txtrMotDePasse.repaint();
+		this.txtrTrisflix.repaint();
+
+		frame.validate();
+		frame.repaint();
+
 	}
 
 }

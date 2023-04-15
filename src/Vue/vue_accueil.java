@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+
 import ElementsVisuels.JButton_arrondi;
 import ElementsVisuels.JTextArea_arrondi;
 
@@ -35,12 +36,15 @@ public class vue_accueil {
 	 * Create the application.
 	 */
 	public vue_accueil() {
-
+		logIn = new JButton_arrondi();
+		newUser = new JButton_arrondi();
+		txtrTrisflix = new JTextArea_arrondi();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+
 	public void initialize(JFrame frame) {
 
 		this.gridBagLayout = new GridBagLayout();
@@ -56,7 +60,7 @@ public class vue_accueil {
 		this.txtrTrisflix.setForeground(new Color(255, 0, 0));
 		this.txtrTrisflix.setBackground(new Color(0, 0, 0));
 		this.txtrTrisflix.setEditable(false);
-		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD,50));
+		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 50));
 		this.txtrTrisflix.setTabSize(20);
 		this.txtrTrisflix.setText(" FLOU-FLIX ");
 
@@ -96,11 +100,11 @@ public class vue_accueil {
 		frame.getContentPane().add(this.newUser, gbc_btnNe);
 
 		repaint(frame);
-		
+
 	}
 
 	public void delete(JFrame frame) {
-		
+
 		frame.getContentPane().remove(this.logIn);
 		frame.getContentPane().remove(this.newUser);
 		frame.getContentPane().remove(this.txtrTrisflix);
@@ -108,17 +112,15 @@ public class vue_accueil {
 		repaint(frame);
 
 	}
-	
+
 	public void repaint(JFrame frame) {
 
-		
 		this.logIn.repaint();
 		this.newUser.repaint();
 		this.txtrTrisflix.repaint();
 		frame.validate();
 		frame.repaint();
-		
-		
+
 	}
 
 }

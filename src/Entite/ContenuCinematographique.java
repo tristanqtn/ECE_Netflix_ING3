@@ -16,6 +16,7 @@ public abstract class ContenuCinematographique {
 	protected int duree;
 	protected String video;
 	protected String affiche;
+	protected int nb_note;
 
 	public Integer getID() {
 		return ID;
@@ -23,6 +24,14 @@ public abstract class ContenuCinematographique {
 
 	public void setID(Integer ID) {
 		this.ID = ID;
+	}
+
+	public int getnb_note() {
+		return nb_note;
+	}
+
+	public void setnb_note(int nb_note) {
+		this.nb_note = nb_note;
 	}
 
 	public Date getparution() {
@@ -105,10 +114,9 @@ public abstract class ContenuCinematographique {
 		this.description = description;
 	}
 
-	public String toString() {
-		return ("Le contenu cinematographique nommé " + this.titre + " dure " + this.duree + " et a été réalisé par "
-				+ this.realisateur + ".\nDescription: " + this.description);
-	}
+	public abstract String toString();
 
 	public abstract String who_am_i();
+
+	public abstract String getTrailer();
 }

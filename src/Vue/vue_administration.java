@@ -1,40 +1,48 @@
 package Vue;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 import ElementsVisuels.JButton_arrondi;
-import ElementsVisuels.JTextField_arrondi;
+import ElementsVisuels.JTextArea_arrondi;
+
+/**
+ * 
+ * @author tristan querton
+ * 
+ *         Cette vue est permet aux administrateur d'executer des modifications
+ *         sur le BDD du prj
+ *
+ */
 
 public class vue_administration implements ActionListener {
-
-	private JTextField_arrondi textfield_commande;
-	private JTextField_arrondi textfield_demande;
-	
-	private JTextArea txtrTrisflix;
-
-	private JButton_arrondi creer_bdd;
-	private JButton_arrondi nettoyer_bdd;
-	private JButton_arrondi exec_requete;
-	private JButton_arrondi afficher_bdd;
-	
-	private JButton retour;
 
 	private boolean b_effacer_bdd = false;
 	private boolean b_recreer_bdd = false;
 	private boolean b_afficher_bdd = false;
 	private String sql_commande = null;
+
+	private JButton_arrondi exec_requete;
+	private JTextField textfield_commande;
+	private JLabel textfield_demande;
+	private JButton_arrondi nettoyer_bdd;
+	private JButton_arrondi afficher_bdd;
+	private JButton_arrondi creer_bdd;
+	private JButton_arrondi retour;
+	private JTextArea_arrondi txtrTrisflix;
 
 	public JButton_arrondi get_button_creer_bdd() {
 		return this.creer_bdd;
@@ -55,126 +63,143 @@ public class vue_administration implements ActionListener {
 	public String get_commande_sql() {
 		return this.textfield_commande.getText();
 	}
-	
+
 	public JButton getRetour() {
 		return this.retour;
 	}
-	
+
 	public vue_administration() {
-		// initialize();
+		exec_requete = new JButton_arrondi("New button");
+		exec_requete.setText("Executer");
+		afficher_bdd = new JButton_arrondi("New button");
+		afficher_bdd.setText("Afficher Statistiques");
+		creer_bdd = new JButton_arrondi("New button");
+		creer_bdd.setText("Creer BDD");
+		textfield_commande = new JTextField();
+		textfield_demande = new JLabel("Requete : ");
+		nettoyer_bdd = new JButton_arrondi("New button");
+		nettoyer_bdd.setText("Nettoyer BDD");
+		txtrTrisflix = new JTextArea_arrondi();
+		retour = new JButton_arrondi();
+	}
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JFrame frame = new JFrame("FLOU-FLIX");
+					frame.getContentPane().setBackground(Color.BLACK);
+					frame.setBounds(100, 100, 1150, 700);
+					frame.setMinimumSize(new Dimension(1150, 700));
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+					vue_administration vue = new vue_administration();
+					frame.setVisible(true);
+					vue.initialize(frame);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	public void initialize(JFrame frame) {
-		// frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(0, 0, 0));
-		frame.setBounds(100, 100, 1150, 700);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0, 120, 101, 126, 248, 59, 75, 50, 150, -185, 0 };
-		gridBagLayout.rowHeights = new int[] { 210, 50, 78, 129, 248, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
-				Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
-		frame.getContentPane().setLayout(gridBagLayout);
 
-		txtrTrisflix = new JTextArea();
-		txtrTrisflix.setForeground(new Color(255, 0, 0));
-		txtrTrisflix.setBackground(new Color(0, 0, 0));
-		txtrTrisflix.setEditable(false);
-		txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 30));
-		txtrTrisflix.setTabSize(20);
-		txtrTrisflix.setText("Administrator Menu");
-		GridBagConstraints gbc_txtrTrisflix = new GridBagConstraints();
-		gbc_txtrTrisflix.anchor = GridBagConstraints.SOUTH;
-		gbc_txtrTrisflix.insets = new Insets(0, 0, 5, 5);
-		gbc_txtrTrisflix.gridx = 5;
-		gbc_txtrTrisflix.gridy = 0;
-		frame.getContentPane().add(txtrTrisflix, gbc_txtrTrisflix);
+		retour.setBackground(Color.BLACK);
+		retour.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath()));
 
-		nettoyer_bdd = new JButton_arrondi("Nettoyer BDD");
+		exec_requete.addActionListener(this);
 		nettoyer_bdd.addActionListener(this);
-
-		nettoyer_bdd.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
-		nettoyer_bdd.setBackground(new Color(255, 0, 0));
-		nettoyer_bdd.setForeground(new Color(0, 0, 0));
-		GridBagConstraints gbc_nettoyer_bdd = new GridBagConstraints();
-		gbc_nettoyer_bdd.insets = new Insets(0, 0, 10, 10);
-		gbc_nettoyer_bdd.gridx = 3;
-		gbc_nettoyer_bdd.gridy = 1;
-		frame.getContentPane().add(nettoyer_bdd, gbc_nettoyer_bdd);
-
-		creer_bdd = new JButton_arrondi("Recreer BDD");
 		creer_bdd.addActionListener(this);
-		creer_bdd.setForeground(new Color(0, 0, 0));
-		creer_bdd.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
-		creer_bdd.setBackground(new Color(255, 0, 0));
-		GridBagConstraints gbc_creer_bdd = new GridBagConstraints();
-		gbc_creer_bdd.insets = new Insets(0, 0, 5, 5);
-		gbc_creer_bdd.gridx = 5;
-		gbc_creer_bdd.gridy = 1;
-		frame.getContentPane().add(creer_bdd, gbc_creer_bdd);
-
-		afficher_bdd = new JButton_arrondi("Afficher BDD");
 		afficher_bdd.addActionListener(this);
-		afficher_bdd.setForeground(Color.BLACK);
-		afficher_bdd.setFont(new Font("Dialog", Font.BOLD, 10));
-		afficher_bdd.setBackground(Color.RED);
-		GridBagConstraints gbc_afficher_bdd = new GridBagConstraints();
-		gbc_afficher_bdd.insets = new Insets(0, 0, 5, 5);
-		gbc_afficher_bdd.gridx = 7;
-		gbc_afficher_bdd.gridy = 1;
-		frame.getContentPane().add(afficher_bdd, gbc_afficher_bdd);
 
-		textfield_demande = new JTextField_arrondi();
-		textfield_demande.setEditable(false);
-		textfield_demande.setForeground(Color.WHITE);
-		textfield_demande.setBackground(new Color(0, 0, 0));
-		textfield_demande.setText("Commande:");
-		textfield_demande.setHorizontalAlignment(JTextField.CENTER);
-		GridBagConstraints gbc_txtCommandeExecuter = new GridBagConstraints();
-		gbc_txtCommandeExecuter.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCommandeExecuter.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCommandeExecuter.gridx = 4;
-		gbc_txtCommandeExecuter.gridy = 3;
-		frame.getContentPane().add(textfield_demande, gbc_txtCommandeExecuter);
-		textfield_demande.setColumns(10);
+		exec_requete.setBackground(Color.RED);
+		exec_requete.setForeground(Color.WHITE);
 
-		textfield_commande = new JTextField_arrondi();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 5;
-		gbc_textField.gridy = 3;
-		frame.getContentPane().add(textfield_commande, gbc_textField);
+		textfield_commande.setForeground(Color.WHITE);
+		textfield_commande.setBackground(Color.BLACK);
 		textfield_commande.setColumns(10);
 
-		exec_requete = new JButton_arrondi("Executer");
-		exec_requete.addActionListener(this);
+		textfield_demande.setForeground(Color.RED);
 
-		exec_requete.setForeground(Color.BLACK);
-		exec_requete.setFont(new Font("Dialog", Font.BOLD, 10));
-		exec_requete.setBackground(Color.RED);
-		GridBagConstraints gbc_exec_requete = new GridBagConstraints();
-		gbc_exec_requete.insets = new Insets(0, 0, 5, 5);
-		gbc_exec_requete.gridx = 6;
-		gbc_exec_requete.gridy = 3;
-		frame.getContentPane().add(exec_requete, gbc_exec_requete);
-		
-		retour = new JButton();
-		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath());
-		retour.setIcon(icon);
-		
-		GridBagConstraints gbc_retour = new GridBagConstraints();
-		gbc_retour.anchor = GridBagConstraints.WEST;
-		gbc_retour.insets=new Insets(0,0,5,5);
-		gbc_retour.gridx=0;
-		gbc_retour.gridy=0;
-		
-		frame.getContentPane().add(this.retour,gbc_retour);
-		
+		nettoyer_bdd.setBackground(Color.RED);
+		nettoyer_bdd.setForeground(Color.WHITE);
+
+		retour.setBackground(Color.BLACK);
+
+		txtrTrisflix.setText("         ADMINISTATEUR");
+		txtrTrisflix.setTabSize(20);
+		txtrTrisflix.setForeground(Color.RED);
+		txtrTrisflix.setFont(new Font("Dialog", Font.BOLD, 50));
+		txtrTrisflix.setEditable(false);
+		txtrTrisflix.setBackground(Color.BLACK);
+
+		afficher_bdd.setBackground(Color.RED);
+		afficher_bdd.setForeground(Color.WHITE);
+
+		creer_bdd.setBackground(Color.RED);
+		creer_bdd.setForeground(Color.WHITE);
+
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
+				.createSequentialGroup()
+				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(retour, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 83,
+								GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.LEADING,
+								groupLayout.createSequentialGroup().addGap(268)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+												.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(nettoyer_bdd, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED,
+																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(creer_bdd, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addGap(149))
+												.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(textfield_demande).addGap(18)
+														.addComponent(textfield_commande, GroupLayout.PREFERRED_SIZE,
+																426, GroupLayout.PREFERRED_SIZE)
+														.addGap(18)))
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+												.addComponent(afficher_bdd, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(exec_requete, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup().addGap(254).addComponent(txtrTrisflix,
+								GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)))
+				.addGap(243)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
+				.createSequentialGroup()
+				.addComponent(retour, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+				.addComponent(
+						txtrTrisflix, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addGap(56)
+				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(nettoyer_bdd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(creer_bdd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(afficher_bdd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+				.addGap(97)
+				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textfield_commande, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(textfield_demande, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(exec_requete, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+				.addGap(276)));
+		frame.getContentPane().setLayout(groupLayout);
 		repaint(frame);
 	}
 
@@ -230,7 +255,7 @@ public class vue_administration implements ActionListener {
 			this.sql_commande = this.textfield_commande.getText();
 		}
 	}
-	
+
 	public void delete(JFrame frame) {
 		frame.getContentPane().remove(this.afficher_bdd);
 		frame.getContentPane().remove(this.creer_bdd);
@@ -240,22 +265,20 @@ public class vue_administration implements ActionListener {
 		frame.getContentPane().remove(this.textfield_demande);
 		frame.getContentPane().remove(this.retour);
 		frame.getContentPane().remove(this.txtrTrisflix);
-		
+		frame.getContentPane().remove(this.retour);
 		repaint(frame);
 	}
-	
+
 	public void repaint(JFrame frame) {
 		this.afficher_bdd.repaint();
 		this.creer_bdd.repaint();
 		this.exec_requete.repaint();
 		this.nettoyer_bdd.repaint();
+		this.retour.repaint();
 		this.textfield_commande.repaint();
 		this.textfield_demande.repaint();
-		this.retour.repaint();
 		this.txtrTrisflix.repaint();
-		
 		frame.validate();
 		frame.repaint();
 	}
-
 }

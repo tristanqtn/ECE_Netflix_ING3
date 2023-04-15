@@ -3,6 +3,7 @@ package Controleur;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import Entite.ContenuCinematographique;
 import Entite.Documentaire;
 import Entite.Episode;
 import Entite.Film;
@@ -69,9 +70,10 @@ public class Controleur_Modele {
 	private void assembleur_serie(Vector<Serie> series, Vector<Saison> saisons, Vector<Episode> episodes) {
 		for (int i = 0; i < episodes.size(); i++) {// parcours des episodes
 			for (int j = 0; j < saisons.size(); j++) {// parcours des saisons
-				if (episodes.get(i).getID_saison() == saisons.get(j).getID()) {// si l'episode appartient à la saison
-					episodes.get(i).setID_serie(saisons.get(j).getIDserie()); // modification de l'ID de serie de
-																				// l'episode
+				if (episodes.get(i).getID_saison() == saisons.get(j).getNum_saison()
+						&& episodes.get(i).getID_serie() == saisons.get(j).getIDserie()) {// si l'episode appartient à
+																							// la saison
+
 					saisons.get(j).ajouter_episode(episodes.get(i)); // ajout de l'episode dans la saison
 				}
 			}
@@ -82,6 +84,15 @@ public class Controleur_Modele {
 					series.get(j).ajouter_saison(saisons.get(i)); // ajout de la saison dans la serie
 				}
 			}
+		}
+	}
+
+	public void recharger_membres() {
+		try {
+			this.membres = this.exploit.extraire_membre_BDD();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -111,6 +122,10 @@ public class Controleur_Modele {
 
 	public Vector<Serie> getSeries() {
 		return series;
+	}
+
+	public Vector<Episode> getEpisodes() {
+		return episodes;
 	}
 
 	public void setSeries(Vector<Serie> series) {
@@ -181,6 +196,17 @@ public class Controleur_Modele {
 	// FONCTION D'AJOUT D'UN NOUVEAU MEMBRE DANS LA BDD
 	public void sauver_nv_visionnage_BDD(Visionnage nv_visionnage) {
 		exploit.ajouter_visionnage_BDD(nv_visionnage);
+	}
+
+	// FONCTION DE MISE A JOUR D'UN CONTENU
+	public void maj_contenu_BDD_note(ContenuCinematographique contenu, double note, Membre user, int temps,
+			boolean fini) {
+		exploit.maj_contenu_BDD_note(contenu, note, user, temps, fini);
+	}
+
+	// FONCTION DE MISE A JOUR D'UN CONTENU
+	public void maj_visionnage_BDD(ContenuCinematographique contenu, Membre user, int temps, boolean fini) {
+		exploit.maj_visionnage_BDD(contenu, user, temps, fini);
 	}
 
 	public Vector<Visionnage> getVisionnages() {

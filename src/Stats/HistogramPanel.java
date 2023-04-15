@@ -3,14 +3,11 @@ package Stats;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.Icon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -18,8 +15,15 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import Controleur.Controleur_Modele;
-import Entite.Membre;
+/**
+ * 
+ * @author Camickr
+ * 
+ *         Ce code est directement recupérer de StakcOverFlow :
+ *         https://stackoverflow.com/questions/29708147/custom-graph-java-swing
+ *         Code rédigié par Camickr et libre d'utilisation
+ *
+ */
 
 public class HistogramPanel extends JPanel {
 
@@ -35,8 +39,7 @@ public class HistogramPanel extends JPanel {
 
 	public HistogramPanel() {
 
-		setPreferredSize(new Dimension(1150, 700)); // choisir les dimension
-
+		setPreferredSize(new Dimension(700, 500)); // choisir les dimension
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setBackground(Color.BLACK);
 		setLayout(new BorderLayout());
@@ -93,48 +96,4 @@ public class HistogramPanel extends JPanel {
 		}
 	}
 
-	private static void afficher_statistiques_temps_visionnage(Vector<Membre> membres) {
-		HistogramPanel panel = new HistogramPanel();
-		for (int i = 0; i < membres.size(); i++) {
-			if (membres.get(i).getAdmin() == false)
-				panel.addHistogramColumn(membres.get(i).getPrenom(), membres.get(i).getTemps_visionnage(), Color.RED);
-		}
-
-		panel.layoutHistogram();
-
-		JFrame frame = new JFrame("Statistique de temps visionnage");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(panel);
-		frame.setLocationByPlatform(true);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-	private static void afficher_statistiques_nb_contenus_vu(Vector<Membre> membres) {
-		HistogramPanel panel = new HistogramPanel();
-		for (int i = 0; i < membres.size(); i++) {
-			if (membres.get(i).getAdmin() == false)
-				panel.addHistogramColumn(membres.get(i).getPrenom(), membres.get(i).getNb_film_vu(), Color.RED);
-		}
-
-		panel.layoutHistogram();
-
-		JFrame frame = new JFrame("Statistique du nombre de contenus vus");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(panel);
-		frame.setLocationByPlatform(true);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				Controleur_Modele ctrl = new Controleur_Modele("root", "root", true);
-
-				afficher_statistiques_temps_visionnage(ctrl.getMembres());
-				afficher_statistiques_nb_contenus_vu(ctrl.getMembres());
-			}
-		});
-	}
 }

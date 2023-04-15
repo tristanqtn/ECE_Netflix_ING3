@@ -18,6 +18,7 @@ public class Film extends PublicationVideo {
 		this.trailer = "";
 		this.parution = new Date();
 		this.affiche = "";
+		this.nb_note = 0;
 	}
 
 	public Film(Serie copie) {
@@ -33,11 +34,12 @@ public class Film extends PublicationVideo {
 		this.trailer = copie.getTrailer();
 		this.parution = copie.getparution();
 		this.affiche = copie.getAffiche();
+		this.nb_note = copie.getnb_note();
 	}
 
 	public Film(ArrayList<String> acteurs, ArrayList<String> genres, String realisateur, String titre,
 			String description, double note, int duree, Integer ID, String video, String trailer, Date parution,
-			String affiche) {
+			String affiche, int nb_note) {
 		this.acteurs = acteurs;
 		this.genres = genres;
 		this.description = description;
@@ -50,12 +52,13 @@ public class Film extends PublicationVideo {
 		this.trailer = trailer;
 		this.parution = parution;
 		this.affiche = affiche;
+		this.nb_note = nb_note;
 	}
 
 	public String toString() {
 		return (titre + " " + acteurs.toString() + " " + genres.toString() + " " + realisateur + " " + duree
 				+ description + " " + " " + note + " " + ID + " " + video + " " + trailer + " " + parution.toString()
-				+ " " + affiche);
+				+ " " + affiche + " " + nb_note);
 	}
 
 	public String who_am_i() {

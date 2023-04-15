@@ -6,6 +6,16 @@ import java.awt.Graphics;
 
 import javax.swing.Icon;
 
+/**
+ * 
+ * @author Camickr
+ * 
+ *         Ce code est directement recupérer de StakcOverFlow :
+ *         https://stackoverflow.com/questions/29708147/custom-graph-java-swing
+ *         Code rédigié par Camickr et libre d'utilisation
+ *
+ */
+
 public class ColorIcon implements Icon {
 	private int shadow = 3;
 

@@ -24,6 +24,7 @@ public class Episode extends ContenuCinematographique {
 		this.ID_saison = 0;
 		this.ID_serie = 0;
 		this.affiche = "";
+		this.nb_note = 0;
 	}
 
 	public Episode(Episode copie) {
@@ -41,11 +42,12 @@ public class Episode extends ContenuCinematographique {
 		this.ID_saison = copie.getID_saison();
 		this.ID_serie = copie.getID_serie();
 		this.affiche = copie.getAffiche();
+		this.nb_note = copie.getnb_note();
 	}
 
 	public Episode(int numeroDEpisode, ArrayList<String> acteurs, ArrayList<String> genres, String realisateur,
 			String titre, String description, double note, int duree, Integer ID, String video, String trailer,
-			Date parution, int IDserie, int IDsaison, String affiche) {
+			Date parution, int IDserie, int IDsaison, String affiche, int nb_note) {
 		this.acteurs = acteurs;
 		this.genres = genres;
 		this.description = description;
@@ -60,6 +62,7 @@ public class Episode extends ContenuCinematographique {
 		this.ID_saison = IDsaison;
 		this.ID_serie = IDserie;
 		this.affiche = affiche;
+		this.nb_note = nb_note;
 	}
 
 	public int getNumeroDEpisode() {
@@ -89,11 +92,17 @@ public class Episode extends ContenuCinematographique {
 	public String toString() {
 		return (titre + " " + acteurs.toString() + " " + genres.toString() + " " + realisateur + " " + duree + " "
 				+ description + " " + note + " " + ID + " " + video + " " + parution.toString() + " " + ID_saison + " "
-				+ ID_serie + " " + numeroDEpisode + " " + affiche);
+				+ ID_serie + " " + numeroDEpisode + " " + affiche + " " + nb_note);
 	}
 
 	public String who_am_i() {
 		return "episode";
+	}
+
+	@Override
+	public String getTrailer() {
+		// TODO Auto-generated method stub
+		return this.getTrailer();
 	}
 
 }
