@@ -59,8 +59,8 @@ public class ControleurNouvelUtilisateurCreation {
 
 		nvl_utilisateur = new Membre(0, nouveauCompte.getNom(), nouveauCompte.getPrenom(), nouveauCompte.getMail(),
 				Long.valueOf(nouveauCompte.getTelephone()).longValue(), "1234567891234567", preferences,
-				nouveauCompte.getMDP(), false, 0, 0); // remplacer par num de
-														// carte
+				nouveauCompte.getMDP(), false, 0, 0, false, false, "HD"); // remplacer par num de
+		// carte
 		nvl_utilisateur.setNum_cb(payement.getNumCB()); // valeur de CB à recuperer depuis le payement
 
 		return nvl_utilisateur;

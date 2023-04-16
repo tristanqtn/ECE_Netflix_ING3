@@ -16,6 +16,11 @@ public class Membre {
 	private int temps_visionnage;
 	private int nb_film_vu;
 
+	// params
+	private boolean soustitre;
+	private boolean reprise;
+	private String qualite;
+
 	public Membre() {
 		this.ID = 0;
 		this.num_cb = "";
@@ -33,7 +38,8 @@ public class Membre {
 	}
 
 	public Membre(int ID, String nom, String prenom, String adresse_mail, long telephone, String num_cb,
-			ArrayList<String> preferences, String mdp, boolean admin, int temps_visionnage, int nb_film_vu) {
+			ArrayList<String> preferences, String mdp, boolean admin, int temps_visionnage, int nb_film_vu,
+			boolean soustitre, boolean reprise, String qualite) {
 		this.ID = ID;
 		this.num_cb = num_cb;
 		this.telephone = telephone;
@@ -46,6 +52,10 @@ public class Membre {
 		this.setAdmin(admin);
 		this.temps_visionnage = temps_visionnage;
 		this.nb_film_vu = nb_film_vu;
+
+		this.soustitre = soustitre;
+		this.reprise = reprise;
+		this.qualite = qualite;
 	}
 
 	public Integer getID() {
@@ -121,7 +131,7 @@ public class Membre {
 	public String toString_sql_insert() {
 		return ("\"" + this.nom + "\", \"" + this.prenom + "\", \"" + this.adresse_mail + "\", " + this.telephone + ", "
 				+ this.num_cb + ", \"" + get_preferences_format() + "\", \"" + this.password + "\", false,"
-				+ this.temps_visionnage + ", " + this.nb_film_vu + ");");
+				+ this.temps_visionnage + ", " + this.nb_film_vu + ", false, false, \"HD\");");
 	}
 
 	private String get_preferences_format() {
@@ -156,6 +166,30 @@ public class Membre {
 
 	public void setNb_film_vu(int nb_film_vu) {
 		this.nb_film_vu = nb_film_vu;
+	}
+
+	public boolean isSoustitre() {
+		return soustitre;
+	}
+
+	public void setSoustitre(boolean soustitre) {
+		this.soustitre = soustitre;
+	}
+
+	public boolean isReprise() {
+		return reprise;
+	}
+
+	public void setReprise(boolean reprise) {
+		this.reprise = reprise;
+	}
+
+	public String getQualite() {
+		return qualite;
+	}
+
+	public void setQualite(String qualite) {
+		this.qualite = qualite;
 	}
 
 }

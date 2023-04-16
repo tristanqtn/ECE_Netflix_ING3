@@ -15,36 +15,41 @@ import java.net.URISyntaxException;
 
 public class web_video_player {
 
-	URI url;
+    String url;
 
-	public web_video_player(String path) {
-		if (path != null) {
-			try {
-				this.url = new URI(path);
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+    public web_video_player(String path) {
+        if (path != null) {
+            url = path;
+        }
 
-	}
+    }
 
-	public URI get_url() {
-		return this.url;
-	}
+    public void play(boolean soustitre, boolean reprise, String qualite) {
+        if (this.url != null) {
+            try {
 
-	public void set_url(URI path) {
-		this.url = path;
-	}
-
-	public void play() {
-		if (this.url != null) {
-			try {
-				Desktop.getDesktop().browse(url);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+                if (qualite == "720p") {
+                    url += "?vq=hd720";
+                }
+                if (qualite == "HD") {
+                    url += "?vq=hd1440";
+                }
+                if (qualite == "360p") {
+                    url += "?vq=medium";
+                }
+                if (qualite == "1080p") {
+                    url += "?vq=hd1080";
+                }
+                if (soustitre) {
+                    url += "?cc_load_policy=1";
+                }
+                System.out.println(url);
+                URI final_url = new URI(url);
+                Desktop.getDesktop().browse(final_url);
+            } catch (IOException | URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 }

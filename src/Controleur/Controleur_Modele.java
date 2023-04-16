@@ -87,6 +87,14 @@ public class Controleur_Modele {
 		}
 	}
 
+	public void maj_parametre_BDD(Membre user) {
+		exploit.maj_parametre_BDD(user);
+	}
+
+	public void maj_stats_BDD(Membre membre) {
+		exploit.maj_stats_BDD(membre);
+	}
+
 	public void recharger_membres() {
 		try {
 			this.membres = this.exploit.extraire_membre_BDD();

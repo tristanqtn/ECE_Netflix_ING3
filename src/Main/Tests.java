@@ -25,8 +25,11 @@ public class Tests {
 		prefe.add("Combat");
 		prefe.add("Japon");
 
-		ctrl.sauver_nv_membre_BDD(new Membre(0, "Denson", "Sarujan", "sarujan@gmail.com", 1123456789,
-				"1234567891234567", prefe, "saruLEbg!", true, 2383, 30)); // ne sauvera jamais un nouvel admin
+		Membre sarujan = new Membre(0, "Denson", "Sarujan", "sarujan@gmail.com", 1123456789, "1234567891234567", prefe,
+				"saruLEbg!", true, 2383, 30, false, false, "HD");
+
+		ctrl.sauver_nv_membre_BDD(sarujan); // ne sauvera jamais un
+		ctrl.recharger_membres();
 		ctrl.sauver_nv_visionnage_BDD(new Visionnage(0, 3, 0, 0, 1, 2, 2, 20));
 		ctrl.afficher_documentaires();
 		ctrl.afficher_films();

@@ -94,6 +94,9 @@ CREATE TABLE NETFLIX.membres(
    admin BOOL NOT NULL,
    temps_visionnage INT NOT NULL,
    nb_film_vu INT NOT NULL,
+   soustitre BOOL NOT NULL,
+   reprise BOOL NOT NULL,
+   qualite VARCHAR(255) NOT NULL,
    PRIMARY KEY (ID)
 );
 
@@ -114,4 +117,3 @@ CREATE TABLE NETFLIX.visionnages(
    FOREIGN KEY (ID_saison) REFERENCES saisons (ID),
    FOREIGN KEY (ID_episode) REFERENCES episodes (ID)   
 );
-

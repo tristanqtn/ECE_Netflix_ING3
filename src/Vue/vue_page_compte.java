@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import ElementsVisuels.JButton_arrondi;
@@ -28,8 +29,8 @@ import Entite.Membre;
 public class vue_page_compte {
 
 	private JTextField_arrondi user_name;
-	private JTextField_arrondi textField_1;
-	private JTextField_arrondi textField;
+	private JTextField textField_1;
+	private JTextField textField;
 	private JLabel lblNewLabel;
 	private JLabel lblDsactiverLaReprises;
 	private JLabel lblGrerLaQualit;
@@ -48,8 +49,8 @@ public class vue_page_compte {
 	private Membre membre;
 
 	public vue_page_compte(Membre membre) {
-		lblNewLabel = new JLabel("Gerer les sous-titres");
-		lblDsactiverLaReprises = new JLabel("Désactiver la reprises de vidéo");
+		lblNewLabel = new JLabel("Activer les sous-titres");
+		lblDsactiverLaReprises = new JLabel("Activer la reprise de vidéo");
 		lblGrerLaQualit = new JLabel("Gérer la qualité");
 		boutonEffacer = new JButton_arrondi("Effacer l'historique de visionnage");
 		rdbtnNewRadioButton = new JRadioButton("");
@@ -58,13 +59,13 @@ public class vue_page_compte {
 		btnNewButton_1_2_1 = new JButton_arrondi("HD");
 		btnNewButton_1_2_2 = new JButton_arrondi("360p");
 		btnNewButton_1_2_3 = new JButton_arrondi("720p");
-		btn_rndSauvegarderLesRglages = new JButton_arrondi("Sauvegarder Les réglages");
-		lblNombreDeContenue = new JLabel("Nombre de contenue visionnées");
+		btn_rndSauvegarderLesRglages = new JButton_arrondi("Sauvegarder les réglages");
+		lblNombreDeContenue = new JLabel("Nombre de contenus visionnés");
 		lblNombreDeMinutes = new JLabel("Nombre de minutes visionnées");
-		textField_1 = new JTextField_arrondi();
+		textField_1 = new JTextField();
 		textField_1.setForeground(Color.WHITE);
 		textField_1.setBackground(Color.BLACK);
-		textField = new JTextField_arrondi();
+		textField = new JTextField();
 		textField.setBackground(Color.BLACK);
 		textField.setForeground(Color.WHITE);
 		user_name = new JTextField_arrondi();
@@ -102,7 +103,9 @@ public class vue_page_compte {
 	private void afficher_donnee() {
 		this.user_name.setText("  " + this.membre.getPrenom() + " " + this.membre.getNom());
 		this.textField.setText("" + this.membre.getNb_film_vu());
+		textField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		this.textField_1.setText("" + this.membre.getTemps_visionnage());
+		textField_1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 
 	}
 
@@ -157,7 +160,7 @@ public class vue_page_compte {
 	public String getQuality() {
 		return this.qualite;
 	}
-	
+
 	public JButton_arrondi getRetour() {
 		return retour;
 	}

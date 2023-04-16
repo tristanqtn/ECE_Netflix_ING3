@@ -71,8 +71,9 @@ public class vue_previsualisation {
 		presentation.setBackground(Color.BLACK);
 		presentation.setForeground(Color.WHITE);
 		presentation.setEditable(false);
+		String buffer1 = String.format("%.2f", contenu.getNote());
 		presentation.setText("Description : " + this.contenu.getDescription() + "\n\nDurée (min) : "
-				+ this.contenu.getDuree() + "\n\nNote (/10) : " + this.contenu.getNote());
+				+ this.contenu.getDuree() + "\n\nNote (/10) : " + buffer1);
 		affiche = new JButton_arrondi();
 		affiche.setForeground(Color.BLACK);
 
@@ -205,7 +206,6 @@ public class vue_previsualisation {
 	}
 
 	public void set_information_film(Film contenu) {
-
 		this.presentation.setText("Description : " + contenu.getDescription() + "\n\n Duree : " + contenu.getDuree()
 				+ "\n\n Note : " + contenu.getNote());
 		this.acteurs.setText("Acteurs : " + contenu.getActeurs().toString());
@@ -213,8 +213,9 @@ public class vue_previsualisation {
 		this.realisateur.setText("Realisateurs : " + contenu.getRealisateur());
 		this.titre.setText(contenu.getTitre());
 		this.parution.setText("Parution : " + contenu.getparution());
+		String buffer = String.format("%.2f", contenu.getNote());
 		this.presentation.setText("Description : " + contenu.getDescription() + "\n\n Duree : " + contenu.getDuree()
-				+ "\n\n Note : " + contenu.getNote());
+				+ "\n\n Note : " + buffer);
 
 	}
 

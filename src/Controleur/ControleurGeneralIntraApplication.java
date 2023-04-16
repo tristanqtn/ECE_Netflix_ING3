@@ -8,16 +8,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 
-import ElementsVisuels.JButton_arrondi;
 import Entite.ContenuCinematographique;
 import Entite.Episode;
 import Entite.Membre;
 import Entite.Visionnage;
+import Main.accueil;
 import Vue.vue_catalogue;
-import Vue.vue_home_page;
 import Vue.vue_page_compte;
 import Vue.vue_previsualisation;
 import Vue.vue_recherche;
@@ -31,7 +31,7 @@ import Vue.web_video_player;
 public class ControleurGeneralIntraApplication {
 
 	private vue_previsualisation informations;
-	private vue_home_page pageDAcceuil;
+	private accueil pageDAcceuil;
 	private JFrame frame;
 	private vue_page_compte parametre;
 	private vue_recherche recherche;
@@ -46,7 +46,7 @@ public class ControleurGeneralIntraApplication {
 		this.setFrame(frame);
 		deconnexion = new JRadioButton();
 		deconnexion.setSelected(false);
-		pageDAcceuil = new vue_home_page(this.user);
+		pageDAcceuil = new accueil(this.user);
 		pageDAcceuil.initialize(frame);
 		setPageDAcceuilListeners(frame);
 	}
@@ -70,7 +70,7 @@ public class ControleurGeneralIntraApplication {
 
 		});
 
-		ArrayList<ArrayList<JButton_arrondi>> liste = pageDAcceuil.getFilms();
+		ArrayList<ArrayList<JButton>> liste = pageDAcceuil.getFilms();
 		for (int j = 0; j < liste.size(); j++) {
 			for (int i = 0; i < liste.get(j).size(); i++) {
 				final ContenuCinematographique contenu = pageDAcceuil.getRecomandation(j, i);// On récupère le film
@@ -119,7 +119,7 @@ public class ControleurGeneralIntraApplication {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Visionner");
 				web_video_player player = new web_video_player(informations.get_contenu().getVideo());
-				player.play();
+				player.play(user.isSoustitre(), user.isReprise(), user.getQualite());
 				timecode = new vue_timecode(informations.get_contenu());
 				informations.delete(frame);
 				timecode.initialize(frame);
@@ -134,7 +134,7 @@ public class ControleurGeneralIntraApplication {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Trailer");
 				web_video_player player = new web_video_player(informations.get_contenu().getTrailer());
-				player.play();
+				player.play(user.isSoustitre(), user.isReprise(), user.getQualite());
 			}
 
 		});
@@ -143,7 +143,7 @@ public class ControleurGeneralIntraApplication {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				informations.delete(frame);
-				pageDAcceuil = new vue_home_page(user);
+				pageDAcceuil = new accueil(user);
 				pageDAcceuil.initialize(frame);
 				setPageDAcceuilListeners(frame);
 
@@ -165,10 +165,20 @@ public class ControleurGeneralIntraApplication {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Effacer");
-				pageDAcceuil = new vue_home_page(user);
+
+				modele = new Controleur_Modele("root", "root", false);
+				modele.maj_stats_BDD(user);
+				modele.recharger_membres();
+				for (int i = 0; i < modele.getMembres().size(); i++) {
+					if (modele.getMembres().get(i).getID() == user.getID())
+						user = modele.getMembres().get(i);
+				}
+
+				pageDAcceuil = new accueil(user);
 				parametre.delete(frame);
 				pageDAcceuil.initialize(frame);
 				setPageDAcceuilListeners(frame);
+
 			}
 
 		});
@@ -185,7 +195,20 @@ public class ControleurGeneralIntraApplication {
 				System.out.print("Sous-titres: ");
 				System.out.println(parametre.getSousTitres());
 				System.out.println("HomePage");
-				pageDAcceuil = new vue_home_page(user);
+
+				user.setReprise(parametre.getSousTitres());
+				user.setSoustitre(parametre.getReprise());
+				user.setQualite(parametre.getQuality());
+				modele = new Controleur_Modele("root", "root", false);
+				modele.maj_parametre_BDD(user);
+
+				modele.recharger_membres();
+				for (int i = 0; i < modele.getMembres().size(); i++) {
+					if (modele.getMembres().get(i).getID() == user.getID())
+						user = modele.getMembres().get(i);
+				}
+
+				pageDAcceuil = new accueil(user);
 				parametre.delete(frame);
 				pageDAcceuil.initialize(frame);
 				setPageDAcceuilListeners(frame);
@@ -198,7 +221,7 @@ public class ControleurGeneralIntraApplication {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				pageDAcceuil = new vue_home_page(user);
+				pageDAcceuil = new accueil(user);
 				parametre.delete(frame);
 				pageDAcceuil.initialize(frame);
 				setPageDAcceuilListeners(frame);
@@ -263,7 +286,7 @@ public class ControleurGeneralIntraApplication {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("retour");
-				pageDAcceuil = new vue_home_page(user);
+				pageDAcceuil = new accueil(user);
 				recherche.delete(frame);
 				pageDAcceuil.initialize(frame);
 				setPageDAcceuilListeners(frame);
@@ -354,13 +377,15 @@ public class ControleurGeneralIntraApplication {
 				boolean seen = false;
 				for (int i = 0; i < visio.size(); i++) {
 					if (((visio.get(i).getID_membre() == nouveau.getID_membre())
-							&& visio.get(i).getID_film() == nouveau.getID_film())
+							&& visio.get(i).getID_film() == nouveau.getID_film() && visio.get(i).getID_film() != 0)
 							|| ((visio.get(i).getID_membre() == nouveau.getID_membre())
-									&& visio.get(i).getID_documentaire() == nouveau.getID_documentaire())
+									&& visio.get(i).getID_documentaire() == nouveau.getID_documentaire()
+									&& visio.get(i).getID_documentaire() != 0)
 							|| ((visio.get(i).getID_membre() == nouveau.getID_membre())
 									&& visio.get(i).getID_episode() == nouveau.getID_episode()
 									&& visio.get(i).getID_saison() == nouveau.getID_saison()
-									&& visio.get(i).getID_serie() == nouveau.getID_serie())) {// film deja visionner
+									&& visio.get(i).getID_serie() == nouveau.getID_serie()
+									&& visio.get(i).getID_serie() != 0)) {// film deja visionner
 						seen = true;
 					}
 
@@ -385,8 +410,12 @@ public class ControleurGeneralIntraApplication {
 							Double.parseDouble(timecode.get_note().getText()), user, timecode.getContenu().getDuree(),
 							timecode.get_film_fini().isSelected());
 				}
-
-				pageDAcceuil = new vue_home_page(user);
+				modele.recharger_membres();
+				for (int i = 0; i < modele.getMembres().size(); i++) {
+					if (modele.getMembres().get(i).getID() == user.getID())
+						user = modele.getMembres().get(i);
+				}
+				pageDAcceuil = new accueil(user);
 				timecode.delete(frame);
 				pageDAcceuil.initialize(frame);
 				setPageDAcceuilListeners(frame);
