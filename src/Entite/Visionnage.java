@@ -91,7 +91,7 @@ public class Visionnage {
 		}
 	}
 
-	public String toString_sql_insert() {
+	public String toString_sql_insert() {//On retourne les informations de visionnage sous format sql
 		return (this.ID_membre + ", " + convert_0_null(this.ID_film) + ", " + convert_0_null(this.ID_documentaire)
 				+ ", " + convert_0_null(this.ID_serie) + ", " + convert_0_null(this.ID_saison) + ", "
 				+ convert_0_null(this.ID_episode) + " , " + this.time_code + ");");

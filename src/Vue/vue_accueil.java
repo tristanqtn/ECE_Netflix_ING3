@@ -40,16 +40,34 @@ public class vue_accueil {
 	 * Create the application.
 	 */
 	public vue_accueil() {
-		logIn = new JButton_arrondi();
-		newUser = new JButton_arrondi();
-		txtrTrisflix = new JTextArea_arrondi();
+		this.txtrTrisflix = new JTextArea_arrondi();
+		this.logIn = new JButton_arrondi("Log In");
+		this.newUser = new JButton_arrondi("New User");
+		configure();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
+	public void configure() {//On configure les éléments
+		this.txtrTrisflix.setForeground(new Color(255, 0, 0));
+		this.txtrTrisflix.setBackground(new Color(0, 0, 0));
+		this.txtrTrisflix.setEditable(false);
+		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 50));
+		this.txtrTrisflix.setTabSize(20);
+		this.txtrTrisflix.setText(" FLOU-FLIX ");
 
-	public void initialize(JFrame frame) {
+		this.logIn.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
+		this.logIn.setBackground(new Color(255, 0, 0));
+		this.logIn.setForeground(new Color(255, 255, 255));
+
+		this.newUser.setForeground(new Color(255, 255, 255));
+		this.newUser.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
+		this.newUser.setBackground(new Color(255, 0, 0));
+	}
+
+	public void initialize(JFrame frame) {//On affiche la vue dans frame
 
 		this.gridBagLayout = new GridBagLayout();
 		this.gridBagLayout.columnWidths = new int[] { 0, 0, 120, 101, 126, 248, 59, 75, 50, 150, -185, 0 };
@@ -59,14 +77,7 @@ public class vue_accueil {
 		this.gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
 
 		frame.getContentPane().setLayout(this.gridBagLayout);
-
-		this.txtrTrisflix = new JTextArea_arrondi();
-		this.txtrTrisflix.setForeground(new Color(255, 0, 0));
-		this.txtrTrisflix.setBackground(new Color(0, 0, 0));
-		this.txtrTrisflix.setEditable(false);
-		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 50));
-		this.txtrTrisflix.setTabSize(20);
-		this.txtrTrisflix.setText(" FLOU-FLIX ");
+		
 
 		GridBagConstraints gbc_txtrTrisflix = new GridBagConstraints();
 		gbc_txtrTrisflix.anchor = GridBagConstraints.SOUTH;
@@ -75,10 +86,6 @@ public class vue_accueil {
 		gbc_txtrTrisflix.gridy = 0;
 		frame.getContentPane().add(this.txtrTrisflix, gbc_txtrTrisflix);
 
-		this.logIn = new JButton_arrondi("Log In");
-		this.logIn.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
-		this.logIn.setBackground(new Color(255, 0, 0));
-		this.logIn.setForeground(new Color(255, 255, 255));
 
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 10, 10);
@@ -87,14 +94,6 @@ public class vue_accueil {
 
 		frame.getContentPane().add(this.logIn, gbc_btnNewButton);
 
-		this.newUser = new JButton_arrondi("New User");
-		this.newUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		this.newUser.setForeground(new Color(255, 255, 255));
-		this.newUser.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 10));
-		this.newUser.setBackground(new Color(255, 0, 0));
 
 		GridBagConstraints gbc_btnNe = new GridBagConstraints();
 		gbc_btnNe.insets = new Insets(0, 0, 5, 5);
@@ -107,7 +106,7 @@ public class vue_accueil {
 
 	}
 
-	public void delete(JFrame frame) {
+	public void delete(JFrame frame) {//On retire les éléments de frame
 
 		frame.getContentPane().remove(this.logIn);
 		frame.getContentPane().remove(this.newUser);
@@ -117,7 +116,7 @@ public class vue_accueil {
 
 	}
 
-	public void repaint(JFrame frame) {
+	public void repaint(JFrame frame) {//On rafraichit frame
 
 		this.logIn.repaint();
 		this.newUser.repaint();

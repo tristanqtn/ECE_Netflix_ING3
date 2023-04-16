@@ -42,17 +42,16 @@ public class vue_timecode {
 		this.contenu = contenu;
 		time_code = new JTextField_arrondi();
 		note = new JTextField_arrondi();
-		lblNewLabel = new JLabel("Time Code (min:sec) : ");
+		lblNewLabel = new JLabel("Time Code (mm:ss) : ");
 		lblNewLabel_2 = new JLabel("Votre Note (/10) : ");
 		film_fini = new JRadioButton("Film terminé");
 		txtrTrisflix = new JTextArea_arrondi();
 		btn_rndSauvegarderLesRglages = new JButton_arrondi();
 		retour = new JButton_arrondi();
-
+		configure();
 	}
-
-	// initialisation - placemement et configuration des éléments visuels
-	public void initialize(JFrame frame) {
+	
+	public void configure() {//On configure les éléments
 
 		time_code.setBackground(Color.BLACK);
 		time_code.setForeground(Color.WHITE);
@@ -87,6 +86,11 @@ public class vue_timecode {
 		btn_rndSauvegarderLesRglages.setForeground(Color.WHITE);
 		btn_rndSauvegarderLesRglages.setFont(new Font("Dialog", Font.PLAIN, 17));
 		btn_rndSauvegarderLesRglages.setBackground(Color.RED);
+	}
+
+	// initialisation - placemement et configuration des éléments visuels
+	public void initialize(JFrame frame) {
+
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
 				.createSequentialGroup()

@@ -11,6 +11,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Entite.Membre;
+import Vue.vue_accueil;
+import Vue.vue_connexion;
 
 /**
  * @author François BONNET
@@ -22,93 +24,82 @@ import Entite.Membre;
  */
 public class Controleur_General {
 
-	private Controleur_Login login;
-	private Controleur_Connexion connexion;
-	// private Controleur_Nouveau_Compte nouveauCompte;
+	private vue_accueil login;
+	private vue_connexion connexion;
 	private Controleur_Modele modele;
 	private Controleur_Admin admin;
 	private ControleurGeneralIntraApplication general2;
-	// private Controleur_Payement payement;
 	private ControleurNouvelUtilisateurCreation creation;
 
 	public Controleur_General(JFrame frame, boolean reset_bdd) {
 		modele = new Controleur_Modele("root", "root", reset_bdd);
-		login = new Controleur_Login();
+		login = new vue_accueil();
+		setLogInListeners(frame);
+		creation = new ControleurNouvelUtilisateurCreation(frame);
+		setCreationListeners(frame);
+		connexion = new vue_connexion();
+		setConnexionListeners(frame);
+		admin = new Controleur_Admin();
+		setAdminListeners(frame);
 		frame.setVisible(true);
-		login.start(frame);
-		this.setLogInListeners(frame);
+		login.initialize(frame);
 
 	}
 
-	public void setLogInListeners(final JFrame frame) {
-		login.getLogIn().addActionListener(new ActionListener() {
+	public void setLogInListeners(final JFrame frame) {//On ajouter les listeners aux éléments de la vue LogIn
+		login.getLogIn().addActionListener(new ActionListener() {//L'utilisateur veut se connecter
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("log in");
-				login.end(frame);
-				connexion = new Controleur_Connexion();
-				connexion.start(frame);
-				setConnexionListeners(frame);
-
+				login.delete(frame);
+				connexion.initialize(frame);
+				modele = new Controleur_Modele("root", "root", false);
 			}
 
 		});
 
-		login.getNewUser().addActionListener(new ActionListener() {
+		login.getNewUser().addActionListener(new ActionListener() {//L'utilisateur veut créer un nouvel utilisateur
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("new user");
-				login.end(frame);
-				creation = new ControleurNouvelUtilisateurCreation();
+				login.delete(frame);
 				creation.start(frame);
-				setCreationListeners(frame);
 			}
 
 		});
 
 	}
 
-	public void setConnexionListeners(final JFrame frame) {
-		modele = new Controleur_Modele("root", "root", false);
-		connexion.getSoumettre().addActionListener(new ActionListener() {
+	public void setConnexionListeners(final JFrame frame) {//On ajouter les listeners aux éléments de la vue de connection
+		connexion.getSoumettre().addActionListener(new ActionListener() {//L'utilisateur a cliqué sur le bouton pour se connecter
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("soumettre");
 				String mail = connexion.get_mail(), mdp = connexion.get_password();
 				System.out.println(modele.getMembres().size());
 
-				for (int i = 0; i < modele.getMembres().size(); i++) {
+				for (int i = 0; i < modele.getMembres().size(); i++) {//On parcourt les utilisateurs dans la base de données
 					if (modele.getMembres().get(i).getAdresse_mail().equals(mail)
-							&& modele.getMembres().get(i).getPassword().equals(mdp)) {
+							&& modele.getMembres().get(i).getPassword().equals(mdp)) {////Si le mail et le mot de passe correspondent à l'utilisateur dans la base de données
 
-						if (modele.getMembres().get(i).getAdmin()) {
-							connexion.end(frame);
-							admin = new Controleur_Admin();
+						if (modele.getMembres().get(i).getAdmin()) {//On regarde si l'utilisateur est un administrateur et on dirige vers la page administrateur
+							connexion.delete(frame);
+							connexion.resetInformations();
 							admin.start(frame);
 							setAdminListeners(frame);
-						} else {
+						} else {//On redirige vers la page de recommandations
 							System.out.println("Logged as " + modele.getMembres().get(i).getPrenom());
-							connexion.end(frame);
+							connexion.delete(frame);
+							connexion.resetInformations();
 							setGeneral2(new ControleurGeneralIntraApplication(frame, modele.getMembres().get(i)));
-							/*
-							 * getGeneral2().getDeconnexion().addActionListener(new ActionListener() {
-							 * 
-							 * @Override public void actionPerformed(ActionEvent e) {
-							 * System.out.println("Deconnexion"); login = new Controleur_Login();
-							 * login.start(frame); setLogInListeners(frame); }
-							 * 
-							 * });
-							 */
 							getGeneral2().getDeconnexion().addChangeListener(new ChangeListener() {
 
 								@Override
-								public void stateChanged(ChangeEvent e) {
+								public void stateChanged(ChangeEvent e) {//On met un listener sur un JRadioButton abstrait pout détecter la déconnexion
 									System.out.println("Deconnexion");
-									login = new Controleur_Login();
-									login.start(frame);
-									setLogInListeners(frame);
+									login.initialize(frame);
 								}
 
 							});
@@ -121,53 +112,49 @@ public class Controleur_General {
 
 		});
 
-		connexion.getRetour().addActionListener(new ActionListener() {
+		connexion.get_retour().addActionListener(new ActionListener() {//Fleche retour
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("retour");
-				connexion.end(frame);
-				login = new Controleur_Login();
-				login.start(frame);
-				setLogInListeners(frame);
+				connexion.delete(frame);
+				connexion.resetInformations();
+				login.initialize(frame);
 			}
 
 		});
 	}
 
-	public void setAdminListeners(final JFrame frame) {
+	public void setAdminListeners(final JFrame frame) {//On ajouter les listeners aux éléments de la vue administrateur
 		admin.getRetour().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("retour");
-				login = new Controleur_Login();
 				admin.end(frame);
-				login.start(frame);
-				setLogInListeners(frame);
+				login.initialize(frame);
 			}
 
 		});
 	}
 
-	public ControleurGeneralIntraApplication getGeneral2() {
+	public ControleurGeneralIntraApplication getGeneral2() {//retourne l'objet de controleur général intra application
 		return general2;
 	}
 
-	public void setGeneral2(ControleurGeneralIntraApplication general2) {
+	public void setGeneral2(ControleurGeneralIntraApplication general2) {//set l'objet de controleur général intra application
 		this.general2 = general2;
 	}
 
-	public void setCreationListeners(final JFrame frame) {
+	public void setCreationListeners(final JFrame frame) {//On ajouter les listeners aux éléments de la vue de création de compte
 		creation.getRetour().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("retour");
 				creation.end_user_info(frame);
-				login = new Controleur_Login();
-				login.start(frame);
-				setLogInListeners(frame);
+				creation.resetInformations();
+				login.initialize(frame);
 			}
 
 		});
@@ -179,14 +166,13 @@ public class Controleur_General {
 				if (creation.IsCbValid()) {
 					System.out.println("in creation");
 					creation.end(frame);
-					login = new Controleur_Login();
-					login.start(frame);
-					setLogInListeners(frame);
+					login.initialize(frame);
 					Membre nouvelUtilisateur = creation.getNewUser();
 					System.out.println(nouvelUtilisateur.toString());
 					modele.sauver_nv_membre_BDD(nouvelUtilisateur);
 					modele.recharger_membres();
 					modele.afficher_membres();
+					creation.resetInformations();
 				} else {
 					System.out.println("Il manque des informations");
 				}
@@ -194,30 +180,6 @@ public class Controleur_General {
 			}
 
 		});
-
-		/*
-		 * ArrayList<Component> list =creation.getEnterToListen(); for(int
-		 * i=0;i<list.size();i++) { list.get(i).addKeyListener(new KeyListener() {
-		 * 
-		 * @Override public void keyTyped(KeyEvent e) {
-		 * 
-		 * }
-		 * 
-		 * @Override public void keyPressed(KeyEvent e) { if(e.getKeyCode()==10)
-		 * {///Entrée if (creation.IsCbValid()) { System.out.println("in creation");
-		 * creation.end(frame); login = new Controleur_Login(); login.start(frame);
-		 * setLogInListeners(frame); Membre nouvelUtilisateur = creation.getNewUser();
-		 * System.out.println(nouvelUtilisateur.toString());
-		 * modele.sauver_nv_membre_BDD(nouvelUtilisateur); modele.recharger_membres();
-		 * modele.afficher_membres(); } else {
-		 * System.out.println("Il manque des informations"); } } }
-		 * 
-		 * @Override public void keyReleased(KeyEvent e) {
-		 * 
-		 * }
-		 * 
-		 * }); }
-		 */
 
 	}
 

@@ -37,28 +37,6 @@ public class vue_recherche {
 	private JTextArea_arrondi txtrTrisflix;
 	private JComboBox<String> comboBox;
 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					JFrame frame_1 = new JFrame("FLOU-FLIX");
-//
-//					frame_1.getContentPane().setForeground(new Color(64, 128, 128));
-//					frame_1.getContentPane().setBackground(new Color(0, 0, 0));
-//					frame_1.setBounds(100, 100, 1150, 700);
-//					frame_1.setMinimumSize(new Dimension(1150, 700));
-//					frame_1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//					vue_recherche vue = new vue_recherche();
-//					frame_1.setVisible(true);
-//					vue.initialize(frame_1);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	// CONSTRUCTEUR - allocation des éléments visuels
 	public vue_recherche() {
 		txtRecherche = new JTextField_arrondi();
@@ -69,6 +47,8 @@ public class vue_recherche {
 		boutonRecherche = new JButton_arrondi("Chercher");
 		txtrTrisflix = new JTextArea_arrondi();
 		comboBox = new JComboBox<String>();
+		
+		configure();
 
 	}
 
@@ -89,9 +69,8 @@ public class vue_recherche {
 		return this.retour;
 	}
 
-	// initialisation - placemement et configuration des éléments visuels
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void initialize(JFrame frame) {
+	public void configure() {//on configure les éléments
 		txtRecherche.setColumns(10);
 
 		lblRecherche.setFont(new Font("Rockwell Nova Extra Bold", Font.PLAIN, 15));
@@ -114,6 +93,11 @@ public class vue_recherche {
 		comboBox.setForeground(Color.RED);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Tout", "Action", "Comedie", "Romantique", "Armée",
 				"Thriller", "Science-Fiction", "Sport", "Culture", "Documentaire", "Animalier", "Drame" }));
+	}
+
+	// initialisation - placemement des éléments visuels
+	public void initialize(JFrame frame) {
+		
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)

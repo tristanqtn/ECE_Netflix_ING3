@@ -26,20 +26,20 @@ public class Controleur_Admin {
 
 	public Controleur_Admin() {
 		vue = new vue_administration();
-	}
-
-	public void start(JFrame frame) {
-		vue.initialize(frame);
 		this.set_listeners();
 	}
 
-	public void end(JFrame frame) {
+	public void start(JFrame frame) {//On affiche la vue administrateur
+		vue.initialize(frame);
+	}
+
+	public void end(JFrame frame) {//On désaffiche la vue administrateur
 		vue.delete(frame);
 	}
 
-	private void set_listeners() {
-		this.vue.get_button_afficher_bdd().addActionListener(new ActionListener() {
-			// affichage de la base de données et des stats
+	private void set_listeners() {//On ajoute les listeners
+		this.vue.get_button_afficher_bdd().addActionListener(new ActionListener() {// affichage de la base de données et des stats
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -58,8 +58,8 @@ public class Controleur_Admin {
 			}
 		});
 
-		this.vue.get_button_creer_bdd().addActionListener(new ActionListener() {
-			// creation de la BDD
+		this.vue.get_button_creer_bdd().addActionListener(new ActionListener() {// creation de la BDD
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub

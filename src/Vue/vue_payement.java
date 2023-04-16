@@ -45,7 +45,16 @@ public class vue_payement {
 		this.lblCryptogramme = new JLabel("Cryptogramme");
 		this.lblRib = new JLabel("Date Expiration (mm/aa)");
 		this.retour = new JButton_arrondi();
+		
+		configure();
+		
 		// setListeners();
+	}
+	
+	public void resetInformations() {
+		this.textArea.setText("");
+		this.textArea_1.setText("");
+		this.passwordField_1.setText("");
 	}
 
 	/*
@@ -59,7 +68,46 @@ public class vue_payement {
 	 * composants.add(textArea_1); composants.add(textArea); return composants; }
 	 */
 	// initialisation - placemement et configuration des éléments visuels
-	public void initialize(JFrame frame) {
+	
+	
+	public void configure() {//On configure les éléments
+		txtrTrisflix.setText("Informations Bancaires");
+		txtrTrisflix.setTabSize(20);
+		txtrTrisflix.setForeground(Color.RED);
+		txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 30));
+		txtrTrisflix.setEditable(false);
+		txtrTrisflix.setBackground(Color.BLACK);
+
+		lblNewLabel.setEnabled(false);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+
+		textArea.setForeground(Color.WHITE);
+		textArea.setBackground(Color.DARK_GRAY);
+
+		lblRib.setEnabled(false);
+		lblRib.setForeground(Color.WHITE);
+		lblRib.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		textArea_1.setForeground(Color.WHITE);
+		textArea_1.setBackground(Color.DARK_GRAY);
+
+		lblCryptogramme.setBackground(Color.WHITE);
+		lblCryptogramme.setEnabled(false);
+		lblCryptogramme.setForeground(Color.WHITE);
+		lblCryptogramme.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		passwordField_1.setForeground(Color.WHITE);
+		passwordField_1.setBackground(Color.DARK_GRAY);
+
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(Color.RED);
+
+		retour.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath()));
+		retour.setBackground(new Color(0, 0, 0));
+	}
+	
+	public void initialize(JFrame frame) {//on affiche les éléments dans frame
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 120, 183, 120, 0 };
@@ -69,13 +117,6 @@ public class vue_payement {
 
 		frame.getContentPane().setLayout(gridBagLayout);
 
-		txtrTrisflix.setText("Informations Bancaires");
-		txtrTrisflix.setTabSize(20);
-		txtrTrisflix.setForeground(Color.RED);
-		txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 30));
-		txtrTrisflix.setEditable(false);
-		txtrTrisflix.setBackground(Color.BLACK);
-
 		GridBagConstraints gbc_txtrTrisflix = new GridBagConstraints();
 		gbc_txtrTrisflix.anchor = GridBagConstraints.SOUTH;
 		gbc_txtrTrisflix.insets = new Insets(0, 0, 5, 5);
@@ -83,10 +124,6 @@ public class vue_payement {
 		gbc_txtrTrisflix.gridy = 0;
 
 		frame.getContentPane().add(txtrTrisflix, gbc_txtrTrisflix);
-
-		lblNewLabel.setEnabled(false);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setForeground(new Color(255, 255, 255));
 
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
@@ -96,9 +133,6 @@ public class vue_payement {
 
 		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 
-		textArea.setForeground(Color.WHITE);
-		textArea.setBackground(Color.DARK_GRAY);
-
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.insets = new Insets(0, 0, 5, 5);
 		gbc_textArea.fill = GridBagConstraints.BOTH;
@@ -106,10 +140,6 @@ public class vue_payement {
 		gbc_textArea.gridy = 2;
 
 		frame.getContentPane().add(textArea, gbc_textArea);
-
-		lblRib.setEnabled(false);
-		lblRib.setForeground(Color.WHITE);
-		lblRib.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		GridBagConstraints gbc_lblRib = new GridBagConstraints();
 		gbc_lblRib.anchor = GridBagConstraints.EAST;
@@ -119,9 +149,6 @@ public class vue_payement {
 
 		frame.getContentPane().add(lblRib, gbc_lblRib);
 
-		textArea_1.setForeground(Color.WHITE);
-		textArea_1.setBackground(Color.DARK_GRAY);
-
 		GridBagConstraints gbc_textArea_1 = new GridBagConstraints();
 		gbc_textArea_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textArea_1.fill = GridBagConstraints.BOTH;
@@ -129,11 +156,6 @@ public class vue_payement {
 		gbc_textArea_1.gridy = 3;
 
 		frame.getContentPane().add(textArea_1, gbc_textArea_1);
-
-		lblCryptogramme.setBackground(Color.WHITE);
-		lblCryptogramme.setEnabled(false);
-		lblCryptogramme.setForeground(Color.WHITE);
-		lblCryptogramme.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		GridBagConstraints gbc_lblCryptogramme = new GridBagConstraints();
 		gbc_lblCryptogramme.anchor = GridBagConstraints.EAST;
@@ -143,9 +165,6 @@ public class vue_payement {
 
 		frame.getContentPane().add(lblCryptogramme, gbc_lblCryptogramme);
 
-		passwordField_1.setForeground(Color.WHITE);
-		passwordField_1.setBackground(Color.DARK_GRAY);
-
 		GridBagConstraints gbc_passwordField_1 = new GridBagConstraints();
 		gbc_passwordField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordField_1.fill = GridBagConstraints.BOTH;
@@ -154,9 +173,6 @@ public class vue_payement {
 
 		frame.getContentPane().add(passwordField_1, gbc_passwordField_1);
 
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBackground(Color.RED);
-
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
@@ -164,9 +180,6 @@ public class vue_payement {
 		gbc_btnNewButton.gridy = 5;
 
 		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
-
-		retour.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath()));
-		retour.setBackground(new Color(0, 0, 0));
 
 		GridBagConstraints gbc_retour = new GridBagConstraints();
 		gbc_retour.anchor = GridBagConstraints.NORTHWEST;
@@ -230,6 +243,52 @@ public class vue_payement {
 		frame.getContentPane().remove(this.retour);
 
 		repaint(frame);
+	}
+	
+	public boolean isCryptogramValid() {//On retourne vrai si le cryptogramme est valide
+		String crypto = String.valueOf(this.passwordField_1.getPassword());
+		if(crypto.length()!=3) {
+			return false;
+		}
+		char[] chara = crypto.toCharArray();
+		for(int i=0;i<crypto.length();i++) {
+			if(chara[i]>'9' || chara[i]<'0') {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean isExpirationDateValid() {//On retourne vrai si la date d'expiration est valide
+		String date = this.textArea_1.getText();
+		if(date.length()!=5) {
+			return false;
+		}
+		char[] chara = date.toCharArray();
+		int[] tab = {0,1,3,4};
+		for(int i=0;i<4;i++) {
+			if(chara[tab[i]]>'9' || chara[tab[i]]<'0') {
+				return false;
+			}
+		}
+		if(chara[2]!='/') {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isCbNumValid() {//On retourne vrai si le numéro de carte bancaire est valide
+		String cb = this.textArea.getText();
+		char[] chara = cb.toCharArray();
+		if(cb.length()!=16) {
+			return false;
+		}
+		for(int i=0;i<cb.length();i++) {
+			if(chara[i]>'9' || chara[i]<'0') {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/*

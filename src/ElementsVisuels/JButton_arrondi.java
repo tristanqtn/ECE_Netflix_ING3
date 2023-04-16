@@ -39,7 +39,7 @@ public class JButton_arrondi extends JButton{
 		g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 7, 7);
 	}
 	
-	public boolean contains(int x, int y) {
+	public boolean contains(int x, int y) {//On retourne vrai si la position en x,y est dans l'objet
 		if (shape == null || !shape.getBounds().equals(getBounds())) {
 		  shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 7, 7);
 		}

@@ -81,32 +81,11 @@ public class vue_administration implements ActionListener {
 		nettoyer_bdd.setText("Nettoyer BDD");
 		txtrTrisflix = new JTextArea_arrondi();
 		retour = new JButton_arrondi();
+		
+		configure();
 	}
-
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					JFrame frame = new JFrame("FLOU-FLIX");
-//					frame.getContentPane().setBackground(Color.BLACK);
-//					frame.setBounds(100, 100, 1150, 700);
-//					frame.setMinimumSize(new Dimension(1150, 700));
-//					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//					vue_administration vue = new vue_administration();
-//					frame.setVisible(true);
-//					vue.initialize(frame);
-//
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	// initialisation - placemement et configuration des éléments visuels
-	public void initialize(JFrame frame) {
-
+	
+	public void configure() {//On configure les éléments
 		retour.setBackground(Color.BLACK);
 		retour.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath()));
 
@@ -141,6 +120,10 @@ public class vue_administration implements ActionListener {
 
 		creer_bdd.setBackground(Color.RED);
 		creer_bdd.setForeground(Color.WHITE);
+	}
+
+	// initialisation - placemement des éléments visuels
+	public void initialize(JFrame frame) {
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout

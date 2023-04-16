@@ -66,109 +66,25 @@ public class vue_page_compte {
 		lblNombreDeContenue = new JLabel("Nombre de contenus visionnés");
 		lblNombreDeMinutes = new JLabel("Nombre de minutes visionnées");
 		textField_1 = new JTextField();
-		textField_1.setForeground(Color.WHITE);
-		textField_1.setBackground(Color.BLACK);
 		textField = new JTextField();
-		textField.setBackground(Color.BLACK);
-		textField.setForeground(Color.WHITE);
 		user_name = new JTextField_arrondi();
 		qualite = "";
 		retour = new JButton_arrondi();
 		this.membre = membre;
 
+		configure();
+		setQualityListeners();
 	}
+	
+	public void configure() {//on configure les éléments
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFrame frame = new JFrame("FLOU-FLIX");
-
-					frame.getContentPane().setForeground(new Color(64, 128, 128));
-					frame.getContentPane().setBackground(new Color(0, 0, 0));
-					frame.setBounds(100, 100, 1150, 700);
-					frame.setMinimumSize(new Dimension(1150, 700));
-					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-					vue_page_compte vue = new vue_page_compte(null);
-					frame.setVisible(true);
-					vue.initialize(frame);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	private void afficher_donnee() {
-		this.user_name.setText("  " + this.membre.getPrenom() + " " + this.membre.getNom());
-		this.textField.setText("" + this.membre.getNb_film_vu());
+		textField.setBackground(Color.BLACK);
+		textField.setForeground(Color.WHITE);
 		textField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		this.textField_1.setText("" + (this.membre.getTemps_visionnage() / 60));
+
+		textField_1.setForeground(Color.WHITE);
+		textField_1.setBackground(Color.BLACK);
 		textField_1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-
-	}
-
-	private void setQualityListeners() {
-
-		this.btnNewButton_1_2_2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				qualite = "360p";
-			}
-		});
-
-		this.btnNewButton_1_2_3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				qualite = "720p";
-			}
-		});
-
-		this.btnNewButton_1_2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				qualite = "1080p";
-			}
-		});
-
-		this.btnNewButton_1_2_1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				qualite = "HD";
-			}
-		});
-
-	}
-
-	public JButton_arrondi getEffacer() {
-		return this.boutonEffacer;
-	}
-
-	public boolean getReprise() {
-		return this.rdbtnNewRadioButton_1.isSelected();
-	}
-
-	public boolean getSousTitres() {
-		return this.rdbtnNewRadioButton.isSelected();
-	}
-
-	public JButton_arrondi getSauvegarder() {
-		return this.btn_rndSauvegarderLesRglages;
-	}
-
-	public String getQuality() {
-		return this.qualite;
-	}
-
-	public JButton_arrondi getRetour() {
-		return retour;
-	}
-
-	public void initialize(JFrame frame) {
 
 		lblNewLabel.setFont(new Font("Rockwell Nova Extra Bold", Font.PLAIN, 17));
 		lblNewLabel.setForeground(Color.RED);
@@ -233,6 +149,73 @@ public class vue_page_compte {
 		retour.setBackground(Color.BLACK);
 		retour.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath()));
 		retour.setBackground(new Color(0, 0, 0));
+	}
+
+	private void afficher_donnee() {//on affiche les données de l'utilisateur
+		this.user_name.setText("  " + this.membre.getPrenom() + " " + this.membre.getNom());
+		this.textField.setText("" + this.membre.getNb_film_vu());
+		this.textField_1.setText("" + (this.membre.getTemps_visionnage() / 60));
+
+	}
+
+	private void setQualityListeners() {//On ajoute les listeners sur les boutons qualité
+
+		this.btnNewButton_1_2_2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				qualite = "360p";
+			}
+		});
+
+		this.btnNewButton_1_2_3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				qualite = "720p";
+			}
+		});
+
+		this.btnNewButton_1_2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				qualite = "1080p";
+			}
+		});
+
+		this.btnNewButton_1_2_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				qualite = "HD";
+			}
+		});
+
+	}
+
+	public JButton_arrondi getEffacer() {
+		return this.boutonEffacer;
+	}
+
+	public boolean getReprise() {
+		return this.rdbtnNewRadioButton_1.isSelected();
+	}
+
+	public boolean getSousTitres() {
+		return this.rdbtnNewRadioButton.isSelected();
+	}
+
+	public JButton_arrondi getSauvegarder() {
+		return this.btn_rndSauvegarderLesRglages;
+	}
+
+	public String getQuality() {
+		return this.qualite;
+	}
+
+	public JButton_arrondi getRetour() {
+		return retour;
+	}
+
+	public void initialize(JFrame frame) {//On affiche les éléments
+
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
@@ -336,11 +319,10 @@ public class vue_page_compte {
 
 		frame.getContentPane().setLayout(groupLayout);
 		afficher_donnee();
-		setQualityListeners();
 		repaint(frame);
 	}
 
-	public void delete(JFrame frame) {
+	public void delete(JFrame frame) {//On enlève les éléments de frame
 
 		frame.getContentPane().remove(this.user_name);
 		frame.getContentPane().remove(this.textField);
@@ -365,7 +347,7 @@ public class vue_page_compte {
 
 	}
 
-	public void repaint(JFrame frame) {
+	public void repaint(JFrame frame) {//On rafraichit la frame
 
 		this.user_name.repaint();
 		this.textField.repaint();

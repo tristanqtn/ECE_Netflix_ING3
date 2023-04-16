@@ -61,19 +61,24 @@ public class vue_connexion {
 		this.textArea = new JTextArea_arrondi();
 		this.txtrMotDePasse = new JTextArea();
 		this.retour = new JButton_arrondi();
+		this.passwordField = new JPasswordField_arrondi();
+		this.btnNewButton = new JButton_arrondi("Soumettre");
+		
+		configure();
+		
+	}
+	
+	public void resetInformations() {//On reset les informations
+		this.textArea.setText("");
+		this.passwordField.setText("");
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	public void initialize(JFrame frame) {
+	public void configure() {//on configure les éléments
 
 		this.gridBagLayout.columnWidths = new int[] { 0, 120, 183, 120, 0 };
 		this.gridBagLayout.rowHeights = new int[] { 210, 50, 78, 129, 0, 248, 0 };
 		this.gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		this.gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE };
-
-		frame.getContentPane().setLayout(this.gridBagLayout);
 
 		this.txtrTrisflix.setForeground(new Color(255, 0, 0));
 		this.txtrTrisflix.setBackground(new Color(0, 0, 0));
@@ -81,6 +86,34 @@ public class vue_connexion {
 		this.txtrTrisflix.setFont(new Font("Rockwell Nova Extra Bold", Font.BOLD, 50));
 		this.txtrTrisflix.setTabSize(20);
 		this.txtrTrisflix.setText(" FLOU-FLIX ");
+
+		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath());
+		retour.setIcon(icon);
+		retour.setBackground(new Color(0, 0, 0));
+
+		this.lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		this.lblNewLabel_1.setForeground(new Color(224, 240, 255));
+
+		this.textArea.setForeground(Color.WHITE);
+		this.textArea.setBackground(Color.DARK_GRAY);
+
+		this.txtrMotDePasse.setForeground(new Color(255, 255, 255));
+		this.txtrMotDePasse.setToolTipText("");
+		this.txtrMotDePasse.setBackground(new Color(0, 0, 0));
+		this.txtrMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		this.txtrMotDePasse.setText("mot de passe ");
+
+		this.passwordField.setForeground(Color.WHITE);
+		this.passwordField.setBackground(Color.DARK_GRAY);
+
+		btnNewButton.setBackground(new Color(224, 240, 255));
+
+	}
+	
+	
+	public void initialize(JFrame frame) {//On affiche les éléments sur frame
+
+		frame.getContentPane().setLayout(this.gridBagLayout);
 
 		GridBagConstraints gbc_txtrTrisflix = new GridBagConstraints();
 		gbc_txtrTrisflix.anchor = GridBagConstraints.SOUTH;
@@ -90,10 +123,6 @@ public class vue_connexion {
 
 		frame.getContentPane().add(this.txtrTrisflix, gbc_txtrTrisflix);
 
-		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath());
-		retour.setIcon(icon);
-		retour.setBackground(new Color(0, 0, 0));
-
 		GridBagConstraints gbc_retour = new GridBagConstraints();
 		gbc_retour.anchor = GridBagConstraints.NORTHWEST;
 		gbc_retour.insets = new Insets(0, 0, 5, 5);
@@ -101,9 +130,6 @@ public class vue_connexion {
 		gbc_retour.gridy = 0;
 
 		frame.getContentPane().add(this.retour, gbc_retour);
-
-		this.lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		this.lblNewLabel_1.setForeground(new Color(224, 240, 255));
 
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
@@ -113,9 +139,6 @@ public class vue_connexion {
 
 		frame.getContentPane().add(this.lblNewLabel_1, gbc_lblNewLabel_1);
 
-		this.textArea.setForeground(Color.WHITE);
-		this.textArea.setBackground(Color.DARK_GRAY);
-
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.insets = new Insets(0, 0, 5, 5);
 		gbc_textArea.fill = GridBagConstraints.BOTH;
@@ -123,12 +146,6 @@ public class vue_connexion {
 		gbc_textArea.gridy = 2;
 
 		frame.getContentPane().add(this.textArea, gbc_textArea);
-
-		this.txtrMotDePasse.setForeground(new Color(255, 255, 255));
-		this.txtrMotDePasse.setToolTipText("");
-		this.txtrMotDePasse.setBackground(new Color(0, 0, 0));
-		this.txtrMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		this.txtrMotDePasse.setText("mot de passe ");
 
 		GridBagConstraints gbc_txtrMotDePasse = new GridBagConstraints();
 		gbc_txtrMotDePasse.anchor = GridBagConstraints.EAST;
@@ -138,11 +155,6 @@ public class vue_connexion {
 
 		frame.getContentPane().add(this.txtrMotDePasse, gbc_txtrMotDePasse);
 
-		this.passwordField = new JPasswordField_arrondi();
-
-		this.passwordField.setForeground(Color.WHITE);
-		this.passwordField.setBackground(Color.DARK_GRAY);
-
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
@@ -150,9 +162,6 @@ public class vue_connexion {
 		gbc_passwordField.gridy = 3;
 
 		frame.getContentPane().add(this.passwordField, gbc_passwordField);
-
-		this.btnNewButton = new JButton_arrondi("Soumettre");
-		btnNewButton.setBackground(new Color(224, 240, 255));
 
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
@@ -166,7 +175,7 @@ public class vue_connexion {
 
 	}
 
-	public void delete(JFrame frame) {
+	public void delete(JFrame frame) {//On retire les éléments de frame
 		frame.getContentPane().remove(this.btnNewButton);
 		frame.getContentPane().remove(this.lblNewLabel_1);
 		frame.getContentPane().remove(this.passwordField);
@@ -179,7 +188,7 @@ public class vue_connexion {
 
 	}
 
-	public void repaint(JFrame frame) {
+	public void repaint(JFrame frame) {//on rafraichit la frame
 
 		this.btnNewButton.repaint();
 		this.lblNewLabel_1.repaint();

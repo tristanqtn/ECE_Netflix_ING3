@@ -134,7 +134,7 @@ public class Membre {
 				+ this.temps_visionnage + ", " + this.nb_film_vu + ", false, false, \"HD\");");
 	}
 
-	private String get_preferences_format() {
+	private String get_preferences_format() {//On retourne les preferences de l'utilisateur
 		String rendu = "";
 		for (int i = 0; i < this.preferences.size(); i++) {
 			rendu += this.preferences.get(i);

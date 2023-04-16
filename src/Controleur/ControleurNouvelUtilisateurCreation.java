@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 
 import ElementsVisuels.JButton_arrondi;
 import Entite.Membre;
+import Vue.vue_nouveau_compte;
+import Vue.vue_payement;
 
 /**
  * @author François BONNET
@@ -19,32 +21,38 @@ import Entite.Membre;
  */
 public class ControleurNouvelUtilisateurCreation {
 
-	private Controleur_Payement payement;
-	private Controleur_Nouveau_Compte nouveauCompte;
+	private vue_payement payement;
+	private vue_nouveau_compte nouveauCompte;
 	private Membre nvl_utilisateur;
 
-	public ControleurNouvelUtilisateurCreation() {
-		nouveauCompte = new Controleur_Nouveau_Compte();
-		payement = new Controleur_Payement();
-	}
-
-	public void start(JFrame frame) {
-		nouveauCompte.start(frame);
+	public ControleurNouvelUtilisateurCreation(JFrame frame) {
+		nouveauCompte = new vue_nouveau_compte();
 		setNouveauCompteListeners(frame);
+		payement = new vue_payement();
+		setPayementListeners(frame);
+	}
+	
+	public void resetInformations() {
+		nouveauCompte.resetInformations();
+		payement.resetInformations();
 	}
 
-	public JButton getRetour() {
+	public void start(JFrame frame) {//On affiche la vue d'informations
+		nouveauCompte.initialize(frame);
+	}
+
+	public JButton getRetour() {//On retourne le bouton retour
 		return nouveauCompte.getRetour();
 	}
 
-	public JButton_arrondi getPayement() {
+	public JButton_arrondi getPayement() {//On retourne le pouton payement
 		return payement.get_valider();
 	}
 
-	public Membre getNewUser() {
+	public Membre getNewUser() {//On retourne le nouvel utilisateur créé
 
 		ArrayList<String> preferences = new ArrayList<String>();
-		if (nouveauCompte.getAction()) {
+		if (nouveauCompte.getAction()) {//On ajoute les préférences selectionnées
 			preferences.add("Action");
 		}
 		if (nouveauCompte.getRomantique()) {
@@ -58,70 +66,36 @@ public class ControleurNouvelUtilisateurCreation {
 		}
 
 		nvl_utilisateur = new Membre(0, nouveauCompte.getNom(), nouveauCompte.getPrenom(), nouveauCompte.getMail(),
-				Long.valueOf(nouveauCompte.getTelephone()).longValue(), "1234567891234567", preferences,
-				nouveauCompte.getMDP(), false, 0, 0, false, false, "HD"); // remplacer par num de
-		// carte
-		nvl_utilisateur.setNum_cb(payement.getNumCB()); // valeur de CB à recuperer depuis le payement
+				Long.valueOf(nouveauCompte.getTelephone()).longValue(), payement.getNumCB(), preferences,
+				nouveauCompte.getMDP(), false, 0, 0, false, false, "HD"); // on crée un nouvel utilisateur
 
 		return nvl_utilisateur;
 	}
 
-	public void setNouveauCompteListeners(final JFrame frame) {
+	public void setNouveauCompteListeners(final JFrame frame) {//On met les listeners sur la vue d'informations
 
-		nouveauCompte.getPayement().addActionListener(new ActionListener() {
+		nouveauCompte.getPayement().addActionListener(new ActionListener() {//On listen pour le bouton de soumission de la vue d'informations
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!nouveauCompte.getMail().isBlank() && !nouveauCompte.getMDP().isBlank()
-						&& !nouveauCompte.getNom().isBlank() && !nouveauCompte.getPrenom().isBlank()
-						&& !nouveauCompte.getTelephone().isBlank()
-						&& (nouveauCompte.getAction() || nouveauCompte.getComedie() || nouveauCompte.getDocumentaire()
-								|| nouveauCompte.getRomantique())) {
-					nouveauCompte.end(frame);
-					payement.start(frame);
-					setPayementListeners(frame);
+				if (isInformationValid()) {//Si suffisemment d'informations ont été rentrées
+					nouveauCompte.delete(frame);
+					payement.initialize(frame);
 				} else {
 					System.out.println("Des informations sont manquantes");
 				}
 			}
 
 		});
-
-		/*
-		 * ArrayList<Component> list =nouveauCompte.getEnterToListen(); for(int
-		 * i=0;i<list.size();i++) { final int rank=i; list.get(i).addKeyListener(new
-		 * KeyListener() {
-		 * 
-		 * @Override public void keyTyped(KeyEvent e) {
-		 * 
-		 * }
-		 * 
-		 * @Override public void keyPressed(KeyEvent e) { if(e.getKeyCode()==10)
-		 * {///Entrée if (!nouveauCompte.getMail().isBlank() &&
-		 * !nouveauCompte.getMDP().isBlank() && !nouveauCompte.getNom().isBlank() &&
-		 * !nouveauCompte.getPrenom().isBlank() &&
-		 * !nouveauCompte.getTelephone().isBlank() && (nouveauCompte.getAction() ||
-		 * nouveauCompte.getComedie() || nouveauCompte.getDocumentaire() ||
-		 * nouveauCompte.getRomantique())) { nouveauCompte.end(frame);
-		 * payement.start(frame); setPayementListeners(frame); } else {
-		 * System.out.println("Des informations sont manquantes"); } } }
-		 * 
-		 * @Override public void keyReleased(KeyEvent e) {
-		 * 
-		 * }
-		 * 
-		 * }); }
-		 */
 	}
 
-	public void setPayementListeners(final JFrame frame) {
-		payement.getRetour().addActionListener(new ActionListener() {
+	public void setPayementListeners(final JFrame frame) {//on met les listeners sur la vue de payement
+		payement.getRetour().addActionListener(new ActionListener() {//Si l'utilisateur clique sur le bouton retour
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				payement.end(frame);
-				nouveauCompte.start(frame);
-				setNouveauCompteListeners(frame);
+				payement.delete(frame);
+				nouveauCompte.initialize(frame);
 			}
 
 		});
@@ -129,25 +103,31 @@ public class ControleurNouvelUtilisateurCreation {
 	}
 
 	public void end(JFrame frame) {
-		payement.end(frame);
+		payement.delete(frame);
 	}
 
 	public void end_user_info(JFrame frame) {
-		nouveauCompte.end(frame);
+		nouveauCompte.delete(frame);
 	}
 
-	public boolean IsCbValid() {
-		if (!payement.getCryptogramme().isBlank() && !payement.getExpiration().isBlank()
-				&& !payement.getNumCB().isBlank()) {
+	public boolean IsCbValid() {//On retourn vrai si les informations bancaires sont valides
+		if (payement.isCryptogramValid() && payement.isExpirationDateValid()
+				&& payement.isCbNumValid()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-
-	/*
-	 * public ArrayList<Component> getEnterToListen(){ return
-	 * payement.getEnterToListen(); }
-	 */
+	
+	public boolean isInformationValid() {//On retourne vrai si les informations utilisateur sont valides
+		if (nouveauCompte.isEmailValid() && nouveauCompte.isMDPValid()
+				&& nouveauCompte.isNomValid() && nouveauCompte.isPrenomValid()
+				&& nouveauCompte.isTelephoneValid()
+				&& (nouveauCompte.getAction() || nouveauCompte.getComedie() || nouveauCompte.getDocumentaire()
+						|| nouveauCompte.getRomantique())) {
+			return true;
+		}
+		return false;
+	}
 
 }

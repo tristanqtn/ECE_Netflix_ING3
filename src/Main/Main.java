@@ -32,7 +32,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		boolean reset_bdd = true; // garder à false
+		boolean reset_bdd = false; // garder à false
 		JFrame frame = new JFrame("FLOU-FLIX"); // creation de la frame d'application
 
 		// configurations

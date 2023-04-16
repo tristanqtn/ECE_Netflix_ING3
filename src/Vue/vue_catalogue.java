@@ -1,64 +1,90 @@
 package Vue;
 
+/**
+ * @author Tristan Querton
+ *
+ * Vue permettant d'afficher les résultats d'une recherche
+ *
+ */
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Controleur.Controleur_Modele;
 import ElementsVisuels.JButton_arrondi;
+import ElementsVisuels.JTextArea_arrondi;
+import ElementsVisuels.ModernScrollPane;
 import Entite.ContenuCinematographique;
 import Entite.Documentaire;
+import Entite.Episode;
 import Entite.Film;
 import Entite.Membre;
 import Entite.Serie;
-
-/*
- * 
- * @author Clement BROT
- * 
- * Cette vue affiche les resultats d'une recherche réalisée par un utilisateur
- * 
- */
+import Entite.Visionnage;
 
 public class vue_catalogue {
+	private JButton_arrondi retour;
+	private JTextArea_arrondi titre;
 
-	private JPanel panel;
-	private JButton_arrondi btnNewButton_4;
-	private JLabel lblNewLabel;
-	private JButton retour;
-	private JButton_arrondi btnNewButton;
+	private ArrayList<ContenuCinematographique> contenus;
+	private ArrayList<JButton> results;
+
 	private Controleur_Modele modele;
 	private Membre user;
+
+	private ModernScrollPane scrollPane;
+	private GroupLayout groupLayout;
+	private JPanel panel;
 	private String search;
 	private String category;
 
-	public vue_catalogue(Controleur_Modele modele, Membre user, String search, String category) {
-		this.category = category;
-		this.search = search;
+	// CONSTRUCTEUR - allocation des éléments visuels
+	public vue_catalogue(Controleur_Modele modele,Membre user, String search, String category) {
+		this.modele=modele;
 		this.user = user;
-		this.modele = modele;
+		this.search=search;
+		this.category=category;
+		retour = new JButton_arrondi("New button");
+		retour.setText("");
+
+		results = new ArrayList<JButton>();
+		contenus = getResults(this.search,this.category);
+
+		titre = new JTextArea_arrondi();
 		panel = new JPanel();
-		btnNewButton_4 = new JButton_arrondi("");
-		lblNewLabel = new JLabel("catalogue");
-		retour = new JButton("Retour");
-		btnNewButton = new JButton_arrondi("");
+		scrollPane = new ModernScrollPane(panel);
+		configure();
+
+	}
+	
+	public void setButtons() {//On crée les boutons contenant les affiches des contenus
+		for(int i=0;i<contenus.size();i++) {
+			JButton button =new JButton();
+			button.setIcon(new ImageIcon(contenus.get(i).getAffiche()));
+			button.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+			button.setFont(new Font("Rockwell Nova Extra Bold", Font.PLAIN, 10));
+			button.setBackground(Color.BLACK);
+			results.add(button);
+		}
 	}
 
-	public JButton getRetour() {
-		return retour;
-	}
-
-	public boolean findInArray(ArrayList<String> array, String string) {
+	public boolean findInArray(ArrayList<String> array, String string) {//on retourne vrai si on trouvbe la string dans l'array
 		for (int i = 0; i < array.size(); i++) {
 			if (array.get(i).equals(string)) {
 				return true;
@@ -66,9 +92,8 @@ public class vue_catalogue {
 		}
 		return false;
 	}
-
-	public void addDocumentaireWithPreferences(Vector<Documentaire> documentaires, ArrayList<String> prefe,
-			ArrayList<ContenuCinematographique> results) {
+	
+	public void addDocumentaireWithPreferences(Vector<Documentaire> documentaires, ArrayList<String> prefe, ArrayList<ContenuCinematographique> results) {
 		for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu dont les genres match les preferences
 			for (int i = 0; i < prefe.size(); i++) {
 				if (findInArray(documentaires.get(j).getGenres(), prefe.get(i))) {
@@ -78,7 +103,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-
+	
 	public void addRestOfDocumentaire(Vector<Documentaire> documentaires, ArrayList<ContenuCinematographique> results) {
 		boolean found;
 		for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu non ajouté avant
@@ -93,9 +118,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-
-	public void addFilmWithPreferences(Vector<Film> films, ArrayList<String> prefe,
-			ArrayList<ContenuCinematographique> results) {
+	public void addFilmWithPreferences(Vector<Film> films, ArrayList<String> prefe, ArrayList<ContenuCinematographique> results) {
 		for (int j = 0; j < films.size(); j++) {// On ajoute les docu dont les genres match les preferences
 			for (int i = 0; i < prefe.size(); i++) {
 				if (findInArray(films.get(j).getGenres(), prefe.get(i))) {
@@ -105,7 +128,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-
+	
 	public void addRestOfFilm(Vector<Film> films, ArrayList<ContenuCinematographique> results) {
 		boolean found;
 		for (int j = 0; j < films.size(); j++) {// On ajoute les docu non ajouté avant
@@ -120,9 +143,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-
-	public void addSerieWithPreferences(Vector<Serie> series, ArrayList<String> prefe,
-			ArrayList<ContenuCinematographique> results) {
+	public void addSerieWithPreferences(Vector<Serie> series, ArrayList<String> prefe, ArrayList<ContenuCinematographique> results) {
 		for (int j = 0; j < series.size(); j++) {// On ajoute les docu dont les genres match les preferences
 			for (int i = 0; i < prefe.size(); i++) {
 				if (findInArray(series.get(j).getGenres(), prefe.get(i))) {
@@ -132,7 +153,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-
+	
 	public void addRestOfSerie(Vector<Serie> series, ArrayList<ContenuCinematographique> results) {
 		boolean found;
 		for (int j = 0; j < series.size(); j++) {// On ajoute les docu non ajouté avant
@@ -147,7 +168,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-
+	
 	public void FiltersContenus(Vector<Documentaire> documentaires, Vector<Serie> series, Vector<Film> films) {
 		for (int i = films.size() - 1; i >= 0; i--) {// On trie les films par rapport à la recherche
 			if (!films.get(i).getTitre().contains(search)) {
@@ -166,8 +187,8 @@ public class vue_catalogue {
 		}
 	}
 
-	public ArrayList<ContenuCinematographique> getResults(String search, String category) {
-		System.out.println("in results with catgory: " + category + " with search; " + search);
+	public ArrayList<ContenuCinematographique> getResults(String search, String category) {//On réalise l'algorithme de recherche et on stocke les films à afficher
+		System.out.println("in results with catgory: "+category+" with search; "+search);
 		ArrayList<ContenuCinematographique> results = new ArrayList<ContenuCinematographique>();
 		Vector<Film> films = modele.getFilms();
 		Vector<Documentaire> documentaires = modele.getDocumentaires();
@@ -175,10 +196,11 @@ public class vue_catalogue {
 
 		this.FiltersContenus(documentaires, series, films);
 
-		if (category.equals("Tout")) {
+
+		if(category.equals("Tout")) {//L'utilisateur n'a pas selectionné de catégorie particulière
 			ArrayList<String> prefe = user.getPreferences();
 			System.out.println("Tout");
-			if (findInArray(prefe, "Documentaire")) {
+			if (findInArray(prefe, "Documentaire")) {//L'utilisateur a comme préférence documentaire
 				System.out.println("Documentaire");
 				this.addDocumentaireWithPreferences(documentaires, prefe, results);
 				this.addRestOfDocumentaire(documentaires, results);
@@ -195,11 +217,11 @@ public class vue_catalogue {
 				this.addRestOfFilm(films, results);
 				this.addRestOfDocumentaire(documentaires, results);
 			}
-		} else {
+		}else {
 			System.out.println("else");
 			ArrayList<String> prefe = new ArrayList<String>();
 			prefe.add(category);
-			if (findInArray(prefe, "Documentaire")) {
+			if (findInArray(prefe, "Documentaire")) {//L'utilisateur a comme préférence documentaire
 				System.out.println("Documentaire");
 				this.addDocumentaireWithPreferences(documentaires, prefe, results);
 				this.addSerieWithPreferences(series, prefe, results);
@@ -211,8 +233,9 @@ public class vue_catalogue {
 				this.addDocumentaireWithPreferences(documentaires, prefe, results);
 			}
 		}
-
-		for (int i = 0; i < results.size(); i++) {
+		
+			
+		for (int i = 0; i < results.size(); i++) {//On affiche les résultats
 			System.out.print("Titre : " + results.get(i).getTitre() + " genre: [");
 			String buffer = "";
 			for (int j = 0; j < results.get(i).getGenres().size(); j++) {
@@ -225,78 +248,102 @@ public class vue_catalogue {
 		}
 		return results;
 	}
+	
+	public void configure() {//On configure les éléments
+		retour.setBackground(Color.BLACK);
+		retour.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath()));
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	public void initialize(JFrame frame) {
+		setButtons();
 
-		getResults(this.search, this.category);
+		titre.setText(" FLOU-FLIX ");
+		titre.setTabSize(20);
+		titre.setForeground(Color.RED);
+		titre.setFont(new Font("Dialog", Font.BOLD, 50));
+		titre.setEditable(false);
+		titre.setBackground(Color.BLACK);
 
 		panel.setBackground(Color.BLACK);
+		panel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		scrollPane.setViewportView(panel);
+		scrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		panel.setLayout(new GridLayout(0, 7, 10, 10));
+		
+		for(int i=0;i<results.size();i++) {
+			panel.add(results.get(i));
+		}
+	}
 
-		btnNewButton_4.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/profil.png").getPath()));
-		btnNewButton_4.setBackground(Color.DARK_GRAY);
-
-		lblNewLabel.setBackground(Color.BLACK);
-		lblNewLabel.setForeground(Color.RED);
-		lblNewLabel.setFont(new Font("Rockwell Nova Extra Bold", Font.PLAIN, 25));
+	// initialisation - placemement des éléments visuels
+	public void initialize(JFrame frame) {
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1116, Short.MAX_VALUE).addContainerGap())
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup().addGap(27).addComponent(retour)
-						.addPreferredGap(ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
-						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-						.addGap(341)
-						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-						.addGap(50)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup()
+				.addComponent(retour, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
+				.addComponent(titre, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE).addGap(419))
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 1134, Short.MAX_VALUE));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup().addGap(50).addComponent(lblNewLabel,
-										GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup().addGap(34)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(retour).addComponent(btnNewButton_4,
-														GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))))
-						.addPreferredGap(ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 469, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap()));
+								.addComponent(retour, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup().addGap(37).addComponent(titre,
+										GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
+						.addGap(72).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)));
 
-		btnNewButton.setBackground(Color.BLACK);
-		// **************************modulable **************************************//
-		btnNewButton
-				.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/affiche/titanic.jpg").getPath()));
-		// **************************************************************************//
-		panel.add(btnNewButton);
+		
+		
 		frame.getContentPane().setLayout(groupLayout);
-
+		
 		repaint(frame);
 	}
 
-	/*
-	 * private JPanel panel; private JButton_arrondi btnNewButton_4; private JLabel
-	 * lblNewLabel; private JButton retour; private JButton_arrondi btnNewButton;
-	 */
-
-	public void delete(JFrame frame) {
-		frame.getContentPane().remove(this.panel);
-		frame.getContentPane().remove(this.btnNewButton_4);
-		frame.getContentPane().remove(this.lblNewLabel);
-		frame.getContentPane().remove(this.retour);
-
-		repaint(frame);
+	// GETTERS
+	public JButton_arrondi getRetour() {
+		return retour;
 	}
 
+	public ArrayList<JButton> getContenus() {
+		return this.results;
+	}
+
+	public ContenuCinematographique getRecomandation(int i) {
+		return this.contenus.get(i);
+	}
+
+	// re-affichage des éléments graphiques
 	public void repaint(JFrame frame) {
-		this.panel.repaint();
-		this.btnNewButton_4.repaint();
-		this.lblNewLabel.repaint();
 		this.retour.repaint();
+		this.titre.repaint();
+		this.scrollPane.repaint();
+		this.panel.repaint();
+		
+		for(int i=0;i<results.size();i++) {
+			this.results.get(i).repaint();
+		}
 
 		frame.validate();
 		frame.repaint();
+	}
+
+	// suppression des éléments visuels
+	public void delete(JFrame frame) {
+		frame.getContentPane().remove(this.retour);
+		frame.getContentPane().remove(this.retour);
+		frame.getContentPane().remove(this.titre);
+		frame.getContentPane().remove(this.scrollPane);
+		frame.getContentPane().remove(this.panel);
+
+		repaint(frame);
+	}
+
+	// GETTERS & SETTERS
+	public GroupLayout getGroupLayout() {
+		return groupLayout;
+	}
+
+	public void setGroupLayout(GroupLayout groupLayout) {
+		this.groupLayout = groupLayout;
 	}
 }

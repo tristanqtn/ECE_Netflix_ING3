@@ -15,8 +15,9 @@ import javax.swing.JRadioButton;
 import Entite.ContenuCinematographique;
 import Entite.Episode;
 import Entite.Membre;
+import Entite.Serie;
 import Entite.Visionnage;
-import Main.accueil;
+import Vue.accueil;
 import Vue.vue_catalogue;
 import Vue.vue_page_compte;
 import Vue.vue_previsualisation;
@@ -40,6 +41,7 @@ public class ControleurGeneralIntraApplication {
 	private JRadioButton deconnexion;
 	private vue_timecode timecode;
 	private Controleur_Modele modele;
+	private String beforeInformations;
 
 	public ControleurGeneralIntraApplication(JFrame frame, Membre user) {
 		this.user = user;
@@ -51,13 +53,14 @@ public class ControleurGeneralIntraApplication {
 		setPageDAcceuilListeners(frame);
 	}
 
-	public JRadioButton getDeconnexion() {
+	public JRadioButton getDeconnexion() {//On retourne le JRadioButton abstrait pour la déconnection
 		return deconnexion;
 	}
 
-	private void setPageDAcceuilListeners(JFrame frame) {
+	private void setPageDAcceuilListeners(JFrame frame) {//On set les listeners sur la page d'acceuil
+		System.out.println("Listeners");
 		modele = new Controleur_Modele("root", "root", false);
-		pageDAcceuil.getCompte().addActionListener(new ActionListener() {
+		pageDAcceuil.getCompte().addActionListener(new ActionListener() {//Si l'utilisateur clique sur le bouton compte
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -74,22 +77,23 @@ public class ControleurGeneralIntraApplication {
 		for (int j = 0; j < liste.size(); j++) {
 			for (int i = 0; i < liste.get(j).size(); i++) {
 				final ContenuCinematographique contenu = pageDAcceuil.getRecomandation(j, i);// On récupère le film
-				liste.get(j).get(i).addActionListener(new ActionListener() {
+				liste.get(j).get(i).addActionListener(new ActionListener() {//Si l'utilisateur clique sur un contenu cinematographique
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println("Film");
+						System.out.println("Informations");
 						informations = new vue_previsualisation(contenu);
 						pageDAcceuil.delete(frame);
 						informations.initialize(frame);
 						setPrevisualisationListeners(frame);
+						beforeInformations="HomePage";
 					}
 
 				});
 			}
 		}
 
-		pageDAcceuil.getRecherche().addActionListener(new ActionListener() {
+		pageDAcceuil.getRecherche().addActionListener(new ActionListener() {//Si l'utilisateur clique sur le bouton recherche
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Rechercher");
@@ -100,7 +104,7 @@ public class ControleurGeneralIntraApplication {
 			}
 		});
 
-		pageDAcceuil.getRetour().addActionListener(new ActionListener() {
+		pageDAcceuil.getRetour().addActionListener(new ActionListener() {//Si l'utilisateur clique sur le bouton deconnection
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -112,23 +116,31 @@ public class ControleurGeneralIntraApplication {
 		});
 	}
 
-	private void setPrevisualisationListeners(JFrame frame) {
-		informations.getVisionner().addActionListener(new ActionListener() {
+	private void setPrevisualisationListeners(JFrame frame) {//On set des listeners sur la vue prévisualisation
+		informations.getVisionner().addActionListener(new ActionListener() {//Si l'utilisateur veut visionner
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Visionner");
-				web_video_player player = new web_video_player(informations.get_contenu().getVideo());
-				player.play(user.isSoustitre(), user.isReprise(), user.getQualite());
-				timecode = new vue_timecode(informations.get_contenu());
+				if(informations.get_contenu().who_am_i().equals("serie")) {//On affiche le film et on affiche la vue timecode
+					Serie serie = (Serie) informations.get_contenu();
+					web_video_player player = new web_video_player(serie.getSaisons().get(0).getEpisodes().get(0).getVideo());
+					player.play(user.isSoustitre(), user.isReprise(), user.getQualite());
+					timecode = new vue_timecode(serie.getSaisons().get(0).getEpisodes().get(0));
+				}else {
+					web_video_player player = new web_video_player(informations.get_contenu().getVideo());
+					player.play(user.isSoustitre(), user.isReprise(), user.getQualite());
+					timecode = new vue_timecode(informations.get_contenu());
+				}
 				informations.delete(frame);
 				timecode.initialize(frame);
 				setTimecodeListeners(frame);
+					
 			}
 
 		});
 
-		informations.getTrailer().addActionListener(new ActionListener() {
+		informations.getTrailer().addActionListener(new ActionListener() {//On affiche le trailer sans changer de vue
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -138,14 +150,19 @@ public class ControleurGeneralIntraApplication {
 			}
 
 		});
-		informations.get_retour().addActionListener(new ActionListener() {
+		informations.get_retour().addActionListener(new ActionListener() {//On retourne à la vue précédente
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				informations.delete(frame);
-				pageDAcceuil = new accueil(user);
-				pageDAcceuil.initialize(frame);
-				setPageDAcceuilListeners(frame);
+				if(beforeInformations.equals("HomePage")) {
+					pageDAcceuil = new accueil(user);
+					pageDAcceuil.initialize(frame);
+					setPageDAcceuilListeners(frame);
+				}else {
+					catalogue.initialize(frame);
+				}
+				
 
 			}
 		});
@@ -159,8 +176,8 @@ public class ControleurGeneralIntraApplication {
 		this.frame = frame;
 	}
 
-	public void setParametreListeners(JFrame frame) {
-		parametre.getEffacer().addActionListener(new ActionListener() {
+	public void setParametreListeners(JFrame frame) {//On set les listeners pour la vue compte
+		parametre.getEffacer().addActionListener(new ActionListener() {//On efface l'historique de visionnage
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -183,7 +200,7 @@ public class ControleurGeneralIntraApplication {
 
 		});
 
-		parametre.getSauvegarder().addActionListener(new ActionListener() {
+		parametre.getSauvegarder().addActionListener(new ActionListener() {//On sauvegarde les paramètres entrés
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -196,14 +213,14 @@ public class ControleurGeneralIntraApplication {
 				System.out.println(parametre.getSousTitres());
 				System.out.println("HomePage");
 
-				user.setReprise(parametre.getSousTitres());
+				user.setReprise(parametre.getSousTitres());//on enregistre les paramètres utilisateurs
 				user.setSoustitre(parametre.getReprise());
 				user.setQualite(parametre.getQuality());
 				modele = new Controleur_Modele("root", "root", false);
 				modele.maj_parametre_BDD(user);
 
 				modele.recharger_membres();
-				for (int i = 0; i < modele.getMembres().size(); i++) {
+				for (int i = 0; i < modele.getMembres().size(); i++) {//On recharge l'utilisateur pour mettre à jour ses informations
 					if (modele.getMembres().get(i).getID() == user.getID())
 						user = modele.getMembres().get(i);
 				}
@@ -217,7 +234,7 @@ public class ControleurGeneralIntraApplication {
 
 		});
 
-		parametre.getRetour().addActionListener(new ActionListener() {
+		parametre.getRetour().addActionListener(new ActionListener() {//On retourne à la page précédente
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -230,9 +247,9 @@ public class ControleurGeneralIntraApplication {
 		});
 	}
 
-	private void setRechercheListeners(JFrame frame) {
+	private void setRechercheListeners(JFrame frame) {//On set les listeners pour la vue recherche
 
-		recherche.getButtonRecherche().addActionListener(new ActionListener() {
+		recherche.getButtonRecherche().addActionListener(new ActionListener() {//on affiche la vue catalogue en passant les informations rentrées
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -246,7 +263,7 @@ public class ControleurGeneralIntraApplication {
 
 		});
 
-		recherche.getRetour().addActionListener(new ActionListener() {
+		recherche.getRetour().addActionListener(new ActionListener() {//On affiche la vue d'acceuil
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -261,8 +278,8 @@ public class ControleurGeneralIntraApplication {
 
 	}
 
-	public void setCatalogueListeners(JFrame frame) {
-		catalogue.getRetour().addActionListener(new ActionListener() {
+	public void setCatalogueListeners(JFrame frame) {//On set les listeners sur la vue catalogue
+		catalogue.getRetour().addActionListener(new ActionListener() {//on revient à la vue recherche
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -274,10 +291,29 @@ public class ControleurGeneralIntraApplication {
 			}
 
 		});
+		
+		ArrayList<JButton> list = catalogue.getContenus();
+		for(int i=0;i<list.size();i++) {
+			final int rank = i;
+			list.get(i).addActionListener(new ActionListener() {//on affiche la vue prévisualisation du film
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("Previsualisation");
+					informations = new vue_previsualisation(catalogue.getRecomandation(rank));
+					catalogue.delete(frame);
+					informations.initialize(frame);
+					setPrevisualisationListeners(frame);
+					beforeInformations="Catalogue";
+				}
+				
+			});
+		}
+		
 	}
 
-	public void setTimecodeListeners(JFrame frame) {
-		timecode.getRetour().addActionListener(new ActionListener() {
+	public void setTimecodeListeners(JFrame frame) {//on set les listeners sur la vue timecode
+		timecode.getRetour().addActionListener(new ActionListener() {//On affiche la vue prévisualisation
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -289,16 +325,16 @@ public class ControleurGeneralIntraApplication {
 
 		});
 
-		timecode.get_retour_catalogue().addActionListener(new ActionListener() {
+		timecode.get_retour_catalogue().addActionListener(new ActionListener() {//On affiche le catalogue
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (timecode.isSauvegardable()) {
+				if (timecode.isSauvegardable()) {//on sauvegarde les informations rentrées
 					Vector<Visionnage> visio = modele.getVisionnages();
 					Visionnage nouveau = null;
 					if (timecode.getContenu().who_am_i() == "documentaire"
-							&& timecode.get_film_fini().isSelected() == false) {
+							&& timecode.get_film_fini().isSelected() == false) {//TODO commenter
 						nouveau = new Visionnage(0, user.getID(), 0, timecode.getContenu().getID(), 0, 0, 0,
 								timecode.get_time_code_sec());
 
@@ -348,7 +384,7 @@ public class ControleurGeneralIntraApplication {
 										&& visio.get(i).getID_episode() == nouveau.getID_episode()
 										&& visio.get(i).getID_saison() == nouveau.getID_saison()
 										&& visio.get(i).getID_serie() == nouveau.getID_serie()
-										&& visio.get(i).getID_serie() != 0)) {// film deja visionner
+										&& visio.get(i).getID_serie() != 0)) {// film deja visionné
 							seen = true;
 						}
 
@@ -380,7 +416,7 @@ public class ControleurGeneralIntraApplication {
 					pageDAcceuil = new accueil(user);
 					timecode.delete(frame);
 					pageDAcceuil.initialize(frame);
-					setPageDAcceuilListeners(frame);
+					setParametreListeners(frame);
 				} else {
 					System.out.println("Vous avez mal saisi quelquechose");
 				}
