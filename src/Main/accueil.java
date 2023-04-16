@@ -1,5 +1,11 @@
 package Main;
 
+/**
+ * 
+ * @author Francois Bonnet
+ *
+ *
+ */
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -28,6 +34,7 @@ import Entite.Documentaire;
 import Entite.Episode;
 import Entite.Film;
 import Entite.Membre;
+import Entite.Serie;
 import Entite.Visionnage;
 
 public class accueil {
@@ -79,8 +86,7 @@ public class accueil {
 	}
 
 	public Vector<ContenuCinematographique> findFilms(Membre user) {// On va déterminer ici les films contenus dans les
-		// JPanels et les noms de
-		// catégories proposées
+																	// JPanels et les noms de catégories proposées
 		Vector<Visionnage> visio = modele.getVisionnages();
 		Vector<Documentaire> docu = modele.getDocumentaires();
 		Vector<Film> films = modele.getFilms();
@@ -119,45 +125,121 @@ public class accueil {
 
 	}
 
+	public ArrayList<ContenuCinematographique> getContenus() {
+		ArrayList<ContenuCinematographique> contenus = new ArrayList<ContenuCinematographique>();
+		Vector<Serie> series = modele.getSeries();
+		for (int i = 0; i < series.size(); i++) {
+			contenus.add(series.get(i));
+		}
+		Vector<Film> films = modele.getFilms();
+		for (int i = 0; i < films.size(); i++) {
+			contenus.add(films.get(i));
+		}
+		Vector<Documentaire> documentaires = modele.getDocumentaires();
+		for (int i = 0; i < documentaires.size(); i++) {
+			contenus.add(documentaires.get(i));
+		}
+		return contenus;
+	}
+
+	public boolean containsString(ArrayList<String> array, String string) {
+		for (int i = 0; i < array.size(); i++) {
+			if (array.get(i).equals(string)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public ArrayList<ContenuCinematographique> getContenusWithPreference(ArrayList<ContenuCinematographique> contenus,
+			String category) {
+		ArrayList<ContenuCinematographique> results = new ArrayList<ContenuCinematographique>();
+		for (int i = 0; i < contenus.size(); i++) {
+			if (containsString(contenus.get(i).getGenres(), category)) {
+				results.add(contenus.get(i));
+			}
+		}
+		return results;
+	}
+
 	public void setRecomandations() {
+		@SuppressWarnings("unused")
 		int listeSize = 5;
 		ArrayList<JButton> liste;
 		ArrayList<ContenuCinematographique> listeContenus;
 		Vector<ContenuCinematographique> vu = findFilms(user);
-
+		ArrayList<ContenuCinematographique> contenusTotaux = getContenus();
+		ArrayList<ContenuCinematographique> contenusTries;
+		Vector<Film> films = modele.getFilms();
+		Vector<Serie> series = modele.getSeries();
 		ArrayList<Integer> listesSizes = new ArrayList<Integer>();
-		listesSizes.add(vu.size());
-		for (int i = 0; i < (listeSize - 1); i++) {
-			listesSizes.add(modele.getFilms().size());
-		}
 
-		for (int j = 0; j < listeSize; j++) {
+		if (vu.size() > 0) {// on met les contenus à continuer
+			categories.add("Continuer à regarder");
+			listesSizes.add(vu.size());
 			liste = new ArrayList<JButton>();
 			listeContenus = new ArrayList<ContenuCinematographique>();
-			categories.add("Films");
-			if (j == 0) {
-				for (int i = 0; i < listesSizes.get(j); i++) {
-					liste.add(new JButton(""));
-					listeContenus.add(vu.get(i));
-					System.out.println(vu.get(i).getAffiche());
-					liste.get(i).setIcon(new ImageIcon(vu.get(i).getAffiche()));
-					liste.get(i).setBorder(javax.swing.BorderFactory.createEmptyBorder());
-				}
-			} else {
-				for (int i = 0; i < listesSizes.get(j); i++) {
-					liste.add(new JButton(""));
-					listeContenus.add(modele.getFilms().get(i));
-					System.out.println(modele.getFilms().get(i).getAffiche());
-					liste.get(i).setIcon(new ImageIcon(modele.getFilms().get(i).getAffiche()));
-					liste.get(i).setBorder(javax.swing.BorderFactory.createEmptyBorder());
-				}
+			for (int i = 0; i < vu.size(); i++) {
+				liste.add(new JButton(""));
+				listeContenus.add(vu.get(i));
+				System.out.println(vu.get(i).getAffiche());
+				liste.get(i).setIcon(new ImageIcon(vu.get(i).getAffiche()));
+				liste.get(i).setBorder(javax.swing.BorderFactory.createEmptyBorder());
+			}
+			recomendations.add(liste);
+			contenus.add(listeContenus);
+		}
+		for (int i = 0; i < user.getPreferences().size(); i++) {// On met les préférences de l'utilisateur
+			contenusTries = getContenusWithPreference(contenusTotaux, user.getPreferences().get(i));
+			categories.add(user.getPreferences().get(i));
+			listesSizes.add(contenusTries.size());
+			liste = new ArrayList<JButton>();
+			listeContenus = new ArrayList<ContenuCinematographique>();
+			for (int j = 0; j < contenusTries.size(); j++) {
+				liste.add(new JButton(""));
+				listeContenus.add(contenusTries.get(j));
+				System.out.println(contenusTries.get(j).getAffiche());
+				liste.get(j).setIcon(new ImageIcon(contenusTries.get(j).getAffiche()));
+				liste.get(j).setBorder(javax.swing.BorderFactory.createEmptyBorder());
 			}
 			recomendations.add(liste);
 			contenus.add(listeContenus);
 		}
 
-		for (int j = 0; j < listeSize; j++) {
-			JLabel label = new JLabel("label");
+		if (contenus.size() <= 2) {
+			// On met des films
+			categories.add("Films");
+			listesSizes.add(films.size());
+			liste = new ArrayList<JButton>();
+			listeContenus = new ArrayList<ContenuCinematographique>();
+			for (int j = 0; j < films.size(); j++) {
+				liste.add(new JButton(""));
+				listeContenus.add(films.get(j));
+				System.out.println(films.get(j).getAffiche());
+				liste.get(j).setIcon(new ImageIcon(films.get(j).getAffiche()));
+				liste.get(j).setBorder(javax.swing.BorderFactory.createEmptyBorder());
+			}
+			recomendations.add(liste);
+			contenus.add(listeContenus);
+
+			// On met des series
+			categories.add("Series");
+			listesSizes.add(series.size());
+			liste = new ArrayList<JButton>();
+			listeContenus = new ArrayList<ContenuCinematographique>();
+			for (int j = 0; j < series.size(); j++) {
+				liste.add(new JButton(""));
+				listeContenus.add(series.get(j));
+				System.out.println(series.get(j).getAffiche());
+				liste.get(j).setIcon(new ImageIcon(films.get(j).getAffiche()));
+				liste.get(j).setBorder(javax.swing.BorderFactory.createEmptyBorder());
+			}
+			recomendations.add(liste);
+			contenus.add(listeContenus);
+		}
+
+		for (int j = 0; j < contenus.size(); j++) {
+			JLabel label = new JLabel(this.categories.get(j));
 			JPanel panel = new JPanel();
 			label.setForeground(Color.RED);
 			label.setFont(new Font("Rockwell Nova Extra Bold", Font.PLAIN, 17));

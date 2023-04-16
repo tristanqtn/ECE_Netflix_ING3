@@ -25,6 +25,9 @@ import Entite.Serie;
 /*
  * 
  * @author Clement BROT
+ * 
+ * Cette vue affiche les resultats d'une recherche réalisée par un utilisateur
+ * 
  */
 
 public class vue_catalogue {
@@ -37,8 +40,10 @@ public class vue_catalogue {
 	private Controleur_Modele modele;
 	private Membre user;
 	private String search;
+	private String category;
 
-	public vue_catalogue(Controleur_Modele modele, Membre user, String search) {
+	public vue_catalogue(Controleur_Modele modele, Membre user, String search, String category) {
+		this.category = category;
 		this.search = search;
 		this.user = user;
 		this.modele = modele;
@@ -62,12 +67,88 @@ public class vue_catalogue {
 		return false;
 	}
 
-	public ArrayList<ContenuCinematographique> getResults(String search) {
-		ArrayList<ContenuCinematographique> results = new ArrayList<ContenuCinematographique>();
-		Vector<Film> films = modele.getFilms();
-		Vector<Documentaire> documentaires = modele.getDocumentaires();
-		Vector<Serie> series = modele.getSeries();
+	public void addDocumentaireWithPreferences(Vector<Documentaire> documentaires, ArrayList<String> prefe,
+			ArrayList<ContenuCinematographique> results) {
+		for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu dont les genres match les preferences
+			for (int i = 0; i < prefe.size(); i++) {
+				if (findInArray(documentaires.get(j).getGenres(), prefe.get(i))) {
+					results.add(documentaires.get(j));
+					break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
+				}
+			}
+		}
+	}
 
+	public void addRestOfDocumentaire(Vector<Documentaire> documentaires, ArrayList<ContenuCinematographique> results) {
+		boolean found;
+		for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu non ajouté avant
+			found = false;
+			for (int i = 0; i < results.size(); i++) {
+				if (documentaires.get(j).getTitre().equals(results.get(i).getTitre())) {
+					found = true;
+				}
+			}
+			if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
+				results.add(documentaires.get(j));
+			}
+		}
+	}
+
+	public void addFilmWithPreferences(Vector<Film> films, ArrayList<String> prefe,
+			ArrayList<ContenuCinematographique> results) {
+		for (int j = 0; j < films.size(); j++) {// On ajoute les docu dont les genres match les preferences
+			for (int i = 0; i < prefe.size(); i++) {
+				if (findInArray(films.get(j).getGenres(), prefe.get(i))) {
+					results.add(films.get(j));
+					break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
+				}
+			}
+		}
+	}
+
+	public void addRestOfFilm(Vector<Film> films, ArrayList<ContenuCinematographique> results) {
+		boolean found;
+		for (int j = 0; j < films.size(); j++) {// On ajoute les docu non ajouté avant
+			found = false;
+			for (int i = 0; i < results.size(); i++) {
+				if (films.get(j).getTitre().equals(results.get(i).getTitre())) {
+					found = true;
+				}
+			}
+			if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
+				results.add(films.get(j));
+			}
+		}
+	}
+
+	public void addSerieWithPreferences(Vector<Serie> series, ArrayList<String> prefe,
+			ArrayList<ContenuCinematographique> results) {
+		for (int j = 0; j < series.size(); j++) {// On ajoute les docu dont les genres match les preferences
+			for (int i = 0; i < prefe.size(); i++) {
+				if (findInArray(series.get(j).getGenres(), prefe.get(i))) {
+					results.add(series.get(j));
+					break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
+				}
+			}
+		}
+	}
+
+	public void addRestOfSerie(Vector<Serie> series, ArrayList<ContenuCinematographique> results) {
+		boolean found;
+		for (int j = 0; j < series.size(); j++) {// On ajoute les docu non ajouté avant
+			found = false;
+			for (int i = 0; i < results.size(); i++) {
+				if (series.get(j).getTitre().equals(results.get(i).getTitre())) {
+					found = true;
+				}
+			}
+			if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
+				results.add(series.get(j));
+			}
+		}
+	}
+
+	public void FiltersContenus(Vector<Documentaire> documentaires, Vector<Serie> series, Vector<Film> films) {
 		for (int i = films.size() - 1; i >= 0; i--) {// On trie les films par rapport à la recherche
 			if (!films.get(i).getTitre().contains(search)) {
 				films.remove(i);
@@ -83,128 +164,54 @@ public class vue_catalogue {
 				documentaires.remove(i);
 			}
 		}
+	}
 
-		ArrayList<String> prefe = user.getPreferences();
+	public ArrayList<ContenuCinematographique> getResults(String search, String category) {
+		System.out.println("in results with catgory: " + category + " with search; " + search);
+		ArrayList<ContenuCinematographique> results = new ArrayList<ContenuCinematographique>();
+		Vector<Film> films = modele.getFilms();
+		Vector<Documentaire> documentaires = modele.getDocumentaires();
+		Vector<Serie> series = modele.getSeries();
 
-		boolean found;
+		this.FiltersContenus(documentaires, series, films);
 
-		if (findInArray(prefe, "Documentaire")) {
-			for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu dont les genres match les preferences
-				for (int i = 0; i < prefe.size(); i++) {
-					if (findInArray(documentaires.get(j).getGenres(), prefe.get(i))) {
-						results.add(documentaires.get(j));
-						break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
-					}
-				}
-			}
-			for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu non ajouté avant
-				found = false;
-				for (int i = 0; i < results.size(); i++) {
-					if (documentaires.get(j).getTitre().equals(results.get(i).getTitre())) {
-						found = true;
-					}
-				}
-				if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
-					results.add(documentaires.get(j));
-				}
-			}
-			for (int j = 0; j < series.size(); j++) {// On ajoute les séries dont les genres match les preferences
-				for (int i = 0; i < prefe.size(); i++) {
-					if (findInArray(series.get(j).getGenres(), prefe.get(i))) {
-						results.add(series.get(j));
-						break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
-					}
-				}
-			}
-			for (int j = 0; j < films.size(); j++) {// On ajoute les films dont les genres match les preferences
-				for (int i = 0; i < prefe.size(); i++) {
-					if (findInArray(films.get(j).getGenres(), prefe.get(i))) {
-						results.add(films.get(j));
-						break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
-					}
-				}
-			}
-			for (int j = 0; j < series.size(); j++) {// On ajoute les docu non ajouté avant
-				found = false;
-				for (int i = 0; i < results.size(); i++) {
-					if (series.get(j).getTitre().equals(results.get(i).getTitre())) {
-						found = true;
-					}
-				}
-				if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
-					results.add(series.get(j));
-				}
-			}
-			for (int j = 0; j < films.size(); j++) {// On ajoute les docu non ajouté avant
-				found = false;
-				for (int i = 0; i < results.size(); i++) {
-					if (films.get(j).getTitre().equals(results.get(i).getTitre())) {
-						found = true;
-					}
-				}
-				if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
-					results.add(films.get(j));
-				}
+		if (category.equals("Tout")) {
+			ArrayList<String> prefe = user.getPreferences();
+			System.out.println("Tout");
+			if (findInArray(prefe, "Documentaire")) {
+				System.out.println("Documentaire");
+				this.addDocumentaireWithPreferences(documentaires, prefe, results);
+				this.addRestOfDocumentaire(documentaires, results);
+				this.addSerieWithPreferences(series, prefe, results);
+				this.addFilmWithPreferences(films, prefe, results);
+				this.addRestOfSerie(series, results);
+				this.addRestOfFilm(films, results);
+			} else {
+				System.out.println("else");
+				this.addSerieWithPreferences(series, prefe, results);
+				this.addFilmWithPreferences(films, prefe, results);
+				this.addDocumentaireWithPreferences(documentaires, prefe, results);
+				this.addRestOfSerie(series, results);
+				this.addRestOfFilm(films, results);
+				this.addRestOfDocumentaire(documentaires, results);
 			}
 		} else {
-			for (int j = 0; j < series.size(); j++) {// On ajoute les séries dont les genres match les preferences
-				for (int i = 0; i < prefe.size(); i++) {
-					if (findInArray(series.get(j).getGenres(), prefe.get(i))) {
-						results.add(series.get(j));
-						break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
-					}
-				}
-			}
-			for (int j = 0; j < films.size(); j++) {// On ajoute les films dont les genres match les preferences
-				for (int i = 0; i < prefe.size(); i++) {
-					if (findInArray(films.get(j).getGenres(), prefe.get(i))) {
-						results.add(films.get(j));
-						break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
-					}
-				}
-			}
-			for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu dont les genres match les preferences
-				for (int i = 0; i < prefe.size(); i++) {
-					if (findInArray(documentaires.get(j).getGenres(), prefe.get(i))) {
-						results.add(documentaires.get(j));
-						break;// On sort de la boucle de prefe pour ne pas ajouter le docu plusieurs fois
-					}
-				}
-			}
-			for (int j = 0; j < series.size(); j++) {// On ajoute les docu non ajouté avant
-				found = false;
-				for (int i = 0; i < results.size(); i++) {
-					if (series.get(j).getTitre().equals(results.get(i).getTitre())) {
-						found = true;
-					}
-				}
-				if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
-					results.add(series.get(j));
-				}
-			}
-			for (int j = 0; j < films.size(); j++) {// On ajoute les docu non ajouté avant
-				found = false;
-				for (int i = 0; i < results.size(); i++) {
-					if (films.get(j).getTitre().equals(results.get(i).getTitre())) {
-						found = true;
-					}
-				}
-				if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
-					results.add(films.get(j));
-				}
-			}
-			for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu non ajouté avant
-				found = false;
-				for (int i = 0; i < results.size(); i++) {
-					if (documentaires.get(j).getTitre().equals(results.get(i).getTitre())) {
-						found = true;
-					}
-				}
-				if (!found) {// S'il n'a pas été ajouté avant on le rajoute maintenant
-					results.add(documentaires.get(j));
-				}
+			System.out.println("else");
+			ArrayList<String> prefe = new ArrayList<String>();
+			prefe.add(category);
+			if (findInArray(prefe, "Documentaire")) {
+				System.out.println("Documentaire");
+				this.addDocumentaireWithPreferences(documentaires, prefe, results);
+				this.addSerieWithPreferences(series, prefe, results);
+				this.addFilmWithPreferences(films, prefe, results);
+			} else {
+				System.out.println("else");
+				this.addSerieWithPreferences(series, prefe, results);
+				this.addFilmWithPreferences(films, prefe, results);
+				this.addDocumentaireWithPreferences(documentaires, prefe, results);
 			}
 		}
+
 		for (int i = 0; i < results.size(); i++) {
 			System.out.print("Titre : " + results.get(i).getTitre() + " genre: [");
 			String buffer = "";
@@ -224,7 +231,7 @@ public class vue_catalogue {
 	 */
 	public void initialize(JFrame frame) {
 
-		getResults(this.search);
+		getResults(this.search, this.category);
 
 		panel.setBackground(Color.BLACK);
 

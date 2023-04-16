@@ -1,5 +1,13 @@
 package Vue;
 
+/**
+ * 
+ * @author Clement BROT
+ *
+ *         Permet à utilisateur de se connecter à son compte
+ *
+ */
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;

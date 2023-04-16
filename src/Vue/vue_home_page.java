@@ -1,6 +1,16 @@
 package Vue;
 
+/**
+ * 
+ * @author Clement BROT
+ *
+ *         Vue d'accueil de l'application après login d'un utilisateur
+ *         On lui recommande des films et lui propose de finir les films en cours
+ *
+ */
+
 /*import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;

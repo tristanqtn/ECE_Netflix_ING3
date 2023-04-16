@@ -1,5 +1,11 @@
 package Vue;
 
+/**
+ * @author Clement Brot
+ *
+ * Cette vue permet à l'utilisateur de rentrer des informations bancaires lors de la création d'un comtpe
+ *
+ */
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -18,8 +24,6 @@ import ElementsVisuels.JTextArea_arrondi;
 
 public class vue_payement {
 
-	// private JFrame frame;
-
 	private JPasswordField_arrondi passwordField_1;
 	private JTextArea_arrondi textArea;
 	private JTextArea_arrondi textArea_1;
@@ -30,8 +34,8 @@ public class vue_payement {
 	private JLabel lblRib;
 	private JButton_arrondi retour;
 
+	// CONSTRUCTEUR - allocation des éléments visuels
 	public vue_payement() {
-
 		this.passwordField_1 = new JPasswordField_arrondi();
 		this.textArea = new JTextArea_arrondi();
 		this.textArea_1 = new JTextArea_arrondi();
@@ -54,7 +58,7 @@ public class vue_payement {
 	 * ArrayList<JTextArea_arrondi> composants = new ArrayList<JTextArea_arrondi>();
 	 * composants.add(textArea_1); composants.add(textArea); return composants; }
 	 */
-
+	// initialisation - placemement et configuration des éléments visuels
 	public void initialize(JFrame frame) {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -176,6 +180,7 @@ public class vue_payement {
 
 	}
 
+	// GETTERS
 	public String getNumCB() {
 		return textArea.getText();
 	}
@@ -196,6 +201,7 @@ public class vue_payement {
 		return retour;
 	}
 
+	// re-affichage des éléments graphiques
 	public void repaint(JFrame frame) {
 		this.btnNewButton.repaint();
 		this.lblCryptogramme.repaint();
@@ -211,6 +217,7 @@ public class vue_payement {
 		frame.repaint();
 	}
 
+	// suppression des éléments visuels
 	public void delete(JFrame frame) {
 		frame.getContentPane().remove(this.btnNewButton);
 		frame.getContentPane().remove(this.lblCryptogramme);

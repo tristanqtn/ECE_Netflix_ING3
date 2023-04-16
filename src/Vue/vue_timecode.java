@@ -2,10 +2,16 @@ package Vue;
 
 /**
  * @author Tristan Querton
+
+ *
+ * Cette vue est affichée lorsque l'utilisateur visionne un film / docu / episode
+ * Elle permet de sauver le time code de visionnage et la note de l'utilisateur en BDD
  *
  */
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -31,9 +37,7 @@ public class vue_timecode {
 	private JButton_arrondi retour;
 	private ContenuCinematographique contenu;
 
-	/**
-	 * Create the application.
-	 */
+	// CONSTRUCTEUR - allocation des éléments visuels
 	public vue_timecode(ContenuCinematographique contenu) {
 		this.contenu = contenu;
 		time_code = new JTextField_arrondi();
@@ -47,9 +51,7 @@ public class vue_timecode {
 
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	// initialisation - placemement et configuration des éléments visuels
 	public void initialize(JFrame frame) {
 
 		time_code.setBackground(Color.BLACK);
@@ -121,9 +123,11 @@ public class vue_timecode {
 				.addComponent(btn_rndSauvegarderLesRglages, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
 				.addContainerGap(131, Short.MAX_VALUE)));
 		frame.getContentPane().setLayout(groupLayout);
-
+		setListeners();
+		repaint(frame);
 	}
 
+	// GETTERS
 	public JButton_arrondi getRetour() {
 		return retour;
 	}
@@ -144,6 +148,16 @@ public class vue_timecode {
 		return this.film_fini;
 	}
 
+	public ContenuCinematographique getContenu() {
+		return this.contenu;
+	}
+
+	public int get_time_code_sec() {
+		String split[] = get_time_code().getText().split(":");
+		return (Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]));
+	}
+
+	// re-affichage des éléments graphiques
 	public void repaint(JFrame frame) {
 		this.retour.repaint();
 		this.time_code.repaint();
@@ -158,6 +172,7 @@ public class vue_timecode {
 		frame.repaint();
 	}
 
+	// suppression des éléments visuels
 	public void delete(JFrame frame) {
 		frame.getContentPane().remove(this.retour);
 		frame.getContentPane().remove(this.lblNewLabel_2);
@@ -171,7 +186,81 @@ public class vue_timecode {
 		repaint(frame);
 	}
 
-	public ContenuCinematographique getContenu() {
-		return this.contenu;
+	// gestion des input
+	public void setListeners() {
+		this.film_fini.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (film_fini.isSelected()) {// si fin du film selection desactivation de l'entrée time code
+					time_code.setEditable(false);
+					time_code.setText("");
+				} else {
+					time_code.setEditable(true);
+					time_code.setText("");
+				}
+			}
+
+		});
+	}
+
+	// blindage de la note
+	public boolean isNoteValid() {
+		int noteInt;
+		try {
+			noteInt = Integer.parseInt(this.note.getText());
+		} catch (Exception e) {
+			return false;
+		}
+		if (noteInt < 0 || noteInt > 10) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	// blindage du time code
+	public boolean isTimeCodeFormatValid() {
+		if (this.time_code.getText().length() != 5) {
+			return false;
+		}
+		char[] characters = this.time_code.getText().toCharArray();
+		if (characters[0] > '9' || characters[0] < '0') {
+			return false;
+		}
+		if (characters[1] > '9' || characters[1] < '0') {
+			return false;
+		}
+		if (characters[3] > '9' || characters[3] < '0') {
+			return false;
+		}
+		if (characters[4] > '9' || characters[4] < '0') {
+			return false;
+		}
+		if (characters[2] != ':') {
+			return false;
+		}
+		String minutes = "";
+		minutes += characters[3];
+		minutes += characters[4];
+		int minutesInt;
+		try {
+			minutesInt = Integer.parseInt(minutes);
+		} catch (Exception e) {
+			return false;
+		}
+		if (minutesInt > 59 || minutesInt < 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean isSauvegardable() {
+		if (!film_fini.isSelected()) {
+			return (isNoteValid() && isTimeCodeFormatValid());
+		} else {
+			return isNoteValid();
+		}
 	}
 }

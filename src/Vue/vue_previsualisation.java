@@ -1,5 +1,14 @@
 package Vue;
 
+/**
+ * @author Tristan Querton
+
+ *
+ * Cette vue présente les informations d'un film / épisode / docu après que l'utilisateur ait cliqué sur l'affiche de ce film dans les catalogues. 
+ * Les infos suivantes y sont représentées : titre, réalisateur, acteur, genre, parution, description, note, duree
+ *
+ */
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -33,9 +42,9 @@ public class vue_previsualisation {
 	private JButton_arrondi retour;
 	private JTextArea titre;
 
+	// CONSTRUCTEUR - allocation des éléments visuels
 	public vue_previsualisation(ContenuCinematographique contenu) {
 		this.contenu = contenu;
-
 		titre = new JTextArea();
 		titre.setWrapStyleWord(true);
 		titre.setBackground(Color.BLACK);
@@ -73,7 +82,7 @@ public class vue_previsualisation {
 		presentation.setEditable(false);
 		String buffer1 = String.format("%.2f", contenu.getNote());
 		presentation.setText("Description : " + this.contenu.getDescription() + "\n\nDurée (min) : "
-				+ this.contenu.getDuree() + "\n\nNote (/10) : " + buffer1);
+				+ (this.contenu.getDuree() / 60) + "\n\nNote (/10) : " + buffer1);
 		affiche = new JButton_arrondi();
 		affiche.setForeground(Color.BLACK);
 
@@ -93,6 +102,7 @@ public class vue_previsualisation {
 
 	}
 
+	// GETTERS
 	public JButton_arrondi get_retour() {
 		return retour;
 	}
@@ -105,9 +115,11 @@ public class vue_previsualisation {
 		return btnNewButton;
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	public ContenuCinematographique get_contenu() {
+		return contenu;
+	}
+
+	// initialisation - placemement et configuration des éléments visuels
 	public void initialize(JFrame frame) {
 
 		realisateur.setForeground(Color.WHITE);
@@ -191,6 +203,7 @@ public class vue_previsualisation {
 
 	}
 
+	// suppression des éléments visuels
 	public void delete(JFrame frame) {
 		frame.getContentPane().remove(this.acteurs);
 		frame.getContentPane().remove(this.affiche);
@@ -205,6 +218,7 @@ public class vue_previsualisation {
 		repaint(frame);
 	}
 
+	// affichage info
 	public void set_information_film(Film contenu) {
 		this.presentation.setText("Description : " + contenu.getDescription() + "\n\n Duree : " + contenu.getDuree()
 				+ "\n\n Note : " + contenu.getNote());
@@ -219,6 +233,7 @@ public class vue_previsualisation {
 
 	}
 
+	// affichage info
 	public void set_information_documentaire(Documentaire contenu) {
 
 		this.presentation.setText("Description : " + contenu.getDescription() + "\n\n Duree : " + contenu.getDuree()
@@ -233,6 +248,7 @@ public class vue_previsualisation {
 
 	}
 
+	// affichage info
 	public void set_information_episode(Serie contenu, int num_saison, int num_episode) {
 
 		this.presentation.setText("Saison : " + contenu.getSaisons().get(num_saison - 1).getNum_saison() + " / "
@@ -263,6 +279,7 @@ public class vue_previsualisation {
 				+ contenu.getSaisons().get(num_saison - 1).getEpisodes().get(num_episode - 1).getNote());
 	}
 
+	// re-affichage des éléments graphiques
 	public void repaint(JFrame frame) {
 		this.acteurs.repaint();
 		this.affiche.repaint();
@@ -278,7 +295,4 @@ public class vue_previsualisation {
 		frame.repaint();
 	}
 
-	public ContenuCinematographique get_contenu() {
-		return contenu;
-	}
 }

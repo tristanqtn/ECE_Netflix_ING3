@@ -1,5 +1,11 @@
 package Controleur;
 
+/**
+ * 
+ * @author Clement Brot
+ * 
+ */
+
 import javax.swing.JFrame;
 
 import ElementsVisuels.JButton_arrondi;

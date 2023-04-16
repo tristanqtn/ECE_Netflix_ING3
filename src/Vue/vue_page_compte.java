@@ -24,6 +24,9 @@ import Entite.Membre;
  * 
  * @author Clement BROT
  *
+ *         Vue des paramètres d'un compte utilisateur et selection des
+ *         sous-titres / qualité / reprise video
+ *
  */
 
 public class vue_page_compte {
@@ -104,7 +107,7 @@ public class vue_page_compte {
 		this.user_name.setText("  " + this.membre.getPrenom() + " " + this.membre.getNom());
 		this.textField.setText("" + this.membre.getNb_film_vu());
 		textField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		this.textField_1.setText("" + this.membre.getTemps_visionnage());
+		this.textField_1.setText("" + (this.membre.getTemps_visionnage() / 60));
 		textField_1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 
 	}
