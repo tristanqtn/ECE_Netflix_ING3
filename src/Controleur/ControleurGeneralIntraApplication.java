@@ -232,48 +232,13 @@ public class ControleurGeneralIntraApplication {
 
 	private void setRechercheListeners(JFrame frame) {
 
-		recherche.getAction().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Action");
-			}
-
-		});
-
-		recherche.getAmour().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Amour");
-			}
-
-		});
-
-		recherche.getComedie().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("comedie");
-			}
-
-		});
-
-		recherche.getDocumentaire().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Documentaire");
-			}
-
-		});
-
 		recherche.getButtonRecherche().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Bouton Recherche");
-				catalogue = new vue_catalogue(modele, user, recherche.getRecherche());
+				catalogue = new vue_catalogue(modele, user, recherche.getRecherche(),
+						recherche.getDropDownMenuChoice());
 				recherche.delete(frame);
 				catalogue.initialize(frame);
 				setCatalogueListeners(frame);
@@ -329,96 +294,96 @@ public class ControleurGeneralIntraApplication {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				Vector<Visionnage> visio = modele.getVisionnages();
-				Visionnage nouveau = null;
-				if (timecode.getContenu().who_am_i() == "documentaire"
-						&& timecode.get_film_fini().isSelected() == false) {
-					String split[] = timecode.get_time_code().getText().split(":");
-					int TIME_code = Integer.parseInt(split[0]);
+				if (timecode.isSauvegardable()) {
+					Vector<Visionnage> visio = modele.getVisionnages();
+					Visionnage nouveau = null;
+					if (timecode.getContenu().who_am_i() == "documentaire"
+							&& timecode.get_film_fini().isSelected() == false) {
+						nouveau = new Visionnage(0, user.getID(), 0, timecode.getContenu().getID(), 0, 0, 0,
+								timecode.get_time_code_sec());
 
-					nouveau = new Visionnage(0, user.getID(), 0, timecode.getContenu().getID(), 0, 0, 0, TIME_code);
-
-				}
-
-				if (timecode.getContenu().who_am_i() == "documentaire"
-						&& timecode.get_film_fini().isSelected() == true) {
-
-					nouveau = new Visionnage(0, user.getID(), 0, timecode.getContenu().getID(), 0, 0, 0, -1);
-
-				}
-
-				if (timecode.getContenu().who_am_i() == "film" && timecode.get_film_fini().isSelected() == false) {
-					String split[] = timecode.get_time_code().getText().split(":");
-					int TIME_code = Integer.parseInt(split[0]);
-					nouveau = new Visionnage(0, user.getID(), timecode.getContenu().getID(), 0, 0, 0, 0, TIME_code);
-
-				}
-
-				if (timecode.getContenu().who_am_i() == "film" && timecode.get_film_fini().isSelected() == true) {
-					nouveau = new Visionnage(0, user.getID(), timecode.getContenu().getID(), 0, 0, 0, 0, -1);
-
-				}
-
-				if (timecode.getContenu().who_am_i() == "episode" && timecode.get_film_fini().isSelected() == false) {
-					String split[] = timecode.get_time_code().getText().split(":");
-					int TIME_code = Integer.parseInt(split[0]);
-					Episode episode = (Episode) timecode.getContenu();
-					nouveau = new Visionnage(0, user.getID(), 0, 0, episode.getID_serie(), episode.getID_saison(),
-							episode.getID(), TIME_code);
-				}
-
-				if (timecode.getContenu().who_am_i() == "episode" && timecode.get_film_fini().isSelected() == true) {
-					Episode episode = (Episode) timecode.getContenu();
-					nouveau = new Visionnage(0, user.getID(), 0, 0, episode.getID_serie(), episode.getID_saison(),
-							episode.getID(), -1);
-
-				}
-
-				boolean seen = false;
-				for (int i = 0; i < visio.size(); i++) {
-					if (((visio.get(i).getID_membre() == nouveau.getID_membre())
-							&& visio.get(i).getID_film() == nouveau.getID_film() && visio.get(i).getID_film() != 0)
-							|| ((visio.get(i).getID_membre() == nouveau.getID_membre())
-									&& visio.get(i).getID_documentaire() == nouveau.getID_documentaire()
-									&& visio.get(i).getID_documentaire() != 0)
-							|| ((visio.get(i).getID_membre() == nouveau.getID_membre())
-									&& visio.get(i).getID_episode() == nouveau.getID_episode()
-									&& visio.get(i).getID_saison() == nouveau.getID_saison()
-									&& visio.get(i).getID_serie() == nouveau.getID_serie()
-									&& visio.get(i).getID_serie() != 0)) {// film deja visionner
-						seen = true;
 					}
 
-				}
-				if (seen) {
-					String split[] = timecode.get_time_code().getText().split(":");
-					modele.maj_visionnage_BDD(timecode.getContenu(), user, Integer.parseInt(split[0]),
-							timecode.get_film_fini().isSelected());
-				}
-				if (!seen) {
-					modele.sauver_nv_visionnage_BDD(nouveau);
-				}
+					if (timecode.getContenu().who_am_i() == "documentaire"
+							&& timecode.get_film_fini().isSelected() == true) {
 
-				if (timecode.get_film_fini().isSelected() == false) {
-					String split[] = timecode.get_time_code().getText().split(":");
-					int TIME_code = Integer.parseInt(split[0]);
-					modele.maj_contenu_BDD_note(timecode.getContenu(),
-							Double.parseDouble(timecode.get_note().getText()), user, TIME_code,
-							timecode.get_film_fini().isSelected());
+						nouveau = new Visionnage(0, user.getID(), 0, timecode.getContenu().getID(), 0, 0, 0, -1);
+
+					}
+
+					if (timecode.getContenu().who_am_i() == "film" && timecode.get_film_fini().isSelected() == false) {
+						nouveau = new Visionnage(0, user.getID(), timecode.getContenu().getID(), 0, 0, 0, 0,
+								timecode.get_time_code_sec());
+
+					}
+
+					if (timecode.getContenu().who_am_i() == "film" && timecode.get_film_fini().isSelected() == true) {
+						nouveau = new Visionnage(0, user.getID(), timecode.getContenu().getID(), 0, 0, 0, 0, -1);
+
+					}
+
+					if (timecode.getContenu().who_am_i() == "episode"
+							&& timecode.get_film_fini().isSelected() == false) {
+						Episode episode = (Episode) timecode.getContenu();
+						nouveau = new Visionnage(0, user.getID(), 0, 0, episode.getID_serie(), episode.getID_saison(),
+								episode.getID(), timecode.get_time_code_sec());
+					}
+
+					if (timecode.getContenu().who_am_i() == "episode"
+							&& timecode.get_film_fini().isSelected() == true) {
+						Episode episode = (Episode) timecode.getContenu();
+						nouveau = new Visionnage(0, user.getID(), 0, 0, episode.getID_serie(), episode.getID_saison(),
+								episode.getID(), -1);
+
+					}
+
+					boolean seen = false;
+					for (int i = 0; i < visio.size(); i++) {
+						if (((visio.get(i).getID_membre() == nouveau.getID_membre())
+								&& visio.get(i).getID_film() == nouveau.getID_film() && visio.get(i).getID_film() != 0)
+								|| ((visio.get(i).getID_membre() == nouveau.getID_membre())
+										&& visio.get(i).getID_documentaire() == nouveau.getID_documentaire()
+										&& visio.get(i).getID_documentaire() != 0)
+								|| ((visio.get(i).getID_membre() == nouveau.getID_membre())
+										&& visio.get(i).getID_episode() == nouveau.getID_episode()
+										&& visio.get(i).getID_saison() == nouveau.getID_saison()
+										&& visio.get(i).getID_serie() == nouveau.getID_serie()
+										&& visio.get(i).getID_serie() != 0)) {// film deja visionner
+							seen = true;
+						}
+
+					}
+					if (seen) {
+
+						modele.maj_visionnage_BDD(timecode.getContenu(), user, timecode.get_time_code_sec(),
+								timecode.get_film_fini().isSelected());
+					}
+					if (!seen) {
+						modele.sauver_nv_visionnage_BDD(nouveau);
+					}
+
+					if (timecode.get_film_fini().isSelected() == false) {
+
+						modele.maj_contenu_BDD_note(timecode.getContenu(),
+								Double.parseDouble(timecode.get_note().getText()), user, timecode.get_time_code_sec(),
+								timecode.get_film_fini().isSelected());
+					} else {
+						modele.maj_contenu_BDD_note(timecode.getContenu(),
+								Double.parseDouble(timecode.get_note().getText()), user,
+								timecode.getContenu().getDuree(), timecode.get_film_fini().isSelected());
+					}
+					modele.recharger_membres();
+					for (int i = 0; i < modele.getMembres().size(); i++) {
+						if (modele.getMembres().get(i).getID() == user.getID())
+							user = modele.getMembres().get(i);
+					}
+					pageDAcceuil = new accueil(user);
+					timecode.delete(frame);
+					pageDAcceuil.initialize(frame);
+					setPageDAcceuilListeners(frame);
 				} else {
-					modele.maj_contenu_BDD_note(timecode.getContenu(),
-							Double.parseDouble(timecode.get_note().getText()), user, timecode.getContenu().getDuree(),
-							timecode.get_film_fini().isSelected());
+					System.out.println("Vous avez mal saisi quelquechose");
 				}
-				modele.recharger_membres();
-				for (int i = 0; i < modele.getMembres().size(); i++) {
-					if (modele.getMembres().get(i).getID() == user.getID())
-						user = modele.getMembres().get(i);
-				}
-				pageDAcceuil = new accueil(user);
-				timecode.delete(frame);
-				pageDAcceuil.initialize(frame);
-				setPageDAcceuilListeners(frame);
 			}
 
 		});

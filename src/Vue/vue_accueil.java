@@ -1,5 +1,12 @@
 package Vue;
 
+/**
+ * 
+ * @author Clement BROT
+ *
+ *         Première vue du projet permet à l'utilisateur de choisir entre la connexion et les création d'un nouveau compte.
+ *
+ */
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -15,15 +22,12 @@ import ElementsVisuels.JTextArea_arrondi;
 
 public class vue_accueil {
 
-	/**
-	 * Launch the application.
-	 */
-
 	private JButton_arrondi logIn;
 	private JButton_arrondi newUser;
 	private JTextArea_arrondi txtrTrisflix;
 	private GridBagLayout gridBagLayout;
 
+	// GETTERS
 	public JButton_arrondi getLogIn() {
 		return this.logIn;
 	}

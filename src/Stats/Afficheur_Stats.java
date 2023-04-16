@@ -31,14 +31,15 @@ public class Afficheur_Stats {
 		HistogramPanel panel = new HistogramPanel();// création du panel
 		for (int i = 0; i < membres.size(); i++) {// pour chaque membres
 			if (membres.get(i).getAdmin() == false)// si l'utilisateur n'est pas admin
-				panel.addHistogramColumn(membres.get(i).getPrenom(), membres.get(i).getTemps_visionnage(), Color.RED);// ajout
-																														// d'une
-																														// colonne
-																														// pour
-																														// l'utilisateur
-																														// et
-																														// sa
-																														// stat
+				panel.addHistogramColumn(membres.get(i).getPrenom(), (membres.get(i).getTemps_visionnage() / 60),
+						Color.RED);// ajout
+									// d'une
+									// colonne
+									// pour
+									// l'utilisateur
+									// et
+									// sa
+									// stat
 		}
 
 		panel.layoutHistogram();// constitution du graphe

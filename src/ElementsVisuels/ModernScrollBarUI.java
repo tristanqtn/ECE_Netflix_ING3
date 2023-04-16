@@ -1,5 +1,11 @@
 package ElementsVisuels;
 
+/**
+ * 
+ * @author Philipp Danner
+ *
+ */
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -42,6 +48,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
 
 	@Override
 	protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
+		@SuppressWarnings("unused")
 		int alpha = isThumbRollover() ? SCROLL_BAR_ALPHA_ROLLOVER : SCROLL_BAR_ALPHA;
 		int orientation = scrollbar.getOrientation();
 		int x = thumbBounds.x;

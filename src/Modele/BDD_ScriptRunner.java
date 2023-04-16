@@ -27,7 +27,8 @@ package Modele;
 
 /**
  * 
- * 	Classe utiliser pour executer des scripts SQL depuis un fichier .sql. Pour ce projet elle est utilisee pour generer et remplir la BDD
+ * 	Classe utiliser pour executer des scripts SQL depuis un fichier .sql. 
+ *  Pour ce projet elle est utilisee pour generer et remplir la BDD
  * 
  *         CETTE FONCTION NE DOIT PAS ETRE UTILISEE PAR AUTRE CHOSE QU'UNE
  *         CLASSE BDD_EXPLOITANT

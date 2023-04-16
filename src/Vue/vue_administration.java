@@ -1,8 +1,6 @@
 package Vue;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +19,7 @@ import ElementsVisuels.JTextArea_arrondi;
 
 /**
  * 
- * @author tristan querton
+ * @author Tristan Querton
  * 
  *         Cette vue est permet aux administrateur d'executer des modifications
  *         sur le BDD du prj
@@ -44,6 +42,7 @@ public class vue_administration implements ActionListener {
 	private JButton_arrondi retour;
 	private JTextArea_arrondi txtrTrisflix;
 
+	// GETTERS
 	public JButton_arrondi get_button_creer_bdd() {
 		return this.creer_bdd;
 	}
@@ -68,6 +67,7 @@ public class vue_administration implements ActionListener {
 		return this.retour;
 	}
 
+	// CONSTRUCTEUR - allocation des éléments visuels
 	public vue_administration() {
 		exec_requete = new JButton_arrondi("New button");
 		exec_requete.setText("Executer");
@@ -83,33 +83,28 @@ public class vue_administration implements ActionListener {
 		retour = new JButton_arrondi();
 	}
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFrame frame = new JFrame("FLOU-FLIX");
-					frame.getContentPane().setBackground(Color.BLACK);
-					frame.setBounds(100, 100, 1150, 700);
-					frame.setMinimumSize(new Dimension(1150, 700));
-					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					JFrame frame = new JFrame("FLOU-FLIX");
+//					frame.getContentPane().setBackground(Color.BLACK);
+//					frame.setBounds(100, 100, 1150, 700);
+//					frame.setMinimumSize(new Dimension(1150, 700));
+//					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//					vue_administration vue = new vue_administration();
+//					frame.setVisible(true);
+//					vue.initialize(frame);
+//
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
-					vue_administration vue = new vue_administration();
-					frame.setVisible(true);
-					vue.initialize(frame);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	// initialisation - placemement et configuration des éléments visuels
 	public void initialize(JFrame frame) {
 
 		retour.setBackground(Color.BLACK);
@@ -203,6 +198,7 @@ public class vue_administration implements ActionListener {
 		repaint(frame);
 	}
 
+	// GETTERS & SETTERS
 	public boolean isEffacer_bdd() {
 		return b_effacer_bdd;
 	}
@@ -235,6 +231,7 @@ public class vue_administration implements ActionListener {
 		sql_commande = string;
 	}
 
+	// gestion input clavier
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -256,6 +253,7 @@ public class vue_administration implements ActionListener {
 		}
 	}
 
+	// suppression des éléments visuels
 	public void delete(JFrame frame) {
 		frame.getContentPane().remove(this.afficher_bdd);
 		frame.getContentPane().remove(this.creer_bdd);
@@ -269,6 +267,7 @@ public class vue_administration implements ActionListener {
 		repaint(frame);
 	}
 
+	// re-affichage des éléments graphiques
 	public void repaint(JFrame frame) {
 		this.afficher_bdd.repaint();
 		this.creer_bdd.repaint();

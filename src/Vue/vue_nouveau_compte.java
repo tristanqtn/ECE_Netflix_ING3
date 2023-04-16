@@ -1,5 +1,13 @@
 package Vue;
 
+/**
+ * 
+ * @author Clement BROT
+ *
+ *         Vue de création d'un nouveau compte d'utilisateur
+ *
+ */
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
