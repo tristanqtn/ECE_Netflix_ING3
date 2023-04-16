@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -41,6 +42,9 @@ public class vue_previsualisation {
 	private ContenuCinematographique contenu;
 	private JButton_arrondi retour;
 	private JTextArea titre;
+
+	private JComboBox<Integer> comboBox;
+	private JComboBox<Integer> comboBox_2;
 
 	// CONSTRUCTEUR - allocation des éléments visuels
 	public vue_previsualisation(ContenuCinematographique contenu) {
@@ -100,6 +104,9 @@ public class vue_previsualisation {
 		btnNewButton.setForeground(Color.WHITE);
 		retour = new JButton_arrondi();
 
+		comboBox = new JComboBox<Integer>();
+		comboBox_2 = new JComboBox<Integer>();
+
 	}
 
 	// GETTERS
@@ -143,6 +150,12 @@ public class vue_previsualisation {
 		retour.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath()));
 		retour.setBackground(new Color(0, 0, 0));
 
+		comboBox.setForeground(Color.RED);
+		comboBox.setBackground(Color.BLACK);
+
+		comboBox_2.setForeground(Color.RED);
+		comboBox_2.setBackground(Color.BLACK);
+
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
 				.createSequentialGroup()
@@ -150,26 +163,30 @@ public class vue_previsualisation {
 				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+												.addComponent(film, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addComponent(presentation, GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
 										.addComponent(genre, 330, 330, Short.MAX_VALUE)
 										.addComponent(acteurs, 330, 330, Short.MAX_VALUE)
 										.addComponent(realisateur, 330, 330, Short.MAX_VALUE)
-										.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(film, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
-												.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addComponent(parution, GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
-								.addGap(293)
+								.addGap(43)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(comboBox_2, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(comboBox, 0, 98, Short.MAX_VALUE))
+								.addGap(152)
 								.addComponent(affiche, GroupLayout.PREFERRED_SIZE, 372, GroupLayout.PREFERRED_SIZE)
 								.addGap(64))
 						.addGroup(groupLayout.createSequentialGroup().addGap(338)
 								.addComponent(titre, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE).addGap(436)))));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 						.addComponent(retour, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(affiche, GroupLayout.PREFERRED_SIZE, 495,
 										GroupLayout.PREFERRED_SIZE)
@@ -189,13 +206,19 @@ public class vue_previsualisation {
 										.addComponent(presentation, GroupLayout.PREFERRED_SIZE, 237,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(47)
-										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(film, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-						.addGap(59))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup().addGap(28)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE)
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(film, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(comboBox_2,
+												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)))
+						.addGap(54))
+				.addGroup(groupLayout.createSequentialGroup().addGap(28)
 						.addComponent(titre, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE).addGap(592)));
 		frame.getContentPane().setLayout(groupLayout);
 
@@ -215,6 +238,8 @@ public class vue_previsualisation {
 		frame.getContentPane().remove(this.presentation);
 		frame.getContentPane().remove(this.titre);
 		frame.getContentPane().remove(this.retour);
+		frame.getContentPane().remove(this.comboBox);
+		frame.getContentPane().remove(this.comboBox_2);
 		repaint(frame);
 	}
 
@@ -290,9 +315,10 @@ public class vue_previsualisation {
 		this.realisateur.repaint();
 		this.presentation.repaint();
 		this.retour.repaint();
+		this.comboBox.repaint();
+		this.comboBox_2.repaint();
 
 		frame.validate();
 		frame.repaint();
 	}
-
 }

@@ -7,23 +7,17 @@ package Vue;
  *
  */
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Controleur.Controleur_Modele;
@@ -32,11 +26,9 @@ import ElementsVisuels.JTextArea_arrondi;
 import ElementsVisuels.ModernScrollPane;
 import Entite.ContenuCinematographique;
 import Entite.Documentaire;
-import Entite.Episode;
 import Entite.Film;
 import Entite.Membre;
 import Entite.Serie;
-import Entite.Visionnage;
 
 public class vue_catalogue {
 	private JButton_arrondi retour;
@@ -55,16 +47,16 @@ public class vue_catalogue {
 	private String category;
 
 	// CONSTRUCTEUR - allocation des éléments visuels
-	public vue_catalogue(Controleur_Modele modele,Membre user, String search, String category) {
-		this.modele=modele;
+	public vue_catalogue(Controleur_Modele modele, Membre user, String search, String category) {
+		this.modele = modele;
 		this.user = user;
-		this.search=search;
-		this.category=category;
+		this.search = search;
+		this.category = category;
 		retour = new JButton_arrondi("New button");
 		retour.setText("");
 
 		results = new ArrayList<JButton>();
-		contenus = getResults(this.search,this.category);
+		contenus = getResults(this.search, this.category);
 
 		titre = new JTextArea_arrondi();
 		panel = new JPanel();
@@ -72,10 +64,10 @@ public class vue_catalogue {
 		configure();
 
 	}
-	
-	public void setButtons() {//On crée les boutons contenant les affiches des contenus
-		for(int i=0;i<contenus.size();i++) {
-			JButton button =new JButton();
+
+	public void setButtons() {// On crée les boutons contenant les affiches des contenus
+		for (int i = 0; i < contenus.size(); i++) {
+			JButton button = new JButton();
 			button.setIcon(new ImageIcon(contenus.get(i).getAffiche()));
 			button.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 			button.setFont(new Font("Rockwell Nova Extra Bold", Font.PLAIN, 10));
@@ -84,7 +76,8 @@ public class vue_catalogue {
 		}
 	}
 
-	public boolean findInArray(ArrayList<String> array, String string) {//on retourne vrai si on trouvbe la string dans l'array
+	public boolean findInArray(ArrayList<String> array, String string) {// on retourne vrai si on trouvbe la string dans
+																		// l'array
 		for (int i = 0; i < array.size(); i++) {
 			if (array.get(i).equals(string)) {
 				return true;
@@ -92,8 +85,9 @@ public class vue_catalogue {
 		}
 		return false;
 	}
-	
-	public void addDocumentaireWithPreferences(Vector<Documentaire> documentaires, ArrayList<String> prefe, ArrayList<ContenuCinematographique> results) {
+
+	public void addDocumentaireWithPreferences(Vector<Documentaire> documentaires, ArrayList<String> prefe,
+			ArrayList<ContenuCinematographique> results) {
 		for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu dont les genres match les preferences
 			for (int i = 0; i < prefe.size(); i++) {
 				if (findInArray(documentaires.get(j).getGenres(), prefe.get(i))) {
@@ -103,7 +97,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-	
+
 	public void addRestOfDocumentaire(Vector<Documentaire> documentaires, ArrayList<ContenuCinematographique> results) {
 		boolean found;
 		for (int j = 0; j < documentaires.size(); j++) {// On ajoute les docu non ajouté avant
@@ -118,7 +112,9 @@ public class vue_catalogue {
 			}
 		}
 	}
-	public void addFilmWithPreferences(Vector<Film> films, ArrayList<String> prefe, ArrayList<ContenuCinematographique> results) {
+
+	public void addFilmWithPreferences(Vector<Film> films, ArrayList<String> prefe,
+			ArrayList<ContenuCinematographique> results) {
 		for (int j = 0; j < films.size(); j++) {// On ajoute les docu dont les genres match les preferences
 			for (int i = 0; i < prefe.size(); i++) {
 				if (findInArray(films.get(j).getGenres(), prefe.get(i))) {
@@ -128,7 +124,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-	
+
 	public void addRestOfFilm(Vector<Film> films, ArrayList<ContenuCinematographique> results) {
 		boolean found;
 		for (int j = 0; j < films.size(); j++) {// On ajoute les docu non ajouté avant
@@ -143,7 +139,9 @@ public class vue_catalogue {
 			}
 		}
 	}
-	public void addSerieWithPreferences(Vector<Serie> series, ArrayList<String> prefe, ArrayList<ContenuCinematographique> results) {
+
+	public void addSerieWithPreferences(Vector<Serie> series, ArrayList<String> prefe,
+			ArrayList<ContenuCinematographique> results) {
 		for (int j = 0; j < series.size(); j++) {// On ajoute les docu dont les genres match les preferences
 			for (int i = 0; i < prefe.size(); i++) {
 				if (findInArray(series.get(j).getGenres(), prefe.get(i))) {
@@ -153,7 +151,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-	
+
 	public void addRestOfSerie(Vector<Serie> series, ArrayList<ContenuCinematographique> results) {
 		boolean found;
 		for (int j = 0; j < series.size(); j++) {// On ajoute les docu non ajouté avant
@@ -168,7 +166,7 @@ public class vue_catalogue {
 			}
 		}
 	}
-	
+
 	public void FiltersContenus(Vector<Documentaire> documentaires, Vector<Serie> series, Vector<Film> films) {
 		for (int i = films.size() - 1; i >= 0; i--) {// On trie les films par rapport à la recherche
 			if (!films.get(i).getTitre().contains(search)) {
@@ -187,8 +185,10 @@ public class vue_catalogue {
 		}
 	}
 
-	public ArrayList<ContenuCinematographique> getResults(String search, String category) {//On réalise l'algorithme de recherche et on stocke les films à afficher
-		System.out.println("in results with catgory: "+category+" with search; "+search);
+	public ArrayList<ContenuCinematographique> getResults(String search, String category) {// On réalise l'algorithme de
+																							// recherche et on stocke
+																							// les films à afficher
+		System.out.println("in results with catgory: " + category + " with search; " + search);
 		ArrayList<ContenuCinematographique> results = new ArrayList<ContenuCinematographique>();
 		Vector<Film> films = modele.getFilms();
 		Vector<Documentaire> documentaires = modele.getDocumentaires();
@@ -196,11 +196,10 @@ public class vue_catalogue {
 
 		this.FiltersContenus(documentaires, series, films);
 
-
-		if(category.equals("Tout")) {//L'utilisateur n'a pas selectionné de catégorie particulière
+		if (category.equals("Tout")) {// L'utilisateur n'a pas selectionné de catégorie particulière
 			ArrayList<String> prefe = user.getPreferences();
 			System.out.println("Tout");
-			if (findInArray(prefe, "Documentaire")) {//L'utilisateur a comme préférence documentaire
+			if (findInArray(prefe, "Documentaire")) {// L'utilisateur a comme préférence documentaire
 				System.out.println("Documentaire");
 				this.addDocumentaireWithPreferences(documentaires, prefe, results);
 				this.addRestOfDocumentaire(documentaires, results);
@@ -217,11 +216,11 @@ public class vue_catalogue {
 				this.addRestOfFilm(films, results);
 				this.addRestOfDocumentaire(documentaires, results);
 			}
-		}else {
+		} else {
 			System.out.println("else");
 			ArrayList<String> prefe = new ArrayList<String>();
 			prefe.add(category);
-			if (findInArray(prefe, "Documentaire")) {//L'utilisateur a comme préférence documentaire
+			if (findInArray(prefe, "Documentaire")) {// L'utilisateur a comme préférence documentaire
 				System.out.println("Documentaire");
 				this.addDocumentaireWithPreferences(documentaires, prefe, results);
 				this.addSerieWithPreferences(series, prefe, results);
@@ -233,9 +232,8 @@ public class vue_catalogue {
 				this.addDocumentaireWithPreferences(documentaires, prefe, results);
 			}
 		}
-		
-			
-		for (int i = 0; i < results.size(); i++) {//On affiche les résultats
+
+		for (int i = 0; i < results.size(); i++) {// On affiche les résultats
 			System.out.print("Titre : " + results.get(i).getTitre() + " genre: [");
 			String buffer = "";
 			for (int j = 0; j < results.get(i).getGenres().size(); j++) {
@@ -248,8 +246,8 @@ public class vue_catalogue {
 		}
 		return results;
 	}
-	
-	public void configure() {//On configure les éléments
+
+	public void configure() {// On configure les éléments
 		retour.setBackground(Color.BLACK);
 		retour.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/retour2.png").getPath()));
 
@@ -267,8 +265,8 @@ public class vue_catalogue {
 		scrollPane.setViewportView(panel);
 		scrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		panel.setLayout(new GridLayout(0, 7, 10, 10));
-		
-		for(int i=0;i<results.size();i++) {
+
+		for (int i = 0; i < results.size(); i++) {
 			panel.add(results.get(i));
 		}
 	}
@@ -292,10 +290,8 @@ public class vue_catalogue {
 										GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
 						.addGap(72).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)));
 
-		
-		
 		frame.getContentPane().setLayout(groupLayout);
-		
+
 		repaint(frame);
 	}
 
@@ -318,8 +314,8 @@ public class vue_catalogue {
 		this.titre.repaint();
 		this.scrollPane.repaint();
 		this.panel.repaint();
-		
-		for(int i=0;i<results.size();i++) {
+
+		for (int i = 0; i < results.size(); i++) {
 			this.results.get(i).repaint();
 		}
 

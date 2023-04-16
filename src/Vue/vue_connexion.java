@@ -22,6 +22,7 @@ import javax.swing.JTextArea;
 import ElementsVisuels.JButton_arrondi;
 import ElementsVisuels.JPasswordField_arrondi;
 import ElementsVisuels.JTextArea_arrondi;
+import ElementsVisuels.JTextField_arrondi;
 
 public class vue_connexion {
 
@@ -29,7 +30,7 @@ public class vue_connexion {
 	private JLabel lblNewLabel_1;
 	private JButton_arrondi btnNewButton;
 	private JTextArea_arrondi txtrTrisflix;
-	private JTextArea_arrondi textArea;
+	private JTextField_arrondi textArea;
 	private JTextArea txtrMotDePasse;
 	private GridBagLayout gridBagLayout;
 	private JButton_arrondi retour;
@@ -58,22 +59,22 @@ public class vue_connexion {
 		this.gridBagLayout = new GridBagLayout();
 		this.txtrTrisflix = new JTextArea_arrondi();
 		this.lblNewLabel_1 = new JLabel("mail");
-		this.textArea = new JTextArea_arrondi();
+		this.textArea = new JTextField_arrondi();
 		this.txtrMotDePasse = new JTextArea();
 		this.retour = new JButton_arrondi();
 		this.passwordField = new JPasswordField_arrondi();
 		this.btnNewButton = new JButton_arrondi("Soumettre");
-		
+
 		configure();
-		
+
 	}
-	
-	public void resetInformations() {//On reset les informations
+
+	public void resetInformations() {// On reset les informations
 		this.textArea.setText("");
 		this.passwordField.setText("");
 	}
 
-	public void configure() {//on configure les éléments
+	public void configure() {// on configure les éléments
 
 		this.gridBagLayout.columnWidths = new int[] { 0, 120, 183, 120, 0 };
 		this.gridBagLayout.rowHeights = new int[] { 210, 50, 78, 129, 0, 248, 0 };
@@ -101,7 +102,7 @@ public class vue_connexion {
 		this.txtrMotDePasse.setToolTipText("");
 		this.txtrMotDePasse.setBackground(new Color(0, 0, 0));
 		this.txtrMotDePasse.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		this.txtrMotDePasse.setText("mot de passe ");
+		this.txtrMotDePasse.setText("mot de passe");
 
 		this.passwordField.setForeground(Color.WHITE);
 		this.passwordField.setBackground(Color.DARK_GRAY);
@@ -109,9 +110,8 @@ public class vue_connexion {
 		btnNewButton.setBackground(new Color(224, 240, 255));
 
 	}
-	
-	
-	public void initialize(JFrame frame) {//On affiche les éléments sur frame
+
+	public void initialize(JFrame frame) {// On affiche les éléments sur frame
 
 		frame.getContentPane().setLayout(this.gridBagLayout);
 
@@ -141,7 +141,7 @@ public class vue_connexion {
 
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textArea.gridx = 2;
 		gbc_textArea.gridy = 2;
 
@@ -175,7 +175,7 @@ public class vue_connexion {
 
 	}
 
-	public void delete(JFrame frame) {//On retire les éléments de frame
+	public void delete(JFrame frame) {// On retire les éléments de frame
 		frame.getContentPane().remove(this.btnNewButton);
 		frame.getContentPane().remove(this.lblNewLabel_1);
 		frame.getContentPane().remove(this.passwordField);
@@ -188,7 +188,7 @@ public class vue_connexion {
 
 	}
 
-	public void repaint(JFrame frame) {//on rafraichit la frame
+	public void repaint(JFrame frame) {// on rafraichit la frame
 
 		this.btnNewButton.repaint();
 		this.lblNewLabel_1.repaint();

@@ -1,8 +1,6 @@
 package Vue;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,8 +73,8 @@ public class vue_page_compte {
 		configure();
 		setQualityListeners();
 	}
-	
-	public void configure() {//on configure les éléments
+
+	public void configure() {// on configure les éléments
 
 		textField.setBackground(Color.BLACK);
 		textField.setForeground(Color.WHITE);
@@ -151,14 +149,14 @@ public class vue_page_compte {
 		retour.setBackground(new Color(0, 0, 0));
 	}
 
-	private void afficher_donnee() {//on affiche les données de l'utilisateur
+	private void afficher_donnee() {// on affiche les données de l'utilisateur
 		this.user_name.setText("  " + this.membre.getPrenom() + " " + this.membre.getNom());
 		this.textField.setText("" + this.membre.getNb_film_vu());
 		this.textField_1.setText("" + (this.membre.getTemps_visionnage() / 60));
 
 	}
 
-	private void setQualityListeners() {//On ajoute les listeners sur les boutons qualité
+	private void setQualityListeners() {// On ajoute les listeners sur les boutons qualité
 
 		this.btnNewButton_1_2_2.addActionListener(new ActionListener() {
 			@Override
@@ -214,8 +212,7 @@ public class vue_page_compte {
 		return retour;
 	}
 
-	public void initialize(JFrame frame) {//On affiche les éléments
-
+	public void initialize(JFrame frame) {// On affiche les éléments
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
@@ -322,7 +319,7 @@ public class vue_page_compte {
 		repaint(frame);
 	}
 
-	public void delete(JFrame frame) {//On enlève les éléments de frame
+	public void delete(JFrame frame) {// On enlève les éléments de frame
 
 		frame.getContentPane().remove(this.user_name);
 		frame.getContentPane().remove(this.textField);
@@ -347,7 +344,7 @@ public class vue_page_compte {
 
 	}
 
-	public void repaint(JFrame frame) {//On rafraichit la frame
+	public void repaint(JFrame frame) {// On rafraichit la frame
 
 		this.user_name.repaint();
 		this.textField.repaint();

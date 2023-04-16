@@ -12,8 +12,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
@@ -49,8 +47,8 @@ public class vue_accueil {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	
-	public void configure() {//On configure les éléments
+
+	public void configure() {// On configure les éléments
 		this.txtrTrisflix.setForeground(new Color(255, 0, 0));
 		this.txtrTrisflix.setBackground(new Color(0, 0, 0));
 		this.txtrTrisflix.setEditable(false);
@@ -67,7 +65,7 @@ public class vue_accueil {
 		this.newUser.setBackground(new Color(255, 0, 0));
 	}
 
-	public void initialize(JFrame frame) {//On affiche la vue dans frame
+	public void initialize(JFrame frame) {// On affiche la vue dans frame
 
 		this.gridBagLayout = new GridBagLayout();
 		this.gridBagLayout.columnWidths = new int[] { 0, 0, 120, 101, 126, 248, 59, 75, 50, 150, -185, 0 };
@@ -77,7 +75,6 @@ public class vue_accueil {
 		this.gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
 
 		frame.getContentPane().setLayout(this.gridBagLayout);
-		
 
 		GridBagConstraints gbc_txtrTrisflix = new GridBagConstraints();
 		gbc_txtrTrisflix.anchor = GridBagConstraints.SOUTH;
@@ -86,14 +83,12 @@ public class vue_accueil {
 		gbc_txtrTrisflix.gridy = 0;
 		frame.getContentPane().add(this.txtrTrisflix, gbc_txtrTrisflix);
 
-
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 10, 10);
 		gbc_btnNewButton.gridx = 5;
 		gbc_btnNewButton.gridy = 2;
 
 		frame.getContentPane().add(this.logIn, gbc_btnNewButton);
-
 
 		GridBagConstraints gbc_btnNe = new GridBagConstraints();
 		gbc_btnNe.insets = new Insets(0, 0, 5, 5);
@@ -106,7 +101,7 @@ public class vue_accueil {
 
 	}
 
-	public void delete(JFrame frame) {//On retire les éléments de frame
+	public void delete(JFrame frame) {// On retire les éléments de frame
 
 		frame.getContentPane().remove(this.logIn);
 		frame.getContentPane().remove(this.newUser);
@@ -116,7 +111,7 @@ public class vue_accueil {
 
 	}
 
-	public void repaint(JFrame frame) {//On rafraichit frame
+	public void repaint(JFrame frame) {// On rafraichit frame
 
 		this.logIn.repaint();
 		this.newUser.repaint();
