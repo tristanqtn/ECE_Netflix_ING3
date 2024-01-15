@@ -1,87 +1,49 @@
-********************************* PROJET FLOUFLIX *********************************
-***********************************************************************************
+# FLOUFLIX - Java Video Streaming Application
 
-Date : 16/04/2023
-Professeur : Madame Palasi
+**Date:** 16/04/2023  
+**Professor:** Madame Palasi  
+**Group:** TD7, Promotion: ING3  
 
-Groupe : TD7 
-Promotion : ING3
+**Authors:**  
+- François BONNET  
+- Clément BROT  
+- Tristan QUERTON  
 
-Numero de groupe : 
+## Introduction
 
-***********************************************************************************
-********************************* AUTEURS *****************************************
-***********************************************************************************
-	
-	- François BONNET
-	- Clément BROT
-	- Tristan QUERTON
-	
-***********************************************************************************
-********************************* PRESENTATION ************************************
-***********************************************************************************
+FLOUFLIX is a Java-based video-on-demand application inspired by NETFLIX. Developed as a project for Madame Palasi's class, this application encompasses various features, including user account management, video streaming, customizable user settings, search functionality, rating options, and administrative control.
 
-Le but de ce projet est de développer une application de vidéo à la demande comme NETFLIX.
+## Precautions
 
-Notre application FLOUFLIX, répond aux attentes suivantes : 
+Before usage, ensure the following:
+- Set up correct MySQL local instance credentials.
+- Confirm the existence of the "img" folder in the "bin" directory.
 
-	- connexion avec plusieurs comptes (administrateur / utilisateur)
-	- visionnage de videos et de trailers
-	- paramétrage des comptes utilisateurs (sous-titre / reprise des videos / qualite)
-	- recherches par titres et genres
-	- possibilité de note les films et sauver un visionnage en cours
-	- pour administrateur : agir sur la BDD (afficher, recreer, supprimée) et generer des statistiques
-	- l'utilisateur peut acceder à ses statistiques
-	
-	
-***********************************************************************************
-********************************* PRECAUTIONS *************************************
-***********************************************************************************
+## Technologies
 
-Avant utlisation veuilliez à plusieurs choses : 
+- **Language:** Java
+- **Environment:** SE17 / JDK17
+- **Framework:** Java Swing
+- **Database:** MySQL (Local Instance)
+    - Credentials: 
+        - Username: root
+        - Password: root
 
-	- identifiants/mots de passe de l'instance locale MySQL (voir section TECHNOLOGIE)
-	- la présence du dossier img dans le dossier bin (le dossier bin se regenere et donc supprimer parfois les images)
+## Features
 
-***********************************************************************************
-********************************* TECHNOLOGIES ************************************
-***********************************************************************************
+- Multi-account login (Administrator / User)
+- Video streaming and trailer viewing
+- Customizable user settings (subtitles, video resumption, quality)
+- Search by titles and genres
+- Rating movies and saving ongoing views
+- Administrator functionalities: BDD management, statistics generation
+- User access to personal statistics
 
-Langage : JAVA
-Environnement : SE17 / JDK17
-Framework : JAVA SWING
+## Sources
 
+Various open-source libraries were used in this project, authorized by Madame Palasi. Notable sources include:
+- Graph creation with SWING: [Camickr](https://stackoverflow.com/questions/29708147/custom-graph-java-swing)
+- Execution of SQL scripts in Java: [Clinton Begin](http://doc.sikuli.org/javadoc/org/sikuli/script/ScriptRunner.html)
+- Visual enhancements: [Philipp Danner](https://stackoverflow.com/questions/16373459/java-jscrollbar-design)
 
-Base de données : MySQL
-Infomrations pour connexion réussi à l'instance locale MySQL : 
-
-Pour assure le bon fonctionnment de l'application veillier à ce que le mot de passe de session de l'administateur (root) soit : "root"
-Identifiant : root
-Mot de passe : root
-Une base de donnée dont les identifiants/mots de passes ne serait pas correcte bloquerai complement l'application.
-
-***********************************************************************************
-********************************* SOURCES *****************************************
-***********************************************************************************
-
-Plusieurs librairies open-source ont été utilsées dans le cadre de ce projet. 
-L'utilisation des ces ressources a été autorisée par Mme Palasi. 
-
-Sources : 	
-	
-	- Création de graphes avec SWING :
-		https://stackoverflow.com/questions/29708147/custom-graph-java-swing
-        Code rédigié par Camickr et libre d'utilisation
-        Utilisé dans le cadre de présentation de graphes à l'adminnistrateur
-        
-    - Execution de scripts sql par une application JAVA : 
-    	http://doc.sikuli.org/javadoc/org/sikuli/script/ScriptRunner.html
-    	Code rédigé par Clinton Begin et libre de droits
-    	Utilisé pour generer et remplir la base de données lors de la première execution 
-    
-    - Elements visuels amélioré
-    	https://stackoverflow.com/questions/16373459/java-jscrollbar-design
-    	https://stackoverflow.com/questions/8335997/how-can-i-add-a-space-in-between-two-buttons-in-a-boxlayout
-    	https://www.tutorialspoint.com/how-to-left-align-components-vertically-using-boxlayout-with-java
-    	https://www.digitalocean.com/community/tutorials/java-remove-character-string
-   		Code rédigé par Philipp Danner et libre de droits
+*Disclaimer: This application is for educational purposes only, and the authors are not responsible for any misuse.*
